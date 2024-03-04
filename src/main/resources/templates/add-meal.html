@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Meal</title>
+    <style>
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f8f9fa;
+                background-image: url('/images/add-meal.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: repeat;
+                background-attachment: fixed; /*  linie pentru a fixa imaginea la fundal */
+            }
+
+
+            .container {
+                 width: 400px;
+                 background-color: #fff;
+                 padding: 20px;
+                 border-radius: 8px;
+                 box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
+                 animation: lightEffect 1.5s infinite alternate;
+                 text-align: center;
+                 overflow: auto; /* permite derularea */
+                 height: 600px;
+            }
+
+
+           h2 {
+              text-align: center;
+              margin-bottom: 20px;
+          }
+
+           form {
+              text-align: center;
+              margin-top: 20px;
+          }
+
+           label {
+              display: block;
+              text-align: left;
+              margin-bottom: 8px;
+          }
+
+           textarea, input, select {
+              width: 100%;
+              padding: 10px;
+              margin-bottom: 16px;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 14px;
+          }
+
+           button {
+              width: 100%;
+              background-color: #f7dfef; /* ROZ */
+              color: white;
+              padding: 10px 15px;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 14px;
+              position: relative;
+              overflow: hidden;
+          }
+
+           button:hover {
+              background-color: #eb91cd; /* Nuanță mai închisă de albastru la hover */
+          }
+
+           button::before {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              background: radial-gradient(circle, #64b5f6, transparent 70%);
+              transform: scale(0);
+              transform-origin: center;
+              animation: ripple 0.6s ease-out;
+          }
+
+           @keyframes ripple {
+              to {
+                  transform: scale(4);
+                  opacity: 0;
+              }
+          }
+
+       @keyframes lightEffect {
+    from {
+        box-shadow: 0 0 10px rgba(255, 192, 203, 0.3); /* Roz deschis pentru umbra */
+    }
+    to {
+        box-shadow: 0 0 30px rgba(255, 192, 203, 0.5); /* Roz deschis pentru umbra mai intensă */
+    }
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-clear-button {
+  display: block;
+}
+
+input::-webkit-calendar-picker-indicator {
+  color: #f2bde0;
+  opacity: 20
+}
+
+input::-webkit-calendar-picker-indicator:hover {
+  background: transparent;
+  cursor: pointer;
+}
+
+input::-webkit-calendar-picker-indicator:hover::after {
+  filter: invert(78%) sepia(95%) saturate(749%) hue-rotate(319deg) brightness(93%) contrast(88%);
+}
+
+
+input::-webkit-calendar-picker-indicator::after {
+  content: '';
+  display: block;
+  background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-32.png) no-repeat;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -16px;
+}
+
+.date {
+  position: relative;
+  width: 154px;
+  overflow: auto;
+  margin: 30px auto;
+  background: #000;
+}
+input {
+  width: 140px;
+  padding: 5px;
+  height: 24px;
+  display: block;
+}
+input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+    background-color: #f2bde0; /* Roz deschis pentru zona de selectare a orei */
+}
+
+input[type="date"] {
+    background-color: #f2bde0; /* Roz deschis */
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Add Meal</h2>
+
+    <form th:action="@{/add-meal}" method="post" th:object="${meal}">
+
+        <label>
+            <input type="time" th:field="*{localTimePartForBreakfast}"/>
+        </label>
+        <label for="breakfast">Breakfast:</label>
+        <textarea id="breakfast" th:field="*{breakfast}" rows="4" cols="50"></textarea>
+
+        <label>
+            <input type="time" th:field="*{localTimePartForLunch}"/>
+        </label>
+        <label for="lunch">Lunch:</label>
+        <textarea id="lunch" th:field="*{lunch}" rows="4" cols="50"></textarea>
+
+        <label>
+            <input type="time" th:field="*{localTimePartForDinner}"/>
+        </label>
+        <label for="dinner">Dinner:</label>
+        <textarea id="dinner" th:field="*{dinner}" rows="4" cols="50"></textarea>
+
+
+        <label>
+            <input type="date" th:field="*{localDatePart}"/>
+        </label>
+
+
+        <button type="submit">Add Meal</button>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+NAME,EMAIL,PASSWORD,ROLE
+Alice Smith,alicesmith@example.com,alice,ROLE_USER
+Bob Johnson,bobjohnson@example.com,bob,ROLE_USER
+Emma White,emmawhite@example.com,emma,ROLE_USER
+Michael Brown,michaelbrown@example.com,michael,ROLE_USER
+Olivia Davis,oliviadavis@example.com,olivia,ROLE_USER
+David Wilson,davidwilson@example.com,david,ROLE_USER
+Sophia Moore,sophiamoore@example.com,sophia,ROLE_USER
+William Taylor,williamtaylor@example.com,william,ROLE_USER
+Ella Jones,ellajones@example.com,ella,ROLE_ADMIN

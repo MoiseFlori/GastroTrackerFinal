@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.1/css/all.css}"/>
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
+
+</head>
+<body>
+<div class="container">
+
+    <h2>Registration Form</h2>
+    <form th:action="@{/registration}" method="post" role="form" th:object="${user}">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input th:field="*{name}" type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input th:field="*{email}" type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input th:field="*{password}" type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <input type="submit" value="Register">
+
+        <div class="form-group">
+            <span>Already registered? <a href="/login" th:href="@{/login}">Login here</a></span>
+        </div>
+    </form>
+</div>
+</body>
+</html>

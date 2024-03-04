@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
+  <title>Appointment Scheduler</title>
+  <style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #d7cadb;
+        font-family: Arial, sans-serif;
+        color: #8e24aa;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        max-width: 800px; /* Ajustează această valoare conform necesităților */
+    }
+
+    #calendar {
+        max-width: 400px; /* Lățimea calendarului */
+        margin-right: 20px; /* Distanțare între calendar și formular */
+         color: #8e24aa;
+    }
+  .fc-day-today {
+        background-color: #8e24aa; /* Mov pentru ziua curentă */
+        color: white; /* Text alb pentru ziua curentă */
+    }
+
+    /* Butonul "Today" */
+    .fc-today-button, .fc-today-button:hover {
+        background-color: #8e24aa; /* Mov pentru butonul "Today" */
+        color: white; /* Text alb pentru butonul "Today" */
+    }
+
+    /* Sageti navigare */
+    .fc-button {
+        color: #8e24aa; /* Text mov pentru sageti */
+    }
+
+    .fc-button:hover {
+        background-color: #8e24aa; /* Fond mov la hover pentru sageti */
+        color: white; /* Text alb la hover pentru sageti */
+    }
+
+
+    #appointmentForm {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 300px; /* Lățimea formularului */
+    }
+
+    #selectedDateDisplay {
+        margin-bottom: 8px;
+    }
+
+    #appointmentForm label {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+
+    #appointmentForm input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    #appointmentForm button {
+        width: 100%;
+        background-color: #8e24aa;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #appointmentForm button:hover {
+        background-color: #5e0a7a;
+    }
+
+    #appointmentForm button::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, #64b5f6, transparent 70%);
+        transform: scale(0);
+        transform-origin: center;
+        animation: ripple 0.6s ease-out;
+    }
+
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div id="calendar">
+
+  </div>
+
+  <div id="appointmentForm">
+    <h2>Appointment</h2>
+
+    <form action="/add-appointment" method="post">
+
+      <label for="selectedDate">Selected Date:</label>
+      <input type="text" id="selectedDate" name="selectedDate" readonly>
+
+      <label for="doctorName">Doctor Name</label>
+      <input type="text" id="doctorName" name="doctorName" required>
+
+      <label for="specialization">Specialization</label>
+      <input type="text" id="specialization" name="specialization" required>
+
+      <label for="appointmentTime">Appointment Time</label>
+      <input type="time" id="appointmentTime" name="appointmentTime" required>
+
+      <input type="hidden" id="appointmentDate" name="appointmentDate">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // JavaScript logic pentru manipularea calendarului și a formularului
+  const calendar = document.getElementById('calendar');
+  const appointmentForm = document.getElementById('appointmentForm');
+  const selectedDateInput = document.getElementById('selectedDate');
+  const appointmentDateInput = document.getElementById('appointmentDate');
+
+  // Exemplu de eveniment de ascultare pentru calendar
+  calendar.addEventListener('click', (event) => {
+      const selectedDate = event.target.dataset.date;
+
+      selectedDateInput.value = selectedDate;
+      // Setează appointmentDate cu valoarea selectedDate
+      appointmentDateInput.value = selectedDate;
+
+      appointmentForm.style.display = 'flex';
+  });
+
+  // FullCalendar initialization
+  document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: ['dayGrid', 'interaction'],
+          dateClick: function(info) {
+              selectedDateInput.value = info.dateStr;
+              // Setează appointmentDate cu valoarea info.dateStr
+              appointmentDateInput.value = info.dateStr;
+
+              appointmentForm.style.display = 'flex';
+          }
+      });
+
+      calendar.render();
+  });
+</script>
+</body>
+</html>

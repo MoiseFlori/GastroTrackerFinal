@@ -1,0 +1,10 @@
+DATE,TIME,NAME,MEDICINETYPE,DOSE,,ADMINISTRATION,DESCRIPTION,USER
+2024-02-20,08:30,Paracetamol,Capsule,100mg,BEFORE_MEAL,Take after a meal,alicesmith@example.com
+2024-02-21,12:45,Ibuprofen,Capsule,200mg,AFTER_MEAL,Take with a large glass of water,bobjohnson@example.com
+2024-02-22,18:15,Omeprazole,Capsule,100mg,WITH_MEAL,Take before a meal,emmawhite@example.com
+2024-02-23,09:00,Ranitidine,Capsule,50mg,IRRELEVANT,Take with or without food,michaelbrown@example.com
+2024-02-24,14:20,Aspirin,Capsule,40mg,BEFORE_MEAL,Take with food,oliviadavis@example.com
+2024-02-25,20:30,Metformin,Capsule,10mg,WITH_MEAL,Administer with food,davidwilson@example.com
+2024-02-26,10:45,Vitamin D,Capsule,1000mg,IRRELEVANT,Administer with food,sophiamoore@example.com
+2024-02-27,16:00,Antibiotic,Capsule,500mg,BEFORE_MEAL,Administer at regular intervals,williamtaylor@example.com
+2024-02-28,21:15,Loratadine,Capsule,100mg,AFTER_MEAL,Administer before bedtime,ellajones@example.com

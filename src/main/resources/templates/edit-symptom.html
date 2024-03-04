@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Symptom</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+            background-image: url('/images/add-symptoms.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;
+            background-attachment: fixed; /*  linie pentru a fixa imaginea la fundal */
+        }
+
+        .container {
+            width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
+            animation: lightEffect 1.5s infinite alternate;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        textarea, input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            background-color: #2196F3; /* Albastru */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            background-color: #0d47a1; /* Nuanță mai închisă de albastru la hover */
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #64b5f6, transparent 70%);
+            transform: scale(0);
+            transform-origin: center;
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes lightEffect {
+            from {
+                box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
+            }
+
+            to {
+                box-shadow: 0 0 30px rgba(0, 0, 255, 0.5);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Edit Symptom</h2>
+
+    <form th:action="@{/edit-symptom}" method="post" th:object="${symptom}">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+
+        <label for="severity">Severity:</label>
+        <select id="severity" th:field="*{severity}" required>
+            <option value="MILD">Mild</option>
+            <option value="MODERATE">Moderate</option>
+            <option value="SEVERE">Severe</option>
+        </select>
+
+        <label for="description">Description:</label>
+        <textarea id="description" th:field="*{description}" rows="4" cols="50"></textarea>
+
+        <label>
+            <input type="date" th:field="*{localDatePart}" />
+        </label>
+        <label>
+            <input type="time" th:field="*{localTimePart}" />
+        </label>
+
+        <button type="submit">Edit Symptom</button>
+    </form>
+
+</div>
+
+</body>
+</html>

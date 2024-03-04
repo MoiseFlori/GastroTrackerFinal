@@ -1,0 +1,10 @@
+APPOINTMENT_DATE,DOCTORNAME,SPECIALIZATION,APPOINTMENT_TIME,USER
+2024-03-05,Dr. Smith,Cardiology,10:00,alicesmith@example.com
+2024-03-08,Dr. Johnson,Orthopedics,18:30,bobjohnson@example.com
+2024-03-12,Dr. Rodriguez,Dermatology,11:15,emmawhite@example.com
+2024-03-15,Dr. Lee,Neurology,13:45,michaelbrown@example.com
+2024-03-18,Dr. Patel,Endocrinology,09:30,davidwilson@example.com
+2024-03-21,Dr. Garcia,Ophthalmology,10:00,sophiamoore@example.com
+2024-03-24,Dr. Nguyen,Pediatrics,15:20,williamtaylor@example.com
+2024-03-28,Dr. Kim,Gastroenterology,14:00,ellajones@example.com
+

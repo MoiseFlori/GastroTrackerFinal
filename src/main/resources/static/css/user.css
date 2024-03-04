@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Permite scrolling chiar dacă pagina este goală */
+}
+
+.background-container {
+    background-image: url('/images/background-user.jpg');
+    background-size: 100% ; /* Redimensionează imaginea pentru a acoperi întregul container */
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Setăm o înălțime minimă pentru a ocupa întregul viewport */
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+.container {
+    flex-grow: 1; /* Face ca containerul să ocupe spațiul disponibil */
+    padding: 20px; /* Adaugăm un padding pentru a separa conținutul de marginea containerului */
+}

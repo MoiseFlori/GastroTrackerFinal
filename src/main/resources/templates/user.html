@@ -64,21 +64,19 @@
 </head>
 <body>
 <div class="background-container">
-    <!-- Antet cu link-uri si logo -->
     <header>
         <div class="logo">
-            <!-- Presupunem că avem un logo sub formă de imagine aici -->
             <img th:src="@{/images/gastrologo.png}" alt="Logo" src="" style="max-width:150 px; max-height: 150px;">
 
         </div>
 
         <nav>
             <ul>
-                <li><a th:href="@{/all-symptoms}">Go to Symptoms</a></li>
-                <li><a th:href="@{/all-meals}">Meal</a></li>
-                <li><a th:href="@{/all-treatments}">Treatment</a></li>
+                <li><a th:href="@{/all-symptoms}">Symptoms</a></li>
+                <li><a th:href="@{/all-meals}">Meals</a></li>
+                <li><a th:href="@{/all-treatments}">Treatments</a></li>
                 <li><a th:href="@{/appointments}">Appointments</a></li>
-                <li><a th:href="@{/resource-gallery}">Resource Gallery</a></li>
+                <li><a th:href="@{/resources}">Resources</a></li>
                 <li><a th:href="@{/user-profile}">My Profile</a></li>
             </ul>
         </nav>
@@ -90,7 +88,6 @@
         </div>
     </header>
     <div class="container">
-        <!-- Your content goes here -->
     </div>
 </div>
 </body>

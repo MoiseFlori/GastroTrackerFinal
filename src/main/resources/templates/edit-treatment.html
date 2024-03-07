@@ -163,7 +163,7 @@
 
     <h2>Edit Treatment</h2>
 
-    <form th:action="@{/edit-treatment}" method="post" th:object="${treatment}">
+    <form th:action="@{/edit-treatment/{id}(id=${treatment.id})}" method="post" th:object="${treatment}">
 
         <label for="name">Name:</label>
         <input type="text" id="name" th:field="*{name}" required />

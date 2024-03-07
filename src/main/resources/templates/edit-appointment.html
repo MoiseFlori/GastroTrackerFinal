@@ -9,6 +9,8 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <title>Appointment Scheduler</title>
     <style>
         body {
@@ -130,8 +132,8 @@
         <form th:action="@{/edit-appointment/{id}(id=${appointment.id})}" method="post"
               th:object="${appointment}" id="editAppointmentForm">
             <input type="hidden" th:field="*{id}" />
-            <label for="selectedDate">Selected Date:</label>
-            <input type="text" id="selectedDate" name="selectedDate" readonly>
+            <label for="appointmentDate">Date:</label>
+            <input type="text" id="appointmentDate" name="appointmentDate" readonly>
 
             <label for="doctorName">Doctor Name</label>
             <input type="text" id="doctorName" name="doctorName" th:value="${appointment.doctorName}" required>
@@ -139,10 +141,9 @@
             <label for="specialization">Specialization</label>
             <input type="text" id="specialization" name="specialization" th:value="${appointment.specialization}" required>
 
-            <label for="appointmentTime">Appointment Time</label>
+            <label for="appointmentTime">Time</label>
             <input type="time" id="appointmentTime" name="appointmentTime" th:value="${appointment.appointmentTime}" required>
 
-            <input type="hidden" id="appointmentDate" name="appointmentDate">
             <button type="submit">Save Changes</button>
         </form>
     </div>
@@ -154,24 +155,29 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-     var calendarEl = document.getElementById('calendar');
-     var appointmentFormContainer = document.getElementById('appointmentFormContainer');
-     var editAppointmentForm = document.getElementById('editAppointmentForm');
+    var calendarEl = document.getElementById('calendar');
+    var appointmentFormContainer = document.getElementById('appointmentFormContainer');
+    var editAppointmentForm = document.getElementById('editAppointmentForm');
 
-     var calendar = new FullCalendar.Calendar(calendarEl, {
-         plugins: ['dayGrid', 'interaction']
-     });
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: ['dayGrid', 'interaction'],
+        selectable: true, // Enable date selection
+      select: function(info) {
+    appointmentFormContainer.style.display = 'flex';
+    var formattedDate = moment(info.start).format('YYYY-MM-DD');
+    document.getElementById('appointmentDate').value = formattedDate;
+}
 
-     // Afiseaza calendarul
-     calendar.render();
+    });
 
+    // Render the calendar
+    calendar.render();
      // Afiseaza formularul si completeaza datele existente daca sunt disponibile
      if (existingAppointment) {
-         document.getElementById('selectedDate').value = existingAppointment.appointmentDate;
+         document.getElementById('appointmentDate').value = existingAppointment.appointmentDate;
          document.getElementById('doctorName').value = existingAppointment.doctorName;
          document.getElementById('specialization').value = existingAppointment.specialization;
          document.getElementById('appointmentTime').value = existingAppointment.appointmentTime;
-         document.getElementById('appointmentDate').value = existingAppointment.appointmentDate;
 
          appointmentFormContainer.style.display = 'flex';
      }

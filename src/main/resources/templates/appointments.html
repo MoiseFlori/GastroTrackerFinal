@@ -195,7 +195,7 @@
         <td th:text="${appointment.doctorName}"></td>
         <td th:text="${appointment.specialization}"></td>
         <td>
-        <span th:text="${#temporals.format(appointment.appointmentTime, 'HH:mm:ss')}"></span>
+        <span th:text="${#temporals.format(appointment.appointmentTime, 'HH:mm')}"></span>
         </td>
         <td><a th:href="@{'/edit-appointment/' + ${appointment.id}}">✏️ Edit</a></td>
         <td><a th:href="@{'/delete-appointment/' + ${appointment.id}}">🗑️ Delete</a></td>

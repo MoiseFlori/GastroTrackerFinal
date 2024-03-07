@@ -3,18 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to Gastro Tracker</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #b2d0f7;
+            overflow-y: scroll;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+
+
+<!--        .medical-images {-->
+<!--            position: absolute;-->
+<!--            top: 20px;-->
+<!--            left: 20px;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: flex-start;-->
+<!--        }-->
+
+<!--        .medical-images img {-->
+<!--            max-width: 50px; -->
+<!--            max-height: 50px;-->
+<!--            margin-bottom: 10px; -->
+<!--        }-->
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .buttons-container button {
+            padding: 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4384d9;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin: 0 20px;
+        }
+
+        .buttons-container button:hover {
+            background-color: #8fbfff;
+        }
+
+        .info-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .info-container .patient-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .info-container .doctor-info {
+            flex: 1;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
 
+    <div class="logo">
+        <img th:src="@{/images/gastrologo.png}" alt="Logo" src="" style="max-width:150 px; max-height: 150px;">
+
+    </div>
+
+
+<!--<div class="medical-images">-->
+<!--    <img src="path/to/medical-image-left.png" alt="Medical Image Left">-->
+<!--    <img src="path/to/medical-image-right.png" alt="Medical Image Right">-->
+<!--</div>-->
+
 <h1>Welcome to Gastro Tracker</h1>
 
-<form action="/redirect" method="post">
-    <button type="submit" name="role" value="patient">Patient</button>
-</form>
+<p>
+    Gastro Tracker is your personalized tool for managing and monitoring dietary habits. Whether you're a patient or a doctor, this application aims to simplify the process of tracking and maintaining a healthy lifestyle for your digestive system.
+</p>
 
-<form action="/redirect" method="post">
-    <button type="submit" name="role" value="doctor">Doctor</button>
-</form>
+<div class="buttons-container">
+    <form action="/redirect" method="post">
+        <button type="submit" name="role" value="patient">Patient</button>
+    </form>
+    <form action="/redirect" method="post">
+        <button type="submit" name="role" value="doctor">Doctor</button>
+    </form>
+</div>
+
+<div class="info-container">
+    <div class="patient-info">
+        <h2>For Patients:</h2>
+        <ul>
+            <li>Effortlessly log your daily meals, including breakfast, lunch, and dinner.</li>
+            <li>Monitor meal times and note any discomfort or symptoms experienced.</li>
+            <li>Easily search and filter through your meal history.</li>
+            <li>Schedule and manage appointments directly within the app.</li>
+            <li>Track ongoing treatments and medications.</li>
+            <li>Collaborate with your healthcare provider by sharing meal data for more informed discussions during appointments.</li>
+        </ul>
+    </div>
+
+    <div class="doctor-info">
+        <h2>For Doctors:</h2>
+        <ul>
+            <li>Gain valuable insights into patients' eating patterns and symptoms.</li>
+            <li>Review detailed meal histories to better understand correlations with gastrointestinal health.</li>
+            <li>Provide personalized recommendations based on recorded data.</li>
+            <li>Enhance communication and engagement with patients for improved medical outcomes.</li>
+        </ul>
+    </div>
+</div>
+
+<p>
+    Gastro Tracker empowers you to actively manage your digestive health. Start using the app today to gain a better understanding of your food choices and their impact on your overall well-being.
+</p>
 
 </body>
 </html>

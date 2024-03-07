@@ -163,7 +163,7 @@ background-color: #f2bde0; /* Roz deschis */
 
     <h2>Edit Meal</h2>
 
-    <form th:action="@{/edit-meal}" method="post" th:object="${meal}">
+    <form th:action="@{/edit-meal/{id}(id=${meal.id})}" method="post" th:object="${meal}">
 
         <label>
             <input type="time" th:field="*{localTimePartForBreakfast}"/>

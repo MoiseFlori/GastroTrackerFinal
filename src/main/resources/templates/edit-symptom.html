@@ -106,7 +106,7 @@
 
     <h2>Edit Symptom</h2>
 
-    <form th:action="@{/edit-symptom}" method="post" th:object="${symptom}">
+    <form th:action="@{/edit-symptom/{id}(id=${symptom.id})}"method="post" th:object="${symptom}">
 
         <label for="name">Name:</label>
         <input type="text" id="name" th:field="*{name}" required />

@@ -188,15 +188,15 @@
         </td>
         <td class="hidden"  th:text="${meal.id}"></td>
         <td>
-            <span th:text="${#temporals.format(meal.localTimePartForBreakfast, 'HH:mm:ss')}"></span>
+            <span th:text="${#temporals.format(meal.localTimePartForBreakfast, 'HH:mm')}"></span>
         </td>
         <td th:text="${meal.breakfast}"></td>
         <td>
-            <span th:text="${#temporals.format(meal.localTimePartForLunch, 'HH:mm:ss')}"></span>
+            <span th:text="${#temporals.format(meal.localTimePartForLunch, 'HH:mm')}"></span>
         </td>
         <td th:text="${meal.lunch}"></td>
         <td>
-            <span th:text="${#temporals.format(meal.localTimePartForDinner, 'HH:mm:ss')}"></span>
+            <span th:text="${#temporals.format(meal.localTimePartForDinner, 'HH:mm')}"></span>
         </td>
         <td th:text="${meal.dinner}"></td>
         <td><a th:href="@{'/edit-meal/' + ${meal.id}}">✏️ Edit</a></td>

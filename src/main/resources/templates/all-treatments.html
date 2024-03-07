@@ -148,7 +148,7 @@
 <a class="add-button" th:href="@{/add-treatment}">➕ Add Treatment</a>
 <a class="home-button" th:href="@{/home2}">🏠 Home</a>
 <form th:action="@{/export-pdf}" method="GET">
-    <button type="submit">Export PDF</button>
+    <button type="submit">Export Treatments</button>
 </form>
 <h1>Your Treatments</h1>
 <form th:action="@{/all-treatments}" method="get" class="mb-3">
@@ -186,7 +186,7 @@
         <td>
             <span th:text="${#temporals.format(treatment.localDatePart, 'yyyy-MM-dd')}"></span>
             <br>
-            <span th:text="${#temporals.format(treatment.localTimePart, 'HH:mm:ss')}"></span>
+            <span th:text="${#temporals.format(treatment.localTimePart, 'HH:mm')}"></span>
         </td>
         <td class="hidden"  th:text="${treatment.id}"></td>
         <td th:text="${treatment.name}"></td>

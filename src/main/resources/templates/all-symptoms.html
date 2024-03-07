@@ -191,7 +191,7 @@
         <td>
             <span th:text="${#temporals.format(symptom.localDatePart, 'yyyy-MM-dd')}"></span>
             <br>
-            <span th:text="${#temporals.format(symptom.localTimePart, 'HH:mm:ss')}"></span>
+            <span th:text="${#temporals.format(symptom.localTimePart, 'HH:mm')}"></span>
         </td>
         <td class="hidden" th:text="${symptom.id}"></td>
         <td th:text="${symptom.name}"></td>

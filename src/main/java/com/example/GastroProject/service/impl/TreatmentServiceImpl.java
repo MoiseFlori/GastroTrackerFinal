@@ -15,10 +15,13 @@ import com.example.GastroProject.repository.SymptomRepository;
 import com.example.GastroProject.repository.TreatmentRepository;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.TreatmentService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -112,7 +115,20 @@ public class TreatmentServiceImpl implements TreatmentService {
                 .map(treatmentMapper::entityToDTO)
                 .toList();
     }
+
+    @Override
+    @Transactional
+    public List<TreatmentDto> getUserTreatments(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
+
+
+        return user.getTreatments().stream()
+                .map(treatmentMapper::entityToDTO)
+                .toList();
     }
+
+}
 
 
 

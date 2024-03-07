@@ -37,8 +37,9 @@ public class SecurityConfig {
 
 				.authorizeHttpRequests(request -> request
 						.requestMatchers("/admin-page").hasAuthority("ROLE_ADMIN")
-						.requestMatchers("/user-page").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
-						.requestMatchers("/registration", "/css/**")
+						.requestMatchers("/user-page").hasAnyAuthority("ROLE_PATIENT","ROLE_ADMIN")
+						.requestMatchers("/registration", "/css/**","/registration-doctor","/welcome","/redirect")
+
 						.permitAll()
 						.anyRequest().authenticated())
 

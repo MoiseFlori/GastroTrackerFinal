@@ -1,11 +1,14 @@
 package com.example.GastroProject.service.impl;
 
 
+import com.example.GastroProject.dto.DoctorDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.UserDto;
+import com.example.GastroProject.entity.Doctor;
 import com.example.GastroProject.entity.Role;
 import com.example.GastroProject.entity.Symptom;
 import com.example.GastroProject.entity.User;
+import com.example.GastroProject.repository.DoctorRepository;
 import com.example.GastroProject.repository.RoleRepository;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.UserService;
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
+
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -34,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User save(UserDto userDto) {
+    public void saveUser(UserDto userDto) {
         User user = new User();
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
@@ -44,10 +48,8 @@ public class UserServiceImpl implements UserService {
             final Role roleByName = roleRepository.findByName(role.getName());
             role.setId(Objects.requireNonNullElseGet(roleByName, () -> roleRepository.save(role)).getId());
         });
-
-        return userRepository.save(user);
+        userRepository.save(user);
     }
-
 
 
     @Override

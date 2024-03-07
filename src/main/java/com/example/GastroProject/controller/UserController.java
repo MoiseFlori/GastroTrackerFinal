@@ -1,12 +1,15 @@
 package com.example.GastroProject.controller;
 
+import com.example.GastroProject.dto.DoctorDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.UserDto;
 import com.example.GastroProject.entity.Role;
 import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.RoleRepository;
+import com.example.GastroProject.service.DoctorService;
 import com.example.GastroProject.util.Constants;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +34,7 @@ import org.springframework.security.core.AuthenticationException;
 
 import java.security.Principal;
 import java.util.Collections;
+import java.util.HashSet;
 
 @Controller
 @RequestMapping
@@ -39,29 +43,53 @@ public class UserController {
 
 
     private final UserService userService;
+    private final DoctorService doctorService;
+    @GetMapping("/welcome")
+    public String welcomePage() {
+        return "welcome";
+    }
 
-//    @GetMapping("/user-profile")
-//    public String userProfile() {
-//        return "user-profile";
-//    }
-
+    @PostMapping("/redirect")
+    public String redirectToRegistrationPage(@RequestParam("role") String role) {
+        if ("patient".equals(role)) {
+            return "redirect:/registration";
+        } else if ("doctor".equals(role)) {
+            return "redirect:/registration-doctor";
+        } else {
+            // Poți adăuga o pagină de eroare sau redirecționa către o altă pagină în cazul unui rol necunoscut
+            return "redirect:/error";
+        }
+    }
     @GetMapping("/registration")
-    public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
+    public String getRegistrationPageForPatient(@ModelAttribute("patient") UserDto userDto) {
         return "registration";
     }
 
+
     @PostMapping("/registration")
-    public String saveUser(@ModelAttribute("user") UserDto userDto, Model model) {
-        userDto.setRoles(Collections.singleton(new Role(Constants.ROLE_USER)));
-        userService.save(userDto);
+    public String saveUser(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        userDto.setRoles(Collections.singleton(new Role(Constants.ROLE_PATIENT)));
+        userService.saveUser(userDto);
+
         model.addAttribute("message", "Registered Successfully!");
         return "redirect:/login";
     }
 
-    @RequestMapping(value = {"/login", "/"})
-    public String login() {
+
+
+
+
+    @RequestMapping(value = "/login")
+    public String login(HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            if (request.getRequestURI().equals("/")) {
+                return "welcome";
+            }
             return "login";
         }
         return "redirect:/user-page";

@@ -147,7 +147,9 @@
 <!-- Butonul de "Add Symptom" -->
 <a class="add-button" th:href="@{/add-treatment}">➕ Add Treatment</a>
 <a class="home-button" th:href="@{/home2}">🏠 Home</a>
-
+<form th:action="@{/export-pdf}" method="GET">
+    <button type="submit">Export PDF</button>
+</form>
 <h1>Your Treatments</h1>
 <form th:action="@{/all-treatments}" method="get" class="mb-3">
     <div class="input-group mb-3">

@@ -6,6 +6,7 @@ import com.example.GastroProject.dto.TreatmentDto;
 import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.TreatmentService;
+import com.example.GastroProject.util.PdfExporter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -90,4 +91,19 @@ public class TreatmentController {
         treatmentService.deleteTreatment(id);
         return "redirect:/all-treatments";
     }
+
+    @GetMapping("/export-pdf")
+    public String exportPdf(Authentication authentication) {
+        if (authentication.getPrincipal() instanceof User user) {
+            List<TreatmentDto> treatmentList = treatmentService.getUserTreatments(user.getId());
+
+            if (treatmentList != null && !treatmentList.isEmpty()) {
+                String filePath = "C:\\Users\\Hp\\Downloads\\User_Treatment_PDF.pdf";
+
+                PdfExporter.exportTreatmentListToPdf(treatmentList, filePath);
+            }
+        }
+        return "redirect:/all-treatments";
+    }
+
 }

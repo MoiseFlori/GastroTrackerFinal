@@ -23,4 +23,6 @@ public interface TreatmentService {
     List<TreatmentDto> findByKeyword(String keyword);
 
     List<TreatmentDto> findByUserAndKeywordAndDate(User user, String keyword, LocalDate selectedDate);
+
+    List<TreatmentDto> getUserTreatments(Long userId);
 }

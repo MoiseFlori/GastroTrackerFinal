@@ -53,6 +53,9 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private UserProfile userProfile;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Doctor doctor;
+
     public void addSymptom(Symptom symptom) {
         symptoms.add(symptom);
         symptom.setUser(this);

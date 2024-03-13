@@ -1,9 +1,14 @@
 package com.example.GastroProject.service.dataLoader;
 
 import com.example.GastroProject.entity.Appointment;
+import com.example.GastroProject.entity.Doctor;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.AppointmentRepository;
+import com.example.GastroProject.repository.DoctorRepository;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +26,11 @@ public class AppointmentDataLoaderService {
 
     private final AppointmentRepository appointmentRepository;
 
-    private final UserRepository userRepository;
+    private final DoctorRepository doctorRepository;
 
+    private final PatientRepository patientRepository;
     @Transactional
-    public void loadAppointmentFromFile(String filePath) {
+    public void loadAppointmentsFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             boolean firstLine = true;
@@ -33,33 +39,30 @@ public class AppointmentDataLoaderService {
                     firstLine = false;
                     continue;
                 }
-
                 String[] appointmentData = line.split(",");
+                Appointment appointment = new Appointment();
+                appointment.setAppointmentDate(LocalDate.parse(appointmentData[0]));
+                appointment.setAppointmentTime(LocalTime.parse(appointmentData[1]));
 
-                // Verifică dacă există suficiente elemente în șir și nu sunt goale
-                if (appointmentData.length == 5 && Arrays.stream(appointmentData).noneMatch(String::isEmpty)) {
-                    Appointment appointment = new Appointment();
+                Long doctorId = Long.parseLong(appointmentData[2]);
+                Long patientId = Long.parseLong(appointmentData[3]);
 
-                    // Setează appointmentDate cu valoarea din fișier
-                    appointment.setAppointmentDate(LocalDate.parse(appointmentData[0]));
+                Doctor doctor = doctorRepository.findById(doctorId)
+                        .orElseThrow(() -> new EntityNotFoundException("Doctor not found with id: " + doctorId));
 
-                    appointment.setDoctorName(appointmentData[1]);
-                    appointment.setSpecialization(appointmentData[2]);
+                Patient patient = patientRepository.findById(patientId)
+                        .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
 
-                    // Setează appointmentTime cu valoarea din fișier
-                    appointment.setAppointmentTime(LocalTime.parse(appointmentData[3]));
+                appointment.setDoctor(doctor);
+                appointment.setPatient(patient);
 
-                    User user = userRepository.findByEmail(appointmentData[4]);
-                    if (user != null) {
-                        appointment.setUser(user);
-                    }
-
-                    appointmentRepository.save(appointment);
-                }
+                appointmentRepository.save(appointment);
             }
             System.out.println("Appointments loaded from file successfully!");
         } catch (IOException e) {
             System.err.println("Error reading data from file: " + e.getMessage());
         }
     }
+
+
 }

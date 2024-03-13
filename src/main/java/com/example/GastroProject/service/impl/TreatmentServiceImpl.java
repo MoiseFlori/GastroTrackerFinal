@@ -3,14 +3,12 @@ package com.example.GastroProject.service.impl;
 import com.example.GastroProject.dto.MealDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
-import com.example.GastroProject.entity.Meal;
-import com.example.GastroProject.entity.Symptom;
-import com.example.GastroProject.entity.Treatment;
-import com.example.GastroProject.entity.User;
+import com.example.GastroProject.entity.*;
 import com.example.GastroProject.exception.MealNotFoundException;
 import com.example.GastroProject.exception.TreatmentNotFoundException;
 import com.example.GastroProject.mapper.SymptomMapper;
 import com.example.GastroProject.mapper.TreatmentMapper;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.SymptomRepository;
 import com.example.GastroProject.repository.TreatmentRepository;
 import com.example.GastroProject.repository.UserRepository;
@@ -31,7 +29,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TreatmentServiceImpl implements TreatmentService {
 
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     private final TreatmentRepository treatmentRepository;
 
@@ -48,10 +46,10 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     public void addTreatment(TreatmentDto treatmentDto, String email) {
-        User user = userRepository.findByEmail(email);
+        Patient patient = patientRepository.findByEmail(email);
         Treatment treatment = treatmentMapper.DTOToEntity(treatmentDto);
-        user.addTreatment(treatment);
-        userRepository.save(user);
+        patient.addTreatment(treatment);
+        patientRepository.save(patient);
     }
 
     @Override
@@ -86,27 +84,13 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     }
 
-    @Override
-    public List<TreatmentDto> findByKeyword(String keyword) {
-        if(keyword == null){
-            return treatmentRepository.findAll(Sort.by(Sort.Direction.ASC, "localDatePart")).stream()
-                    .map(treatmentMapper::entityToDTO)
-                    .toList();
-
-        }
-        List<Treatment> treatments = treatmentRepository.findByKeyword(keyword,Sort.by(Sort.Direction.ASC, "localDatePart"));
-        return treatments.stream()
-                .map(treatmentMapper::entityToDTO)
-                .toList();
-
-    }
 
     @Override
-    public List<TreatmentDto> findByUserAndKeywordAndDate(User user, String keyword, LocalDate selectedDate) {
-        List<Treatment> treatments = treatmentRepository.findByUser(user, Sort.by(Sort.Direction.DESC, "localDatePart"));
+    public List<TreatmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate) {
+        List<Treatment> treatments = treatmentRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "localDatePart"));
         return treatments.stream()
                 .filter(treatment ->(selectedDate == null || treatment.getLocalDatePart().equals(selectedDate)) &&
-                        (keyword == null || // Verifică dacă keyword este null
+                        (keyword == null ||
                         treatment.getName().toLowerCase().contains(keyword.toLowerCase()) ||
                         treatment.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
                         treatment.getAdministration().name().toLowerCase().contains(keyword.toLowerCase()) ||
@@ -118,12 +102,12 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     @Transactional
-    public List<TreatmentDto> getUserTreatments(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
+    public List<TreatmentDto> getPatientTreatments(Long id) {
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Patient with id " + id + " not found"));
 
 
-        return user.getTreatments().stream()
+        return patient.getTreatments().stream()
                 .map(treatmentMapper::entityToDTO)
                 .toList();
     }

@@ -12,15 +12,11 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorDto extends UserDto {
+public class DoctorDto extends UserDto  {
 
 
     private String stamp;
 
     private String specialization;
-
-
-
-
 
 }

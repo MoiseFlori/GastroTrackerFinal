@@ -1,6 +1,7 @@
 package com.example.GastroProject.service.dataLoader;
 
 import com.example.GastroProject.entity.*;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.TreatmentRepository;
 import com.example.GastroProject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ public class TreatmentDataLoaderService {
 
     private final TreatmentRepository treatmentRepository;
 
-    private final UserRepository userRepository;
+
+    private final PatientRepository patientRepository;
 
 
     @Transactional
@@ -43,9 +45,9 @@ public class TreatmentDataLoaderService {
                 treatment.setDescription(treatmentData[6]);
 
                 // Asigură-te că user-ul există înainte de a-l seta
-                User user = userRepository.findByEmail(treatmentData[7]);
-                if (user != null) {
-                    treatment.setUser(user);
+                Patient patient = patientRepository.findByEmail(treatmentData[7]);
+                if (patient != null) {
+                    treatment.setPatient(patient);
                 }
 
                 treatmentRepository.save(treatment);

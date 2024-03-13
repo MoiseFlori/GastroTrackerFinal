@@ -38,51 +38,17 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Symptom> symptoms;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Treatment> treatments;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Meal> meals;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Appointment> appointments;
-
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private UserProfile userProfile;
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Doctor doctor;
 
-    public void addSymptom(Symptom symptom) {
-        symptoms.add(symptom);
-        symptom.setUser(this);
-    }
-
-    public void addTreatment(Treatment treatment) {
-        treatments.add(treatment);
-        treatment.setUser(this);
-    }
-
-    public void addMeal(Meal meal) {
-        meals.add(meal);
-        meal.setUser(this);
-    }
-    public void addAppointment(Appointment appointment) {
-        appointments.add(appointment);
-        appointment.setUser(this);
-    }
-
-    public void addProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-        userProfile.setUser(this);
-    }
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Patient patient;
 
 
     @Transient
     private List<GrantedAuthority> authorities = null;
+
+
 
 
     @Override

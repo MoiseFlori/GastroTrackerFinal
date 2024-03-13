@@ -1,8 +1,10 @@
 package com.example.GastroProject.service.dataLoader;
 
 import com.example.GastroProject.entity.Meal;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.MealRepository;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,8 @@ public class MealDataLoaderService {
 
     private final MealRepository mealRepository;
 
-    private final UserRepository userRepository;
+
+    private final PatientRepository patientRepository;
 
 
     @Transactional
@@ -43,9 +46,9 @@ public class MealDataLoaderService {
                 meal.setLocalTimePartForDinner(LocalTime.parse(mealData[5]));
                 meal.setDinner(mealData[6]);
 
-                User user = userRepository.findByEmail(mealData[7]);
-                if (user != null) {
-                    meal.setUser(user);
+                Patient patient = patientRepository.findByEmail(mealData[7]);
+                if (patient != null) {
+                    meal.setPatient(patient);
                 }
 
                 mealRepository.save(meal);

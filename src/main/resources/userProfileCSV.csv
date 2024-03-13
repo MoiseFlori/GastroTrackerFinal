@@ -1,5 +1,0 @@
-FIRSTNAME,LASTNAME,EMAIL,BIRTHDATE,AGE,HEIGHT,WEIGHT,DIAGNOSIS,ALLERGIES,USEREMAIL
-Alice,Smith,alicesmith@example.com,1985-08-22,37,160,55,Diabetes,Lactose,alicesmith@example.com
-Bob,Johnson,bobjohnson@example.com,1988-12-10,33,180,80,Asthma,Peanuts,bobjohnson@example.com
-Emma,White,emmawhite@example.com,1992-03-28,29,165,58,Migraine,Dust,emmawhite@example.com
-Michael,Brown,michaelbrown@example.com,1980-09-05,42,185,90,High Cholesterol,Shellfish,michaelbrown@example.com

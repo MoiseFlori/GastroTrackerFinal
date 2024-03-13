@@ -3,7 +3,9 @@ package com.example.GastroProject.controller;
 import com.example.GastroProject.dto.MealDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.TreatmentService;
 import com.example.GastroProject.util.PdfExporter;
@@ -29,7 +31,7 @@ import java.util.Objects;
 public class TreatmentController {
 
     private final TreatmentService treatmentService;
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     @GetMapping("/home2")
     public String userPage() {
@@ -48,8 +50,8 @@ public class TreatmentController {
                                     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedDate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        User user = userRepository.findByEmail(userEmail);
-        List<TreatmentDto> treatments = treatmentService.findByUserAndKeywordAndDate(user, keyword, selectedDate);
+        Patient patient = patientRepository.findByEmail(userEmail);
+        List<TreatmentDto> treatments = treatmentService.findByPatientAndKeywordAndDate(patient, keyword, selectedDate);
         model.addAttribute("treatments", Objects.requireNonNullElseGet(treatments, ArrayList::new));
         return "all-treatments";
     }
@@ -94,11 +96,11 @@ public class TreatmentController {
 
     @GetMapping("/export-pdf")
     public String exportPdf(Authentication authentication) {
-        if (authentication.getPrincipal() instanceof User user) {
-            List<TreatmentDto> treatmentList = treatmentService.getUserTreatments(user.getId());
+        if (authentication.getPrincipal() instanceof Patient patient) {
+            List<TreatmentDto> treatmentList = treatmentService.getPatientTreatments(patient.getPatientId());
 
             if (treatmentList != null && !treatmentList.isEmpty()) {
-                String filePath = "C:\\Users\\Hp\\Downloads\\User_Treatment_PDF.pdf";
+                String filePath = "C:\\Users\\Hp\\Downloads\\Patient_Treatment_PDF.pdf";
 
                 PdfExporter.exportTreatmentListToPdf(treatmentList, filePath);
             }

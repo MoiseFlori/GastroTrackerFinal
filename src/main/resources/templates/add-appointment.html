@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -133,16 +133,22 @@
   <div id="appointmentForm">
     <h2>Appointment</h2>
 
-    <form action="/add-appointment" method="post">
+    <form th:object="${appointmentDto}" th:action="@{/add-appointment}" method="post">
 
       <label for="selectedDate">Selected Date:</label>
       <input type="text" id="selectedDate" name="selectedDate" readonly>
 
-      <label for="doctorName">Doctor Name</label>
-      <input type="text" id="doctorName" name="doctorName" required>
+      <label for="doctorId">Select Doctor:</label>
+      <select id="doctorId" name="doctorId" th:field="*{doctorId}">
+        <option th:each="doctor : ${doctors}" th:value="${doctor.doctorId}" th:text="${doctor.name}"></option>
+      </select>
 
-      <label for="specialization">Specialization</label>
-      <input type="text" id="specialization" name="specialization" required>
+
+      <!--      <label for="doctorName">Doctor Name</label>-->
+<!--      <input type="text" id="doctorName" name="doctorName" required>-->
+
+<!--      <label for="specialization">Specialization</label>-->
+<!--      <input type="text" id="specialization" name="specialization" required>-->
 
       <label for="appointmentTime">Appointment Time</label>
       <input type="time" id="appointmentTime" name="appointmentTime" required>

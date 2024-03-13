@@ -1,5 +1,6 @@
 package com.example.GastroProject.repository;
 
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.Symptom;
 import com.example.GastroProject.entity.Treatment;
 import com.example.GastroProject.entity.User;
@@ -21,7 +22,9 @@ public interface TreatmentRepository extends JpaRepository<Treatment,Long> {
     )
     List<Treatment> findByKeyword(@Param("keyword") String keyword, Sort sort);
 
-    List<Treatment> findByUser(User user, Sort localDatePart);
+
+
+    List<Treatment> findByPatient(Patient patient, Sort localDatePart);
 }
 
 

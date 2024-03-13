@@ -11,7 +11,5 @@ import org.mapstruct.Mapping;
 public interface AppointmentMapper {
 
     AppointmentDto entityToDTO(Appointment appointment);
-
-    @Mapping(target = "appointmentDate", source = "appointmentDate")
     Appointment DTOToEntity(AppointmentDto appointmentDto);
 }

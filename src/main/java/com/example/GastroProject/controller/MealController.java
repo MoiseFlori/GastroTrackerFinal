@@ -3,7 +3,9 @@ package com.example.GastroProject.controller;
 import com.example.GastroProject.dto.MealDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.MealService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,7 @@ import java.util.Objects;
 public class MealController {
 
     private final MealService mealService;
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     @GetMapping("/home1")
     public String userPage() {
@@ -40,9 +42,9 @@ public class MealController {
                                @RequestParam(required = false) String keyword,
                                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedDate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
-        User user = userRepository.findByEmail(userEmail);
-        List<MealDto> meals = mealService.findByUserAndKeywordAndDate(user, keyword,selectedDate);
+        String email = authentication.getName();
+       Patient patient = patientRepository.findByEmail(email);
+        List<MealDto> meals = mealService.findByPatientAndKeywordAndDate(patient, keyword,selectedDate);
         model.addAttribute("meals", Objects.requireNonNullElseGet(meals, ArrayList::new));
         return "all-meals";
     }

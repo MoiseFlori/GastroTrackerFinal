@@ -2,6 +2,8 @@ package com.example.GastroProject.service;
 
 import com.example.GastroProject.dto.AppointmentDto;
 import com.example.GastroProject.entity.Appointment;
+import com.example.GastroProject.entity.Doctor;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +14,27 @@ import java.util.Optional;
 @Service
 public interface AppointmentService {
 
-    List<Appointment> getAllAppointments();
 
-    void saveAppointment(AppointmentDto appointmentDto, String email);
+
+    void saveAppointmentForPatient(AppointmentDto appointmentDto, String email, Long doctorId);
+
+    void saveAppointmentForDoctor(AppointmentDto appointmentDto, String name, Long patientId);
 
     Optional<AppointmentDto> findById(Long id);
 
-    void updateAppointment(AppointmentDto updatedAppointment);
+    void updateAppointmentForPatient(AppointmentDto updatedAppointment);
 
-    void deleteAppointment(Long id);
 
-    List<AppointmentDto> findByUserAndKeywordAndDate(User user, String keyword, LocalDate selectedDate);
+
+
+    List<AppointmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
+
+
+    List<AppointmentDto> findByDoctorAndKeywordAndDate(Doctor doctor, String keyword, LocalDate selectedDate);
+
+    void updateAppointmentForDoctor(AppointmentDto updatedAppointment);
+
+    void deleteAppointmentForDoctor(Long appointmentId);
+
+    void deleteAppointmentforPatient(Long id);
 }

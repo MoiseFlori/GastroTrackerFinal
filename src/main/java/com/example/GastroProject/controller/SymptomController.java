@@ -3,7 +3,9 @@ package com.example.GastroProject.controller;
 
 import com.example.GastroProject.dto.SymptomDto;
 
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.SymptomService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,7 @@ import java.util.Objects;
 public class SymptomController {
 
     private final SymptomService symptomService;
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     @GetMapping("/home")
     public String userPage() {
@@ -45,9 +47,9 @@ public class SymptomController {
                                   @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedDate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        User user = userRepository.findByEmail(userEmail);
+        Patient patient = patientRepository.findByEmail(userEmail);
 
-        List<SymptomDto> userSymptoms = symptomService.findByUserAndKeywordAndDate(user, keyword,selectedDate);
+        List<SymptomDto> userSymptoms = symptomService.findByPatientAndKeywordAndDate(patient, keyword,selectedDate);
         model.addAttribute("symptoms", Objects.requireNonNullElseGet(userSymptoms, ArrayList::new));
 
         return "all-symptoms";

@@ -3,15 +3,13 @@ package com.example.GastroProject.service.impl;
 import com.example.GastroProject.dto.MealDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
-import com.example.GastroProject.entity.Meal;
-import com.example.GastroProject.entity.Symptom;
-import com.example.GastroProject.entity.Treatment;
-import com.example.GastroProject.entity.User;
+import com.example.GastroProject.entity.*;
 import com.example.GastroProject.exception.MealNotFoundException;
 import com.example.GastroProject.exception.SymptomNotFoundException;
 import com.example.GastroProject.mapper.MealMapper;
 import com.example.GastroProject.mapper.SymptomMapper;
 import com.example.GastroProject.repository.MealRepository;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.SymptomRepository;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.MealService;
@@ -27,7 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MealServiceImpl implements MealService {
 
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     private final MealRepository mealRepository;
 
@@ -44,10 +42,10 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public void addMeal(MealDto mealDto, String email) {
-        User user = userRepository.findByEmail(email);
+        Patient patient = patientRepository.findByEmail(email);
         Meal meal = mealMapper.DTOToEntity(mealDto);
-        user.addMeal(meal);
-        userRepository.save(user);
+        patient.addMeal(meal);
+        patientRepository.save(patient);
     }
 
     @Override
@@ -81,24 +79,10 @@ public class MealServiceImpl implements MealService {
         mealRepository.deleteById(id);
     }
 
-//    @Override
-//    public List<MealDto> findByKeyword(String keyword) {
-//        if (keyword == null) {
-//            return mealRepository.findAll(Sort.by(Sort.Direction.ASC, "localDatePart")).stream()
-//                    .map(mealMapper::entityToDTO)
-//                    .toList();
-//
-//        }
-//        List<Meal> meals = mealRepository.findByKeyword(keyword, Sort.by(Sort.Direction.ASC, "localDatePart"));
-//        return meals.stream()
-//                .map(mealMapper::entityToDTO)
-//                .toList();
-//
-//    }
 
     @Override
-    public List<MealDto> findByUserAndKeywordAndDate(User user, String keyword, LocalDate selectedDate) {
-        List<Meal> meals = mealRepository.findByUser(user, Sort.by(Sort.Direction.DESC, "localDatePart"));
+    public List<MealDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate) {
+        List<Meal> meals = mealRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "localDatePart"));
         return meals.stream()
                 .filter(meal -> (selectedDate == null || meal.getLocalDatePart().equals(selectedDate)) &&
                                 (keyword == null ||

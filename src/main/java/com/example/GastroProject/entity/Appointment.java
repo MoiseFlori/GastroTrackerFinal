@@ -20,9 +20,6 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String doctorName;
-
-    private String specialization;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "appointment_date")
@@ -33,6 +30,23 @@ public class Appointment {
     private LocalTime appointmentTime;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private User user;
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+
+    public void setDoctorId(Long doctorId) {
+        this.doctor = new Doctor();
+        this.doctor.setDoctorId(doctorId);
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patient = new Patient();
+        this.patient.setPatientId(patientId);
+    }
 
 }

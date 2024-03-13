@@ -1,6 +1,7 @@
 package com.example.GastroProject.repository;
 
 import com.example.GastroProject.entity.Meal;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.Symptom;
 import com.example.GastroProject.entity.User;
 import org.springframework.data.domain.Sort;
@@ -19,5 +20,6 @@ public interface MealRepository extends JpaRepository<Meal,Long> {
     )
     List<Meal> findByKeyword(String keyword, Sort localDatePart);
 
-    List<Meal> findByUser(User user, Sort localDatePart);
+
+    List<Meal> findByPatient(Patient patient, Sort localDatePart);
 }

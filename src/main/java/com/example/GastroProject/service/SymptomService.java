@@ -1,6 +1,7 @@
 package com.example.GastroProject.service;
 
 import com.example.GastroProject.dto.SymptomDto;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.Symptom;
 import com.example.GastroProject.entity.User;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,8 @@ import java.util.Optional;
 public interface SymptomService {
 
 
+    void addSymptom(SymptomDto symptomDto, String email);
 
-
-    void addSymptom(SymptomDto symptomDto, String userEmail);
-
-   
 
     //List<SymptomDto> getAllSymptoms();
 
@@ -31,5 +29,5 @@ public interface SymptomService {
 
     //List<SymptomDto> findByKeyword(String keyword);
 
-    List<SymptomDto> findByUserAndKeywordAndDate(User user,String keyword,LocalDate selectedDate);
+    List<SymptomDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
 }

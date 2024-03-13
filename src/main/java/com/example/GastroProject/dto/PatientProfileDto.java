@@ -1,7 +1,5 @@
-package com.example.GastroProject.entity;
+package com.example.GastroProject.dto;
 
-
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,15 +7,12 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Entity
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-public class UserProfile {
+@AllArgsConstructor
+public class PatientProfileDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
@@ -37,12 +32,4 @@ public class UserProfile {
     private String diagnosis;
 
     private String allergies;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
-    private User user;
-
-
-
-
 }

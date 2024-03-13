@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.AuthenticationException;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -60,40 +61,30 @@ public class UserController {
             return "redirect:/error";
         }
     }
-    @GetMapping("/registration")
-    public String getRegistrationPageForPatient(@ModelAttribute("patient") UserDto userDto) {
-        return "registration";
-    }
-
-
-    @PostMapping("/registration")
-    public String saveUser(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-
-        userDto.setRoles(Collections.singleton(new Role(Constants.ROLE_PATIENT)));
-        userService.saveUser(userDto);
-
-        model.addAttribute("message", "Registered Successfully!");
-        return "redirect:/login";
-    }
-
-
-
-
-
     @RequestMapping(value = "/login")
     public String login(HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             if (request.getRequestURI().equals("/")) {
                 return "welcome";
             }
             return "login";
         }
-        return "redirect:/user-page";
+
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        boolean isPatient = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_PATIENT"));
+        boolean isDoctor = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_DOCTOR"));
+
+        if (isPatient) {
+            return "redirect:/user-page";
+        } else if (isDoctor) {
+            return "redirect:/doctor-page";
+        } else {
+            return "redirect:/welcome";
+        }
     }
+
 
 
     @GetMapping("/user-page")
@@ -101,6 +92,12 @@ public class UserController {
         UserDetails userDetails = userService.loadUserByUsername(principal.getName());
         model.addAttribute("user", userDetails);
         return "user";
+    }
+    @GetMapping("/doctor-page")
+    public String doctorPage(Model model, Principal principal) {
+        UserDetails userDetails = userService.loadUserByUsername(principal.getName());
+        model.addAttribute("doctor", userDetails);
+        return "doctor-page";
     }
 
     @GetMapping("/admin-page")

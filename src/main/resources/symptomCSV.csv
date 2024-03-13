@@ -1,10 +1,77 @@
-NAME,SEVERITY,DESCRIPTION,LOCALDATEPART,LOCALTIMEPART,USER
-Headache,Mild,Throbbing pain in the forehead and temples area,2024-02-20,08:30,alicesmith@example.com
-Nausea,Mild,Feeling of discomfort in the stomach,2024-02-21,12:45,bobjohnson@example.com
-Fatigue,Mild,Lack of energy,2024-02-22,18:15,emmawhite@example.com
-Dizziness,Mild,Feeling of light-headedness,2024-02-23,09:00,michaelbrown@example.com
-Abdominal pain,Mild,Pain in the lower abdomen area,2024-02-24,14:20,oliviadavis@example.com
-Fever,Mild,Elevated temperature,2024-02-25,20:30,davidwilson@example.com
-Nausea,Mild,Feeling of sickness in the stomach,2024-02-26,10:45,sophiamoore@example.com
-Headache,Mild,Intense pain in the head area,2024-02-27,16:00,williamtaylor@example.com
-Fatigue,Mild,General state of weakness,2024-02-28,21:15,ellajones@example.com
+NAME,SEVERITY,DESCRIPTION,LOCALDATEPART,LOCALTIMEPART,PATIENT
+Abdominal Pain,Mild,Discomfort in the abdominal area,2024-03-30,09:45,bobjohnson@example.com
+Flatulence,Moderate,Excessive gas in the digestive system,2024-03-31,14:30,bobjohnson@example.com
+Indigestion,Mild,Discomfort after eating,2024-04-01,11:15,bobjohnson@example.com
+Constipation,Mild,Infrequent bowel movements,2024-04-02,15:00,bobjohnson@example.com
+Nausea,Moderate,Feeling of queasiness,2024-04-03,10:30,bobjohnson@example.com
+Dizziness,Moderate,Feeling of light-headedness,2024-03-30,10:45,michaelbrown@example.com
+Heartburn,Mild,Burning sensation in the chest,2024-03-31,15:30,michaelbrown@example.com
+Diarrhea,Mild,Frequent and loose bowel movements,2024-04-01,12:15,michaelbrown@example.com
+Fever,Mild,Elevated temperature,2024-04-02,16:00,michaelbrown@example.com
+Constipation,Moderate,Difficulty in passing stools,2024-04-03,11:30,michaelbrown@example.com
+Loss of appetite,Moderate,Reduced desire to eat,2024-03-30,11:30,davidwilson@example.com
+Bloating,Mild,Feeling of fullness in the abdomen,2024-03-31,16:15,davidwilson@example.com
+Gas,Mild,Excessive air in the digestive tract,2024-04-01,13:00,davidwilson@example.com
+Chronic and recurrent abdominal pain,Moderate,Persistent and repetitive discomfort,2024-04-02,17:45,davidwilson@example.com
+Dyspepsia,Mild,Indigestion,2024-04-03,12:30,davidwilson@example.com
+Dysphagia,Mild,Difficulty swallowing,2024-03-30,12:45,sophiamoore@example.com
+Swelling,Mild,Enlargement or puffiness,2024-03-31,17:30,sophiamoore@example.com
+Bleeding,Moderate,Loss of blood,2024-04-01,14:15,sophiamoore@example.com
+Fatigue,Moderate,Feeling of tiredness,2024-04-02,18:00,sophiamoore@example.com
+Extreme thirst,Mild,Intense desire for fluid,2024-04-03,13:45,sophiamoore@example.com
+Headache,Mild,Intense pain in the head area,2024-03-30,13:15,williamtaylor@example.com
+Weight loss,Moderate,Reduction in body mass,2024-03-31,18:00,williamtaylor@example.com
+Chest pain,Moderate,Discomfort or pain in the chest,2024-04-01,14:45,williamtaylor@example.com
+Rectal pain or bleeding,Mild,Discomfort or blood from the rectum,2024-04-02,19:30,williamtaylor@example.com
+Body aches,Mild,Generalized muscle pain,2024-04-03,15:15,williamtaylor@example.com
+Flatulence,Moderate,Excessive gas in the digestive system,2024-03-25,09:45,avabrown@example.com
+Dysphagia,Mild,Difficulty swallowing,2024-03-26,15:30,avabrown@example.com
+Halitosis,Mild,Bad breath,2024-03-27,12:15,avabrown@example.com
+Difficulty breathing,Moderate,Challenges in breathing,2024-03-28,17:00,avabrown@example.com
+Rectal pain or bleeding,Mild,Discomfort or blood from the rectum,2024-03-29,11:45,avabrown@example.com
+Heartburn,Mild,Burning sensation in the chest,2024-03-25,11:30,jamesclark@example.com
+Nausea,Moderate,Feeling of queasiness,2024-03-26,16:15,jamesclark@example.com
+Swelling,Mild,Enlargement or puffiness,2024-03-27,13:00,jamesclark@example.com
+Weight loss,Moderate,Reduction in body mass,2024-03-28,17:45,jamesclark@example.com
+Bloating,Mild,Feeling of fullness in the abdomen,2024-03-29,12:30,jamesclark@example.com
+Vomiting,Moderate,Forceful expulsion of stomach contents,2024-03-25,12:15,lilysmith@example.com
+Headache,Mild,Intense pain in the head area,2024-03-26,17:00,lilysmith@example.com
+Chest pain,Moderate,Discomfort or pain in the chest,2024-03-27,13:45,lilysmith@example.com
+Gas,Mild,Excessive air in the digestive tract,2024-03-28,18:30,lilysmith@example.com
+Difficulty breathing,Moderate,Challenges in breathing,2024-03-29,14:15,lilysmith@example.com
+Weight loss,Moderate,Reduction in body mass,2024-03-25,13:30,benjamintaylor@example.com
+Halitosis,Mild,Bad breath,2024-03-26,18:15,benjamintaylor@example.com
+Bloating,Mild,Feeling of fullness in the abdomen,2024-03-27,14:00,benjamintaylor@example.com
+Swelling,Mild,Enlargement or puffiness,2024-03-28,18:45,benjamintaylor@example.com
+Fever,Moderate,Elevated body temperature,2024-03-29,15:30,benjamintaylor@example.com
+Indigestion,Mild,Discomfort in the upper abdomen,2024-03-21,14:30,danielharris@example.com
+Heartburn,Mild,Burning sensation in the chest,2024-03-22,09:15,danielharris@example.com
+Abdominal Pain,Moderate,Persistent pain in the abdominal area,2024-03-23,15:00,danielharris@example.com
+Abdominal Pain,Moderate,Persistent pain in the abdominal area,2024-03-25,18:00,danielharris@example.com
+Nausea,Moderate,Queasiness and inclination to vomit,2024-03-24,17:45,danielharris@example.com
+Constipation,Moderate,Difficulty in passing stools,2024-03-20,11:30,sarahmiller@example.com
+Diarrhea,Mild,Frequent and loose bowel movements,2024-03-21,12:15,sarahmiller@example.com
+Abdominal Pain,Moderate,Discomfort in the abdominal area,2024-03-22,14:00,sarahmiller@example.com
+Nausea,Mild,Feeling of sickness in the stomach,2024-03-23,09:45,sarahmiller@example.com
+Vomiting,Moderate,Forceful expulsion of stomach contents,2024-03-24,16:30,sarahmiller@example.com
+Abdominal Pain,Mild,Discomfort in the abdominal area,2024-03-20,12:15,ryanturner@example.com
+Diarrhea,Moderate,Frequent and loose bowel movements,2024-03-21,15:00,ryanturner@example.com
+Heartburn,Mild,Burning sensation in the chest,2024-03-22,10:45,ryanturner@example.com
+Flatulence,Mild,Excessive gas in the digestive system,2024-03-23,14:30,ryanturner@example.com
+Indigestion,Mild,Discomfort after eating,2024-03-24,09:30,ryanturner@example.com
+Nausea,Mild,Feeling of sickness in the stomach,2024-03-20,13:00,chloedavis@example.com
+Vomiting,Moderate,Forceful expulsion of stomach contents,2024-03-21,16:45,chloedavis@example.com
+Flatulence,Mild,Excessive gas in the digestive system,2024-03-22,11:30,chloedavis@example.com
+Abdominal Pain,Mild,Discomfort in the abdominal area,2024-03-23,15:15,chloedavis@example.com
+Indigestion,Moderate,Discomfort in the upper abdomen,2024-03-24,10:00,chloedavis@example.com
+Flatulence,Moderate,Excessive gas in the digestive system,2024-03-25,09:45,matthewwilson@example.com
+Indigestion,Mild,Discomfort in the upper abdomen,2024-03-26,14:30,matthewwilson@example.com
+Abdominal Pain,Moderate,Discomfort in the abdominal area,2024-03-27,11:15,matthewwilson@example.com
+Nausea,Mild,Feeling of sickness in the stomach,2024-03-28,16:00,matthewwilson@example.com
+Diarrhea,Moderate,Frequent and loose bowel movements,2024-03-29,10:30,matthewwilson@example.com
+Abdominal Pain,Moderate,Severe abdominal discomfort,2024-04-01,09:45,emilyjohnson@example.com
+Dysphagia,Mild,Difficulty swallowing,2024-04-02,14:30,emilyjohnson@example.com
+Bloating,Moderate,Feeling of fullness and tightness in the abdomen,2024-04-03,11:15,emilyjohnson@example.com
+Fatigue,Moderate,Extreme tiredness,2024-04-04,15:00,emilyjohnson@example.com
+Heartburn,Mild,Burning sensation in the chest,2024-04-05,10:30,emilyjohnson@example.com
+

@@ -35,7 +35,7 @@ public class Meal {
     private LocalTime localTimePartForDinner;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private User user;
+    private Patient patient;
 
 
 

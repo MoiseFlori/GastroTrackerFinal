@@ -38,6 +38,7 @@ public class Treatment {
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private User user;
+    private Patient patient;
+
 
 }

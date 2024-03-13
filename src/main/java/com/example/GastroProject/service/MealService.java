@@ -4,6 +4,7 @@ import com.example.GastroProject.dto.MealDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
 import com.example.GastroProject.entity.Meal;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public interface MealService {
 
     void deleteMeal(Long id);
 
-    //List<MealDto> findByKeyword(String keyword);
 
-    List<MealDto> findByUserAndKeywordAndDate(User user, String keyword, LocalDate selectedDate);
+
+    List<MealDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
 }

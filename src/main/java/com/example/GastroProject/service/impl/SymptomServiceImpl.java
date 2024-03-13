@@ -1,10 +1,12 @@
 package com.example.GastroProject.service.impl;
 
 import com.example.GastroProject.dto.SymptomDto;
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.Symptom;
 import com.example.GastroProject.entity.User;
 import com.example.GastroProject.exception.SymptomNotFoundException;
 import com.example.GastroProject.mapper.SymptomMapper;
+import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.SymptomRepository;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.SymptomService;
@@ -13,17 +15,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class SymptomServiceImpl implements SymptomService {
 
-    private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
     private final SymptomRepository symptomRepository;
 
@@ -71,8 +71,8 @@ public class SymptomServiceImpl implements SymptomService {
 //    }
 
     @Override
-    public List<SymptomDto> findByUserAndKeywordAndDate(User user, String keyword, LocalDate selectedDate) {
-        List<Symptom> symptoms = symptomRepository.findByUser(user, Sort.by(Sort.Direction.DESC, "localDatePart"));
+    public List<SymptomDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate) {
+        List<Symptom> symptoms = symptomRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "localDatePart"));
         return symptoms.stream()
                 .filter(symptom -> (selectedDate == null || symptom.getLocalDatePart().equals(selectedDate)) &&
                         (keyword == null ||
@@ -99,10 +99,10 @@ public class SymptomServiceImpl implements SymptomService {
 
 
     public void addSymptom(SymptomDto symptomDto, String email) {
-        User user = userRepository.findByEmail(email);
+        Patient patient = patientRepository.findByEmail(email);
         Symptom symptom = symptomMapper.DTOToEntity(symptomDto);
-        user.addSymptom(symptom);
-        userRepository.save(user);
+        patient.addSymptom(symptom);
+        patientRepository.save(patient);
     }
 
 

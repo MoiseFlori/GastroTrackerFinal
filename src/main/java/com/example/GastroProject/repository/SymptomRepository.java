@@ -1,5 +1,6 @@
 package com.example.GastroProject.repository;
 
+import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.Symptom;
 import com.example.GastroProject.entity.User;
 import org.springframework.data.domain.Sort;
@@ -23,5 +24,5 @@ public interface SymptomRepository extends JpaRepository<Symptom,Long> {
     )
     List<Symptom> findByKeyword(@Param("keyword") String keyword, Sort sort);
 
-    List<Symptom> findByUser(User user, Sort localDatePart);
+    List<Symptom> findByPatient(Patient patient, Sort localDatePart);
 }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
+    <title>Appointment Scheduler</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #d7cadb;
+            font-family: Arial, sans-serif;
+            color: #8e24aa;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+        }
+
+
+
+
+    #appointmentFormContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 300px;
+    }
+
+    #appointmentFormContainer h2 {
+        margin-bottom: 16px;
+    }
+
+    #appointmentFormContainer label {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+
+    #appointmentFormContainer input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    #appointmentFormContainer button {
+        width: 100%;
+        background-color:#8e24aa;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #appointmentFormContainer button:hover {
+        background-color: #5e0a7a;
+    }
+
+    #appointmentFormContainer button::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, #64b5f6, transparent 70%);
+        transform: scale(0);
+        transform-origin: center;
+        animation: ripple 0.6s ease-out;
+
+    }
+        #patientId {
+    width: 100%; /* Ajustează lățimea dropdown-ului la 100% */
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="calendar"></div>
+
+    <div id="appointmentFormContainer">
+        <h2>Appointment</h2>
+        <form th:action="@{/edit-drAppointment/{id}(id=${appointment.id})}" method="post"
+              th:object="${appointment}" id="editAppointmentForm">
+            <input type="hidden" th:field="*{id}" />
+
+            <label>
+                <input type="date" th:field="*{appointmentDate}" required/>
+            </label>
+
+
+            <label for="patientId">Select Patient:</label>
+            <select id="patientId" name="patientId" th:field="*{patientId}">
+                <option th:each="patient : ${allPatients}" th:value="${patient.patientId}" th:text="${patient.name}"
+                        th:selected="${patient == selectedPatient}"></option>
+            </select>
+            <input type="hidden" id="diagnosis" name="diagnosis" th:value="${appointment.diagnosis}" required>
+
+
+            <label for="appointmentTime">Appointment Time</label>
+            <input type="time" id="appointmentTime" name="appointmentTime" th:value="${appointment.appointmentTime}" required>
+
+            <input type="hidden" id="appointmentDate" name="appointmentDate">
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

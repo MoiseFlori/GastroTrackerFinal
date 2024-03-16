@@ -7,7 +7,9 @@ import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +27,6 @@ public interface AppointmentService {
     void updateAppointmentForPatient(AppointmentDto updatedAppointment);
 
 
-
-
     List<AppointmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
 
 
@@ -36,5 +36,9 @@ public interface AppointmentService {
 
     void deleteAppointmentForDoctor(Long appointmentId);
 
-    void deleteAppointmentforPatient(Long id);
+    void deleteAppointmentForPatient(Long id);
+
+    List<LocalTime> getAvailableSlots(Long doctorId, DayOfWeek dayOfWeek);
+
+
 }

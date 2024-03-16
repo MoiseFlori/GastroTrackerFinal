@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public interface TreatmentService {
-    List<TreatmentDto> getAllTreatments();
+
 
     void addTreatment(TreatmentDto treatmentDto, String email);
 
@@ -23,5 +23,5 @@ public interface TreatmentService {
 
     List<TreatmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
 
-    List<TreatmentDto> getPatientTreatments(Long userId);
+    List<TreatmentDto> getPatientTreatments(String email);
 }

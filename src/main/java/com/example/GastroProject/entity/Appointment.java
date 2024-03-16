@@ -38,6 +38,9 @@ public class Appointment {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "doctor_schedule_id")
+    private DoctorSchedule doctorSchedule;
 
     public void setDoctorId(Long doctorId) {
         this.doctor = new Doctor();

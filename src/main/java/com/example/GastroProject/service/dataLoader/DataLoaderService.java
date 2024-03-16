@@ -27,7 +27,7 @@ public class DataLoaderService {
         mealDataLoaderService.loadMealsFromFile("src/main/resources/mealCSV.csv");
         treatmentDataLoaderService.loadTreatmentsFromFile("src/main/resources/treatmentCSV.csv");
         patientProfileDataLoaderService.loadUserProfilesFromFile("src/main/resources/patientProfileCSV.csv");
-        appointmentDataLoaderService.loadAppointmentsFromFile("src/main/resources/appointmentCSV.csv");
+        //appointmentDataLoaderService.loadAppointmentsFromFile("src/main/resources/appointmentCSV.csv");
 
     }
 }

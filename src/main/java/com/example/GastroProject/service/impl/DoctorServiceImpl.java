@@ -2,15 +2,8 @@ package com.example.GastroProject.service.impl;
 
 import com.example.GastroProject.dto.DoctorDto;
 import com.example.GastroProject.dto.PatientDto;
-import com.example.GastroProject.entity.Doctor;
-import com.example.GastroProject.entity.Patient;
-import com.example.GastroProject.entity.Role;
-import com.example.GastroProject.entity.User;
-import com.example.GastroProject.mapper.DoctorMapper;
-import com.example.GastroProject.repository.DoctorRepository;
-import com.example.GastroProject.repository.PatientRepository;
-import com.example.GastroProject.repository.RoleRepository;
-import com.example.GastroProject.repository.UserRepository;
+import com.example.GastroProject.entity.*;
+import com.example.GastroProject.repository.*;
 import com.example.GastroProject.service.DoctorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.print.Doc;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 @Service
@@ -28,8 +22,8 @@ public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final DoctorMapper doctorMapper;
-    private  final PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+    private final DoctorScheduleRepository doctorScheduleRepository;
 
     @Override
     @Transactional
@@ -80,15 +74,15 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
 
-        @Override
-        public void editPatient(Long patientId, PatientDto editedPatientDto) {
-            Patient existingPatient = patientRepository.findById(patientId)
-                    .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
+    @Override
+    public void editPatient(Long patientId, PatientDto editedPatientDto) {
+        Patient existingPatient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
 
-            existingPatient.setDiagnosis(editedPatientDto.getDiagnosis());
+        existingPatient.setDiagnosis(editedPatientDto.getDiagnosis());
 
-            patientRepository.save(existingPatient);
-        }
+        patientRepository.save(existingPatient);
+    }
 
 
     @Override
@@ -107,6 +101,15 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.searchDoctorPatientsByKeyword(doctorId, keyword);
     }
 
+    @Override
+    public boolean isAvailable(Long doctorId, LocalDate date, LocalTime time) {
+        DoctorSchedule doctorSchedule = doctorScheduleRepository.findByDoctorIdAndDayOfWeek(doctorId, date.getDayOfWeek());
+
+        if (doctorSchedule != null) {
+            return !doctorSchedule.getStartTime().isBefore(time) || !doctorSchedule.getEndTime().isAfter(time);
+        }
+        return false;
+    }
 
 }
 

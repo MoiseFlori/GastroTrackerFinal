@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -39,4 +40,6 @@ public class AppointmentDto {
     private Patient patient;
 
     private Doctor doctor;
+
+    private DayOfWeek dayOfWeek;
 }

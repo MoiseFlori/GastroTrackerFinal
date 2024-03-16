@@ -11,6 +11,10 @@ import com.example.GastroProject.service.TreatmentService;
 import com.example.GastroProject.util.PdfExporter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,12 +43,6 @@ public class TreatmentController {
         return "user";
     }
 
-    //    @GetMapping("/all-treatments")
-//    public String showAllTreatments(Model model) {
-//        List<TreatmentDto> treatments =treatmentService.getAllTreatments();
-//        model.addAttribute("treatments", treatments);
-//        return "all-treatments";
-//    }
     @GetMapping("/all-treatments")
     public String showAllTreatments(Model model,
                                     @RequestParam(required = false) String keyword,
@@ -94,18 +93,33 @@ public class TreatmentController {
         return "redirect:/all-treatments";
     }
 
-    @GetMapping("/export-pdf")
-    public String exportPdf(Authentication authentication) {
-        if (authentication.getPrincipal() instanceof Patient patient) {
-            List<TreatmentDto> treatmentList = treatmentService.getPatientTreatments(patient.getPatientId());
 
-            if (treatmentList != null && !treatmentList.isEmpty()) {
-                String filePath = "C:\\Users\\Hp\\Downloads\\Patient_Treatment_PDF.pdf";
+    @PostMapping("/export-pdf")
+    public ResponseEntity<byte[]> exportPatientTreatmentToPdf() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String patientName = authentication.getName();
+            List<TreatmentDto> patientTreatments = treatmentService.getPatientTreatments(patientName);
 
-                PdfExporter.exportTreatmentListToPdf(treatmentList, filePath);
+            if (!patientTreatments.isEmpty()) {
+                byte[] pdfBytes = PdfExporter.exportTreatmentListToPdfWithBackground(patientName, patientTreatments);
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                headers.setContentDispositionFormData("filename", "treatments.pdf");
+                headers.setContentLength(pdfBytes.length);
+
+                return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no treatments for you".getBytes());
             }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(("An error occurred while exporting to PDF: " + e.getMessage()).getBytes());
         }
-        return "redirect:/all-treatments";
     }
 
+
 }
+
+
+

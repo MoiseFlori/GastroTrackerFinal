@@ -36,13 +36,13 @@ public class TreatmentServiceImpl implements TreatmentService {
     private final TreatmentMapper treatmentMapper;
 
 
-        @Override
-        public List<TreatmentDto> getAllTreatments() {
-            List<Treatment> treatments = treatmentRepository.findAll();
-            return treatments.stream()
-                    .map(treatmentMapper::entityToDTO)
-                    .toList();
-        }
+//    @Override
+//    public List<TreatmentDto> getAllTreatments() {
+//        List<Treatment> treatments = treatmentRepository.findAll();
+//        return treatments.stream()
+//                .map(treatmentMapper::entityToDTO)
+//                .toList();
+//    }
 
     @Override
     public void addTreatment(TreatmentDto treatmentDto, String email) {
@@ -80,7 +80,7 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     public void deleteTreatment(Long id) {
-            treatmentRepository.deleteById(id);
+        treatmentRepository.deleteById(id);
 
     }
 
@@ -89,27 +89,29 @@ public class TreatmentServiceImpl implements TreatmentService {
     public List<TreatmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate) {
         List<Treatment> treatments = treatmentRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "localDatePart"));
         return treatments.stream()
-                .filter(treatment ->(selectedDate == null || treatment.getLocalDatePart().equals(selectedDate)) &&
+                .filter(treatment -> (selectedDate == null || treatment.getLocalDatePart().equals(selectedDate)) &&
                         (keyword == null ||
-                        treatment.getName().toLowerCase().contains(keyword.toLowerCase()) ||
-                        treatment.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
-                        treatment.getAdministration().name().toLowerCase().contains(keyword.toLowerCase()) ||
-                        treatment.getMedicineType().name().toLowerCase().contains(keyword.toLowerCase()) ||
-                        treatment.getDose().toLowerCase().contains(keyword.toLowerCase())))
+                                treatment.getName().toLowerCase().contains(keyword.toLowerCase()) ||
+                                treatment.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
+                                treatment.getAdministration().name().toLowerCase().contains(keyword.toLowerCase()) ||
+                                treatment.getMedicineType().name().toLowerCase().contains(keyword.toLowerCase()) ||
+                                treatment.getDose().toLowerCase().contains(keyword.toLowerCase())))
                 .map(treatmentMapper::entityToDTO)
                 .toList();
     }
 
     @Override
     @Transactional
-    public List<TreatmentDto> getPatientTreatments(Long id) {
-        Patient patient = patientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Patient with id " + id + " not found"));
+    public List<TreatmentDto> getPatientTreatments(String email) {
+        Patient patient = patientRepository.findByEmail(email);
 
-
-        return patient.getTreatments().stream()
-                .map(treatmentMapper::entityToDTO)
-                .toList();
+        if (patient != null) {
+            return patient.getTreatments().stream()
+                    .map(treatmentMapper::entityToDTO)
+                    .toList();
+        } else {
+            throw new EntityNotFoundException("Patient with email " + email + " not found");
+        }
     }
 
 }

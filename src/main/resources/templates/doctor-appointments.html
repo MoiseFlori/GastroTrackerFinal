@@ -12,10 +12,14 @@
             height: 100vh;
             margin: 0;
             background-color: #ccdadb;
-            background-image: url('/images/appointmentscopy.jpg'); /* Adaugă calea către imaginea de fundal */
+            background-image: url('/images/appointmentscopy.jpg');
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
+            overflow-y: auto;
+        }
+        .container {
+             position: relative;
         }
         .background {
             position: absolute;
@@ -143,9 +147,8 @@
     </style>
 </head>
 <body>
-<!-- Butonul de "Add Symptom" -->
+
 <a class="add-button" th:href="@{/add-drAppointment}">➕ Add Appointment</a>
-<!-- Butonul de "Home" -->
 <a class="home-button" th:href="@{/home5}">🏠 Home</a>
 <h1>Doctor's Appointments</h1>
 <form th:action="@{/doctor-appointments}" method="get" class="mb-3">

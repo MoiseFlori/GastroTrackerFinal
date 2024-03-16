@@ -6,6 +6,8 @@ import com.example.GastroProject.entity.Doctor;
 import com.example.GastroProject.entity.Patient;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -29,4 +31,5 @@ public interface DoctorService {
    List<Patient> searchDoctorPatientsByKeyword(Long doctorId, String keyword);
 
 
+    boolean isAvailable(Long doctorId, LocalDate appointmentDate, LocalTime appointmentTime);
 }

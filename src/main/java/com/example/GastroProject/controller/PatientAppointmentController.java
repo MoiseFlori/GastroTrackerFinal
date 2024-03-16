@@ -17,11 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -64,12 +66,25 @@ public class PatientAppointmentController {
         return "add-appointment";
     }
 
+    @GetMapping("/available-slots")
+    @ResponseBody
+    public List<String> getAvailableSlots(@RequestParam Long doctorId, @RequestParam String selectedDate) {
+        LocalDate appointmentDate = LocalDate.parse(selectedDate);
+        DayOfWeek dayOfWeek = appointmentDate.getDayOfWeek();
+        List<LocalTime> availableSlots = appointmentService.getAvailableSlots(doctorId, dayOfWeek);
+
+        return availableSlots.stream()
+                .map(LocalTime::toString)
+                .toList();
+    }
+
     @PostMapping("/add-appointment")
     public String submitAppointment(@ModelAttribute AppointmentDto appointmentDto, Principal principal,
                                     @RequestParam Long doctorId) {
         appointmentService.saveAppointmentForPatient(appointmentDto, principal.getName(), doctorId);
         return "redirect:/patient-appointments";
     }
+
 
     @GetMapping("/edit-appointment/{id}")
     public String showEditAppointmentForm(@PathVariable Long id, Model model) {
@@ -83,6 +98,7 @@ public class PatientAppointmentController {
 
         return "edit-appointment";
     }
+
 
     @PostMapping("/edit-appointment/{id}")
     public String updateAppointmentForPatient(@PathVariable Long id, @ModelAttribute("appointment") AppointmentDto updatedAppointment,
@@ -100,7 +116,7 @@ public class PatientAppointmentController {
 
     @GetMapping("/delete-appointment/{id}")
     public String deleteAppointment(@PathVariable Long id) {
-        appointmentService.deleteAppointmentforPatient(id);
+        appointmentService.deleteAppointmentForPatient(id);
         return "redirect:/patient-appointments";
     }
 

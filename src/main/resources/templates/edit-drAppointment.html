@@ -95,7 +95,16 @@
     font-size: 14px;
     margin-bottom: 16px;
 }
-
+ #appointmentFormContainer input,
+       #appointmentFormContainer select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
     </style>
 </head>
@@ -122,15 +131,61 @@
             </select>
             <input type="hidden" id="diagnosis" name="diagnosis" th:value="${appointment.diagnosis}" required>
 
-
             <label for="appointmentTime">Appointment Time</label>
-            <input type="time" id="appointmentTime" name="appointmentTime" th:value="${appointment.appointmentTime}" required>
+            <select id="appointmentTime" name="appointmentTime" required></select>
+
 
             <input type="hidden" id="appointmentDate" name="appointmentDate">
+            <input type="hidden" id="doctorId" name="doctorId" th:value="${appointment.doctorId}">
+
             <button type="submit">Save Changes</button>
         </form>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+     var appointmentForm = document.getElementById('editAppointmentForm');
+     var doctorIdInput = document.getElementById('doctorId');
+     var appointmentDateInput = document.querySelector('input[type="date"]');
+     var appointmentTimeInput = document.getElementById('appointmentTime');
 
+     function getAvailableSlots(selectedDate, doctorId) {
+         fetch('/available?doctorId=' + doctorId + '&selectedDate=' + selectedDate)
+             .then(function(response) {
+                 return response.json();
+             })
+             .then(function(data) {
+                 var timeSlotsHtml = data.map(function(time) {
+                     return '<option value="' + time + '">' + time + '</option>';
+                 }).join('');
+                 appointmentTimeInput.innerHTML = timeSlotsHtml;
+             })
+             .catch(function(error) {
+                 console.error('Error fetching available slots:', error);
+             });
+     }
+
+     // Eveniment pentru schimbarea datei
+     appointmentDateInput.addEventListener('change', function() {
+         var selectedDate = this.value; // Folosește valoarea actuală a input-ului de tip date
+         var doctorId = doctorIdInput.value;
+         getAvailableSlots(selectedDate, doctorId);
+     });
+
+     doctorIdInput.addEventListener('change', function() {
+         var selectedDate = appointmentDateInput.value; // Asigură-te că folosești valoarea corectă a datei
+         var doctorId = this.value;
+         getAvailableSlots(selectedDate, doctorId);
+     });
+
+     // Trigger manual la încărcarea paginii pentru a încărca sloturile disponibile
+     var initialDate = appointmentDateInput.value;
+     var doctorId = doctorIdInput.value;
+     if(initialDate && doctorId) {
+         getAvailableSlots(initialDate, doctorId);
+     }
+ });
+
+</script>
 </body>
 </html>

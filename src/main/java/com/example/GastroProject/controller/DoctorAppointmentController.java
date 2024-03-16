@@ -17,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -54,35 +56,45 @@ private final PatientRepository patientRepository;
 
     @GetMapping("/add-drAppointment")
     public String showAddAppointmentForm(Model model, Principal principal) {
-        // Obține pacienții asociați cu medicul curent
         Doctor doctor = doctorRepository.findByEmail(principal.getName());
         List<Patient> patients = doctor.getPatients();
-
-        // Restul codului rămâne neschimbat
+        Long doctorId = doctor.getDoctorId();
         AppointmentDto appointmentDto = new AppointmentDto();
+        appointmentDto.setDoctorId(doctorId);
         model.addAttribute("appointmentDto", appointmentDto);
         model.addAttribute("patients", patients);
         return "add-drAppointment";
     }
 
+    @GetMapping("/available")
+    @ResponseBody
+    public List<String> getAvailableSlots(@RequestParam Long doctorId, @RequestParam String selectedDate) {
+        LocalDate appointmentDate = LocalDate.parse(selectedDate);
+        DayOfWeek dayOfWeek = appointmentDate.getDayOfWeek();
+        List<LocalTime> availableSlots = appointmentService.getAvailableSlots(doctorId, dayOfWeek);
+
+        return availableSlots.stream()
+                .map(LocalTime::toString)
+                .toList();
+    }
+
     @PostMapping("/add-drAppointment")
     public String submitAppointment(@ModelAttribute AppointmentDto appointmentDto, Principal principal,
-                                    @RequestParam Long id) {
-        appointmentService.saveAppointmentForDoctor(appointmentDto, principal.getName(), id);
+                                    @RequestParam Long patientId) {
+        appointmentService.saveAppointmentForDoctor(appointmentDto, principal.getName(), patientId);
         return "redirect:/doctor-appointments";
     }
 
     @GetMapping("/edit-drAppointment/{id}")
     public String showEditAppointmentForm(@PathVariable Long id, Model model) {
-        // Găsește programarea cu ID-ul dat
         AppointmentDto appointmentDto = appointmentService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid appointment Id:" + id));
 
-        // Extrage doctorul asociat programării
         Doctor doctor = appointmentDto.getDoctor();
-
-        // Extrage lista de pacienți asociați cu doctorul
+        Long doctorId = doctor.getDoctorId();
         List<Patient> doctorPatients = doctor.getPatients();
+
+        appointmentDto.setDoctorId(doctorId);
 
         model.addAttribute("allPatients", doctorPatients);
         model.addAttribute("selectedPatient", appointmentDto.getPatient());
@@ -90,6 +102,8 @@ private final PatientRepository patientRepository;
 
         return "edit-drAppointment";
     }
+
+
 
     @PostMapping("/edit-drAppointment/{id}")
     public String updateAppointmentForPatient(@PathVariable Long id, @ModelAttribute("appointment") AppointmentDto updatedAppointment,

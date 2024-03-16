@@ -116,19 +116,44 @@
                 opacity: 0;
             }
         }
+         #appointmentForm select {
+              width: 100%;
+              padding: 10px;
+              margin-bottom: 16px;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 14px;
+              background-color: white;
+              color: #4a4a4a;
+        }
 
+         #appointmentForm textarea, #appointmentForm button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
+         #appointmentForm button {
+            background-color: #8e24aa;
+            border: none;
+            cursor: pointer;
+        }
 
-
+        #appointmentForm button:hover {
+            background-color: #5e0a7a;
+        }
     </style>
+
+
 </head>
 <body>
 
 <div class="container">
 
-    <div id="calendar">
-
-    </div>
+    <div id="calendar"></div>
 
     <div id="appointmentForm">
         <h2>Appointment</h2>
@@ -138,16 +163,18 @@
             <label for="selectedDate">Selected Date:</label>
             <input type="text" id="selectedDate" name="selectedDate" readonly>
 
-            <label for="id">Select Patient:</label>
-            <select id="id" name="id" th:field="*{id}">
-                <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.name}"></option>
+            <label for="patientId">Select Patient:</label>
+            <select id="patientId" name="patientId" th:field="*{patientId}">
+                <option th:each="patient : ${patients}" th:value="${patient.patientId}" th:text="${patient.name}"></option>
             </select>
 
 
             <label for="appointmentTime">Appointment Time</label>
-            <input type="time" id="appointmentTime" name="appointmentTime" required>
+            <select id="appointmentTime" name="appointmentTime" required></select>
 
             <input type="hidden" id="appointmentDate" name="appointmentDate">
+            <input type="hidden" id="doctorId" th:value="${appointmentDto.doctorId}">
+
 
             <button type="submit">Save</button>
         </form>
@@ -155,40 +182,52 @@
 </div>
 
 <script>
-    // JavaScript logic pentru manipularea calendarului și a formularului
-    const calendar = document.getElementById('calendar');
-    const appointmentForm = document.getElementById('appointmentForm');
-    const selectedDateInput = document.getElementById('selectedDate');
-    const appointmentDateInput = document.getElementById('appointmentDate');
-
-    // Exemplu de eveniment de ascultare pentru calendar
-    calendar.addEventListener('click', (event) => {
-        const selectedDate = event.target.dataset.date;
-
-        selectedDateInput.value = selectedDate;
-        // Setează appointmentDate cu valoarea selectedDate
-        appointmentDateInput.value = selectedDate;
-
-        appointmentForm.style.display = 'flex';
-    });
-
-    // FullCalendar initialization
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+        var appointmentForm = document.getElementById('appointmentForm');
+        var selectedDateInput = document.getElementById('selectedDate');
+        var appointmentDateInput = document.getElementById('appointmentDate');
+        var appointmentTimeInput = document.getElementById('appointmentTime');
+
+        // Obține id-ul medicului din appointmentDto
+        var doctorIdInput = document.getElementById('doctorId').value;
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: ['dayGrid', 'interaction'],
             dateClick: function(info) {
                 selectedDateInput.value = info.dateStr;
-                // Setează appointmentDate cu valoarea info.dateStr
                 appointmentDateInput.value = info.dateStr;
-
+                getAvailableSlots(info.dateStr, doctorIdInput);
                 appointmentForm.style.display = 'flex';
             }
         });
 
         calendar.render();
+
+        function getAvailableSlots(selectedDate, doctorId) {
+            fetch('/available?doctorId=' + doctorId + '&selectedDate=' + selectedDate)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    var appointmentTimeSelect = document.getElementById('appointmentTime');
+                    appointmentTimeSelect.innerHTML = '';
+
+                    data.forEach(function(time) {
+                        var option = document.createElement('option');
+                        option.value = time;
+                        option.text = time;
+                        appointmentTimeSelect.appendChild(option);
+                    });
+
+                    appointmentForm.style.display = 'flex';
+                })
+                .catch(function(error) {
+                    console.error('Error fetching available slots:', error);
+                });
+        }
     });
+
 </script>
 </body>
 </html>

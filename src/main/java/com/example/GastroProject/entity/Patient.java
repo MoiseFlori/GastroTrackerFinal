@@ -44,6 +44,9 @@ public class Patient {
     @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
     private PatientProfile patientProfile;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Document> documents;
+
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -52,8 +55,6 @@ public class Patient {
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
-
-
 
 
     public void addSymptom(Symptom symptom) {

@@ -35,7 +35,7 @@ public class Symptom {
 
     private LocalTime localTimePart;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Patient patient;
 

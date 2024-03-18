@@ -31,7 +31,7 @@ public class PatientProfileDataLoaderService {
             while ((line = reader.readLine()) != null) {
                 if (firstLine) {
                     firstLine = false;
-                    continue;  // Ignoră prima linie
+                    continue;
                 }
                 String[] patientProfileData = line.split(",");
                 PatientProfile patientProfile = new PatientProfile();
@@ -39,14 +39,11 @@ public class PatientProfileDataLoaderService {
                 patientProfile.setLastName(patientProfileData[1]);
                 patientProfile.setEmail(patientProfileData[2]);
                 patientProfile.setBirthDate(LocalDate.parse(patientProfileData[3]));
-                patientProfile.setAge(Integer.parseInt(patientProfileData[4]));
-                patientProfile.setHeight(Integer.parseInt(patientProfileData[5]));
-                patientProfile.setWeight(Integer.parseInt(patientProfileData[6]));
-                patientProfile.setDiagnosis(patientProfileData[7]);
-                patientProfile.setAllergies(patientProfileData[8]);
+                patientProfile.setHeight(Integer.parseInt(patientProfileData[4]));
+                patientProfile.setWeight(Integer.parseInt(patientProfileData[5]));
+                patientProfile.setAllergies(patientProfileData[6]);
 
-                // Asigură-te că user-ul există înainte de a-l seta
-                Patient patient = patientRepository.findByEmail(patientProfileData[9]);
+                Patient patient = patientRepository.findByEmail(patientProfileData[7]);
                 if (patient != null) {
                     patientProfile.setPatient(patient);
                 }

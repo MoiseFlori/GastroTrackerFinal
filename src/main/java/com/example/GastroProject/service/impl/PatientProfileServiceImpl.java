@@ -24,21 +24,16 @@ public class PatientProfileServiceImpl implements PatientProfileService {
         Optional<PatientProfile> optionalUserProfile = patientProfileRepository.findByEmail(patientProfileDto.getEmail());
 
         return optionalUserProfile.map(existingUserProfile -> {
-            // Actualizeaza profilul existent cu noile date
             existingUserProfile.setFirstName(patientProfileDto.getFirstName());
             existingUserProfile.setLastName(patientProfileDto.getLastName());
             existingUserProfile.setEmail(patientProfileDto.getEmail());
             existingUserProfile.setBirthDate(patientProfileDto.getBirthDate());
-            existingUserProfile.setAge(patientProfileDto.getAge());
             existingUserProfile.setHeight(patientProfileDto.getHeight());
             existingUserProfile.setWeight(patientProfileDto.getWeight());
-            existingUserProfile.setDiagnosis(patientProfileDto.getDiagnosis());
             existingUserProfile.setAllergies(patientProfileDto.getAllergies());
 
-            // Salveaza profilul actualizat in baza de date
             PatientProfile savedProfile = patientProfileRepository.save(existingUserProfile);
 
-            // Adauga profilul la utilizator, daca nu are deja unul
             if (savedProfile.getPatient() != null) {
                 savedProfile.getPatient().addProfile(savedProfile);
                 patientRepository.save(savedProfile.getPatient());
@@ -47,22 +42,17 @@ public class PatientProfileServiceImpl implements PatientProfileService {
             return savedProfile;
 
         }).orElseGet(() -> {
-            // Returnează un profil nou cu datele primite daca nu exista unul existent
             PatientProfile newProfile = new PatientProfile();
             newProfile.setEmail(patientProfileDto.getEmail());
             newProfile.setFirstName(patientProfileDto.getFirstName());
             newProfile.setLastName(patientProfileDto.getLastName());
             newProfile.setBirthDate(patientProfileDto.getBirthDate());
-            newProfile.setAge(patientProfileDto.getAge());
             newProfile.setHeight(patientProfileDto.getHeight());
             newProfile.setWeight(patientProfileDto.getWeight());
-            newProfile.setDiagnosis(patientProfileDto.getDiagnosis());
             newProfile.setAllergies(patientProfileDto.getAllergies());
 
-            // Salveaza noul profil in baza de date
             PatientProfile savedProfile = patientProfileRepository.save(newProfile);
 
-            // Adauga profilul la utilizator
             if (savedProfile.getPatient() != null) {
                 savedProfile.getPatient().addProfile(savedProfile);
                 patientRepository.save(savedProfile.getPatient());

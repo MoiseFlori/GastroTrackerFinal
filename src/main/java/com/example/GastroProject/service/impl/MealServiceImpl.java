@@ -55,8 +55,8 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public void updateMeal(MealDto updatedMeal) {
-        Optional<Meal> optionalMeal = mealRepository.findById(updatedMeal.getId());
+    public void updateMeal(Long id,MealDto updatedMeal) {
+        Optional<Meal> optionalMeal = mealRepository.findById(id);
 
         if (optionalMeal.isPresent()) {
             Meal existingMeal = optionalMeal.get();

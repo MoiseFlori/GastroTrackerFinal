@@ -29,7 +29,7 @@ public class PatientProfileController {
     public String saveProfile(@ModelAttribute("patientProfile") PatientProfileDto patientProfileDto, Authentication authentication) {
         String email = authentication.getName();
         patientProfileDto.setEmail(email);
-        PatientProfile savedProfile = patientProfileService.savePatientProfile(patientProfileDto);
+        patientProfileService.savePatientProfile(patientProfileDto);
         return "user";
     }
 

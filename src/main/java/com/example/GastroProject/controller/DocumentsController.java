@@ -33,6 +33,10 @@ public class DocumentsController {
 
     private final PatientRepository patientRepository;
 
+    @GetMapping("/home6")
+    public String userPage() {
+        return "user";
+    }
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("patientFileName") String patientFileName, Principal principal) {
         if (file.isEmpty()) {

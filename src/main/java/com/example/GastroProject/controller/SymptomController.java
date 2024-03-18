@@ -58,15 +58,13 @@ public class SymptomController {
 
     @GetMapping("/add-symptom")
     public String showSymptomForm(Model model) {
-        SymptomDto attributeValue = new SymptomDto();
-        model.addAttribute("symptom", attributeValue);
+        SymptomDto symptomDto = new SymptomDto();
+        model.addAttribute("symptom", symptomDto);
         return "add-symptom";
     }
 
     @PostMapping("/add-symptom")
     public String addSymptom(@ModelAttribute("symptom") SymptomDto symptomDto, Principal principal) {
-        LocalDate datePart = symptomDto.getLocalDatePart();
-        LocalTime timePart = symptomDto.getLocalTimePart();
         symptomService.addSymptom(symptomDto, principal.getName());
         return "redirect:/all-symptoms";
     }
@@ -77,17 +75,13 @@ public class SymptomController {
         SymptomDto symptom = symptomService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid symptom Id:" + id));
         model.addAttribute("symptom", symptom);
-
         return "edit-symptom";
     }
 
 
     @PostMapping("/edit-symptom/{id}")
     public String updateSymptom(@PathVariable Long id, @ModelAttribute("symptom") SymptomDto updatedSymptom) {
-        updatedSymptom.setId(id);
-        LocalDate datePart = updatedSymptom.getLocalDatePart();
-        LocalTime timePart = updatedSymptom.getLocalTimePart();
-        symptomService.updateSymptom(updatedSymptom);
+        symptomService.updateSymptom(id,updatedSymptom);
         return "redirect:/all-symptoms";
     }
 

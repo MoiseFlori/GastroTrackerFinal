@@ -75,9 +75,23 @@
             text-align: center;
             color: #568794;
         }
+
+        .home-button {
+            text-decoration: none;
+            background-color: #568794;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
     </style>
 </head>
 <body>
+<a class="home-button" th:href="@{/home6}">🏠 Home</a>
 <h2>Documents</h2>
 <!-- Formular pentru încărcarea fișierului -->
 <form action="/upload" method="post" enctype="multipart/form-data">

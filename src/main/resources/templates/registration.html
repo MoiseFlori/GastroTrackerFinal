@@ -13,16 +13,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #f8f9fa;
-            background-image: url('/images/login.jpg'); /* Adaugă calea către imaginea de fundal */
-            background-size: cover;
-            background-position: center;
-        }
-              .background img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover; /* Adăugăm această proprietate pentru a menține proporțiile imaginii */
-                filter: brightness(40%); /* Experimentează cu această valoare pentru a regla luminozitatea */
+            background-color:#cfe5fa;
             }
 
         .container {
@@ -71,6 +62,14 @@
 <div class="container">
 
     <h2>Registration Form</h2>
+
+    <div th:if="${message}">
+        <div class="alert alert-success" th:text="${message}"></div>
+    </div>
+    <div th:if="${errorMessage}">
+        <div class="alert alert-danger" th:text="${errorMessage}"></div>
+    </div>
+
     <form th:action="@{/registration}" method="post" role="form" th:object="${patient}">
         <div class="form-group">
             <label for="name">Name:</label>

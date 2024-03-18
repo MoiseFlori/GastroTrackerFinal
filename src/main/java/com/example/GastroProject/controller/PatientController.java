@@ -1,6 +1,5 @@
 package com.example.GastroProject.controller;
 
-import com.example.GastroProject.dto.DoctorDto;
 import com.example.GastroProject.dto.PatientDto;
 import com.example.GastroProject.entity.Doctor;
 import com.example.GastroProject.entity.Role;
@@ -46,7 +45,6 @@ public class PatientController {
 
         Doctor selectedDoctor = doctorService.getDoctorById(patientDto.getDoctorId());
         if (selectedDoctor == null) {
-            // Tratează cazul în care ID-ul medicului este invalid
             String errorMessage = "Invalid doctor ID. Please select a valid doctor.";
             model.addAttribute("errorMessage", errorMessage);
             List<Doctor> doctors = doctorService.getAllDoctors();

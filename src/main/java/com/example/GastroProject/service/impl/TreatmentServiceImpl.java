@@ -59,8 +59,8 @@ public class TreatmentServiceImpl implements TreatmentService {
     }
 
     @Override
-    public void updateTreatment(TreatmentDto updatedTreatment) {
-        Optional<Treatment> optionalTreatment = treatmentRepository.findById(updatedTreatment.getId());
+    public void updateTreatment(Long id,TreatmentDto updatedTreatment) {
+        Optional<Treatment> optionalTreatment = treatmentRepository.findById(id);
 
         if (optionalTreatment.isPresent()) {
             Treatment existingTreatment = optionalTreatment.get();

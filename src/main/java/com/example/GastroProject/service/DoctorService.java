@@ -23,7 +23,7 @@ public interface DoctorService {
 
     Doctor getDoctorByEmail(String email);
 
-    void editPatient(Long id, PatientDto editedPatientDto);
+    void editPatient(Long patientId, PatientDto editedPatientDto);
 
     void dischargePatient(Long doctorId, Long patientId);
 

@@ -17,17 +17,13 @@ public interface SymptomService {
     void addSymptom(SymptomDto symptomDto, String email);
 
 
-    //List<SymptomDto> getAllSymptoms();
-
     void deleteSymptom(Long id);
 
-    void updateSymptom(SymptomDto updatedSymptomDto);
+    void updateSymptom(Long id,SymptomDto updatedSymptomDto);
 
 
     Optional<SymptomDto> findById(Long id);
 
-
-    //List<SymptomDto> findByKeyword(String keyword);
 
     List<SymptomDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
 }

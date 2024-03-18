@@ -106,13 +106,8 @@
 
     <h2>Edit Patient</h2>
 
-    <form th:action="@{'/edit-patient/' + ${patient.id}}" method="post" th:object="${patient}">
+    <form th:action="@{'/edit-patient/' + ${patient.patientId}}" method="post" th:object="${patient}">
 
-<!--        <label for="name">Name:</label>-->
-<!--        <input type="text" id="name" th:field="*{name}" required />-->
-
-<!--        <label for="age">Age:</label>-->
-<!--        <input type="number" id="age" th:field="*{age}" required />-->
 
         <label for="diagnosis">Diagnosis:</label>
         <textarea id="diagnosis" th:field="*{diagnosis}" rows="4" cols="50"></textarea>

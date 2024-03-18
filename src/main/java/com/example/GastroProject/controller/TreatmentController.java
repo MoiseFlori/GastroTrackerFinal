@@ -57,15 +57,13 @@ public class TreatmentController {
 
     @GetMapping("/add-treatment")
     public String showTreatmentForm(Model model) {
-        TreatmentDto attributeValue = new TreatmentDto();
-        model.addAttribute("treatment", attributeValue);
+        TreatmentDto treatmentDto = new TreatmentDto();
+        model.addAttribute("treatment", treatmentDto);
         return "add-treatment";
     }
 
     @PostMapping("/add-treatment")
     public String addTreatment(@ModelAttribute("treatment") TreatmentDto treatmentDto, Principal principal) {
-        LocalDate datePart = treatmentDto.getLocalDatePart();
-        LocalTime timePart = treatmentDto.getLocalTimePart();
         treatmentService.addTreatment(treatmentDto, principal.getName());
         return "redirect:/all-treatments";
     }
@@ -80,10 +78,7 @@ public class TreatmentController {
 
     @PostMapping("/edit-treatment/{id}")
     public String updateTreatment(@PathVariable Long id, @ModelAttribute("treatment") TreatmentDto updatedTreatment) {
-        updatedTreatment.setId(id);
-        LocalDate datePart = updatedTreatment.getLocalDatePart();
-        LocalTime timePart = updatedTreatment.getLocalTimePart();
-        treatmentService.updateTreatment(updatedTreatment);
+        treatmentService.updateTreatment(id,updatedTreatment);
         return "redirect:/all-treatments";
     }
 

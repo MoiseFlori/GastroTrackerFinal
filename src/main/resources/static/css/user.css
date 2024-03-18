@@ -1,15 +1,15 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: auto; /* Permite scrolling chiar dacă pagina este goală */
+    overflow: auto;
 }
 
 .background-container {
     background-image: url('/images/background-user.jpg');
-    background-size: 100% ; /* Redimensionează imaginea pentru a acoperi întregul container */
+    background-size: 100% ;
     background-position: center;
     background-repeat: no-repeat;
-    min-height: 100vh; /* Setăm o înălțime minimă pentru a ocupa întregul viewport */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
@@ -20,6 +20,6 @@ header {
 }
 
 .container {
-    flex-grow: 1; /* Face ca containerul să ocupe spațiul disponibil */
-    padding: 20px; /* Adaugăm un padding pentru a separa conținutul de marginea containerului */
+    flex-grow: 1;
+    padding: 20px;
 }

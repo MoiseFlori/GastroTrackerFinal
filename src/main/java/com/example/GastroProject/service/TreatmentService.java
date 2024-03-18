@@ -17,7 +17,7 @@ public interface TreatmentService {
 
     Optional<TreatmentDto> findById(Long id);
 
-    void updateTreatment(TreatmentDto updatedTreatment);
+    void updateTreatment(Long id,TreatmentDto updatedTreatment);
 
     void deleteTreatment(Long id);
 

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -10,110 +10,98 @@
 </head>
 <style>
     body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f8f9fa;
-        background-image: url('/images/login.jpg'); /* Adaugă calea către imaginea de fundal */
-        background-size: cover;
-        background-position: center;
-    }
-          .background img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Adăugăm această proprietate pentru a menține proporțiile imaginii */
-            filter: brightness(40%); /* Experimentează cu această valoare pentru a regla luminozitatea */
-        }
+         background-color: #cfe5fa;
+         background-image: url('/images/login.jpg');
+         background-size: cover;
+         background-position: center;
+         height: 100vh;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin: 0;
+     }
 
-    .container {
-        width: 400px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
-        animation: lightEffect 1.5s infinite alternate;
-        text-align: center;
-    }
+     .container {
+         width: 400px;
+         background-color: #fff;
+         padding: 20px;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
+         text-align: center;
+     }
 
-    h1 {
-        text-align: center;
-    }
 
-    .form-group {
-        margin-bottom: 20px;
-    }
 
-    input[type="submit"] {
-        width: 100%;
-        background-color: #2196F3; /* Albastru */
-        color: #fff;
-        cursor: pointer;
-    }
+     h1 {
+         text-align: center;
+     }
 
-    .remember-forgot {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-    }
+     .form-group {
+         margin-bottom: 20px;
+     }
 
-    a {
-        color: #2196F3; /* Albastru */
-        text-decoration: none;
-    }
+     input[type="submit"] {
+         width: 100%;
+         background-color: #2196F3;
+         color: #fff;
+         cursor: pointer;
+     }
 
-    @keyframes lightEffect {
-        from {
-            box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
-        }
+     .remember-forgot {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-top: 15px;
+     }
 
-        to {
-            box-shadow: 0 0 30px rgba(0, 0, 255, 0.5);
-        }
-    }
+     a {
+         color: #2196F3;
+         text-decoration: none;
+     }
 </style>
+
 
 <body>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-
-            <h1>Login Page</h1>
-            <form th:action="@{/login}" method="post">
-
-                <div class="form-group">
-                    <label for="email"> Email </label> :
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email ID"
-                           autofocus="autofocus">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>:
-                    <input type="password" id="password" name="password" class="form-control"
-                           placeholder="Enter Password"/>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">Login</button>
-                </div>
-            </form>
-
-            <div class="remember-forgot">
-                <label><input type="checkbox"> Remember me</label>
-                <a href="/forgot-password" th:href="@{/forgot-password}" style="color: #2196F3;">Forgot Password?</a>
-            </div>
-
-            <div class="form-group">
-                <span>New user? <a href="/registration" th:href="@{/registration}"
-                                   style="color: #2196F3;">Register here</a></span>
-            </div>
-
+    <h1>Login Page</h1>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="email"> Email </label> :
+            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email ID"
+                   autofocus="autofocus">
         </div>
+        <div class="form-group">
+            <label for="password">Password</label>:
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="Enter Password" onkeyup="checkCapsLock(event)">
+        </div>
+        <!-- Afiseaza avertismentul doar daca CapsLock este activata -->
+        <div id="capsLockWarning" style="color: blue; visibility: hidden;">Caps Lock is ON!</div><br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Login</button>
+        </div>
+    </form>
+    <div class="remember-forgot">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="/forgot-password" th:href="@{/forgot-password}" style="color: #2196F3;">Forgot Password?</a>
+    </div>
+    <div class="form-group">
+        <span>New user? <a href="/registration" th:href="@{/registration}" style="color: #2196F3;">Register here</a></span>
     </div>
 </div>
+
+<script>
+    // Funcție pentru verificarea stării tasta CapsLock
+    function checkCapsLock(event) {
+        const capsLockOn = event.getModifierState && event.getModifierState('CapsLock');
+        if (capsLockOn) {
+            document.getElementById('capsLockWarning').style.visibility = 'visible'; // Afișează avertismentul
+        } else {
+            document.getElementById('capsLockWarning').style.visibility = 'hidden'; // Ascunde avertismentul
+        }
+    }
+</script>
 </body>
 
 </html>

@@ -20,7 +20,7 @@ public interface MealService {
 
     Optional<MealDto> findById(Long id);
 
-    void updateMeal(MealDto updatedMeal);
+    void updateMeal(Long id,MealDto updatedMeal);
 
     void deleteMeal(Long id);
 

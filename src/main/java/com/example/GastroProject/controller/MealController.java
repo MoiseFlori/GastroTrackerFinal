@@ -50,28 +50,16 @@ public class MealController {
     }
 
 
-//    @GetMapping("/all-meals")
-//    public String showAllMeals(Model model) {
-//        List<MealDto> meals = mealService.getAllMeals();
-//        model.addAttribute("meals", meals);
-//        return "all-meals";
-//    }
-
-
     @GetMapping("/add-meal")
     public String showMealForm(Model model) {
-        MealDto attributeValue = new MealDto();
-        model.addAttribute("meal", attributeValue);
+        MealDto mealDto = new MealDto();
+        model.addAttribute("meal", mealDto);
         return "add-meal";
     }
 
 
     @PostMapping("/add-meal")
     public String addMeal(@ModelAttribute("meal") MealDto mealDto, Principal principal) {
-        LocalDate datePart = mealDto.getLocalDatePart();
-        LocalTime timePart = mealDto.getLocalTimePartForBreakfast();
-        LocalTime timePart1 = mealDto.getLocalTimePartForLunch();
-        LocalTime timePart2 = mealDto.getLocalTimePartForDinner();
         mealService.addMeal(mealDto, principal.getName());
         return "redirect:/all-meals";
     }
@@ -86,12 +74,7 @@ public class MealController {
 
     @PostMapping("/edit-meal/{id}")
     public String updateMeal(@PathVariable Long id, @ModelAttribute("meal") MealDto updatedMeal) {
-        updatedMeal.setId(id);
-        LocalDate datePart = updatedMeal.getLocalDatePart();
-        LocalTime timePart = updatedMeal.getLocalTimePartForBreakfast();
-        LocalTime timePart1 = updatedMeal.getLocalTimePartForLunch();
-        LocalTime timePart2 = updatedMeal.getLocalTimePartForDinner();
-        mealService.updateMeal(updatedMeal);
+        mealService.updateMeal(id,updatedMeal);
         return "redirect:/all-meals";
     }
 

@@ -29,8 +29,8 @@ public class SymptomServiceImpl implements SymptomService {
 
     private final SymptomMapper symptomMapper;
 
-    public void updateSymptom(SymptomDto updatedSymptomDto) {
-        Optional<Symptom> optionalSymptom = symptomRepository.findById(updatedSymptomDto.getId());
+    public void updateSymptom(Long id,SymptomDto updatedSymptomDto) {
+        Optional<Symptom> optionalSymptom = symptomRepository.findById(id);
 
         if (optionalSymptom.isPresent()) {
             Symptom existingSymptom = optionalSymptom.get();
@@ -55,21 +55,6 @@ public class SymptomServiceImpl implements SymptomService {
 
 
 
-//    @Override
-//    public List<SymptomDto> findByKeyword(String keyword) {
-//        if (keyword == null) {
-//            return symptomRepository.findAll(Sort.by(Sort.Direction.ASC, "localDatePart")).stream()
-//                    .map(symptomMapper::entityToDTO)
-//                    .toList();
-//
-//        }
-//        List<Symptom> symptoms = symptomRepository.findByKeyword(keyword, Sort.by(Sort.Direction.ASC, "localDatePart"));
-//        return symptoms.stream()
-//                .map(symptomMapper::entityToDTO)
-//                .toList();
-//
-//    }
-
     @Override
     public List<SymptomDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate) {
         List<Symptom> symptoms = symptomRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "localDatePart"));
@@ -83,14 +68,6 @@ public class SymptomServiceImpl implements SymptomService {
                 .toList();
     }
 
-
-
-//    public List<SymptomDto> getAllSymptoms() {
-//        List<Symptom> symptoms = symptomRepository.findAll(Sort.by(Sort.Direction.ASC, "localDatePart"));
-//        return symptoms.stream()
-//                .map(symptomMapper::entityToDTO)
-//                .toList();
-//    }
 
 
     public void deleteSymptom(Long id) {

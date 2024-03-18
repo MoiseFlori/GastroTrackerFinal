@@ -1,6 +1,5 @@
 package com.example.GastroProject.service.impl;
 
-import com.example.GastroProject.dto.DoctorDto;
 import com.example.GastroProject.dto.PatientDto;
 import com.example.GastroProject.entity.Doctor;
 import com.example.GastroProject.entity.Patient;
@@ -10,7 +9,6 @@ import com.example.GastroProject.repository.DoctorRepository;
 import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.RoleRepository;
 import com.example.GastroProject.repository.UserRepository;
-import com.example.GastroProject.service.DoctorService;
 import com.example.GastroProject.service.PatientService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

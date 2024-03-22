@@ -12,52 +12,43 @@
             height: 100vh;
             margin: 0;
             background-color: #ccdadb;
-            background-image: url('/images/all-pills.jpg'); /* Adaugă calea către imaginea de fundal */
+            background-image: url('/images/all-pills.jpg');
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
         }
-   .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-<!--        .background img {-->
-<!--            width: 100%;-->
-<!--            height: 100%;-->
-<!--            object-fit: cover; /* Adăugăm această proprietate pentru a menține proporțiile imaginii */-->
-<!--            filter: brightness(40%); /* Experimentează cu această valoare pentru a regla luminozitatea */-->
-<!--        }-->
 
         h1 {
             margin-top: 20px;
             color: #fab061;
         }
 
-        table {
+        .table-container {
+            max-height: 300px;
+            overflow-y: auto;
             width: 80%;
             margin-top: 20px;
+            position: relative;
+        }
+
+        table {
             border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            background-color: #fab061; /* Opacitate pentru a permite vizibilitatea textului */
+            width: 100%;
         }
 
         th, td {
             padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
-            background-color: rgba(255, 255, 255, 1); /* Opacitate 1 pentru a acoperi complet fundalul */
-
+            background-color: rgba(255, 255, 255, 1);
         }
 
         th {
             background-color: #fab061;
             color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
 
         td a {
@@ -94,11 +85,7 @@
         .add-button:hover {
             background-color: #fc7f03;
         }
-        /* Definește stilul pentru clasa "hidden" */
-        .hidden {
-            display: none;
-        }
-        /* Stilizare pentru butonul "Home" */
+
         .home-button {
             text-decoration: none;
             background-color: #fab061;
@@ -115,27 +102,29 @@
         .home-button:hover {
             background-color: #fc7f03;
         }
+
         .mb-3 {
-            margin-bottom: 15px; /* spațiu între elemente */
+            margin-bottom: 15px;
         }
 
         .input-group {
             display: flex;
-            align-items: center; /* butonul să fie aliniat vertical în centrul containerului */
+            align-items: center;
         }
 
         .form-control {
-            width: 300px; /* lățimea rândului de input */
+            width: 300px;
         }
 
-      .btn-outline-secondary {
-            background-color: #fab061; /* culoarea butonului */
-            color: white; /* culoarea textului pe buton */
-            border-color: #fab061; /* culoarea chenarului butonului */
-            width: 100px; /* lățimea butonului */
+        .btn-outline-secondary {
+            background-color: #fab061;
+            color: white;
+            border-color: #fab061;
+            width: 100px;
             transition: background-color 0.3s;
         }
-         .btn-outline-secondary:hover {
+
+        .btn-outline-secondary:hover {
             background-color: #fc7f03;
         }
 
@@ -143,13 +132,11 @@
 </head>
 <body>
 
-
 <a class="add-button" th:href="@{/add-treatment}">➕ Add Treatment</a>
 <a class="home-button" th:href="@{/home2}">🏠 Home</a>
 <form method="post" action="/export-pdf">
     <button type="submit">Export PDF</button>
 </form>
-
 
 <h1>Your Treatments</h1>
 <form th:action="@{/all-treatments}" method="get" class="mb-3">
@@ -167,38 +154,40 @@
     </div>
 </form>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th class="col-xs-4 hidden">Id</th>
-        <th>Name</th>
-        <th>Medicine Type</th>
-        <th>Dose</th>
-        <th>Administration</th>
-        <th>Description</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="treatment : ${treatments}">
-        <td>
-            <span th:text="${#temporals.format(treatment.localDatePart, 'yyyy-MM-dd')}"></span>
-            <br>
-            <span th:text="${#temporals.format(treatment.localTimePart, 'HH:mm')}"></span>
-        </td>
-        <td class="hidden"  th:text="${treatment.id}"></td>
-        <td th:text="${treatment.name}"></td>
-        <td th:text="${treatment.medicineType}"></td>
-        <td th:text="${treatment.dose}"></td>
-        <td th:text="${treatment.administration}"></td>
-        <td th:text="${treatment.description}"></td>
-        <td><a th:href="@{'/edit-treatment/' + ${treatment.id}}">✏️ Edit</a></td>
-        <td><a th:href="@{'/delete-treatment/' + ${treatment.id}}">🗑️ Delete</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="table-container">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th class="col-xs-4 hidden">Id</th>
+            <th>Name</th>
+            <th>Medicine Type</th>
+            <th>Dose</th>
+            <th>Administration</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="treatment : ${treatments}">
+            <td>
+                <span th:text="${#temporals.format(treatment.localDatePart, 'yyyy-MM-dd')}"></span>
+                <br>
+                <span th:text="${#temporals.format(treatment.localTimePart, 'HH:mm')}"></span>
+            </td>
+            <td class="hidden" th:text="${treatment.id}"></td>
+            <td th:text="${treatment.name}"></td>
+            <td th:text="${treatment.medicineType}"></td>
+            <td th:text="${treatment.dose}"></td>
+            <td th:text="${treatment.administration}"></td>
+            <td th:text="${treatment.description}"></td>
+            <td><a th:href="@{'/edit-treatment/' + ${treatment.id}}">✏️ Edit</a></td>
+            <td><a th:href="@{'/delete-treatment/' + ${treatment.id}}">🗑️ Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

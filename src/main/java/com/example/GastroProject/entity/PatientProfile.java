@@ -28,11 +28,9 @@ public class PatientProfile {
 
     private LocalDate birthDate;
 
-
     private Integer height;
 
     private Integer weight;
-
 
     private String allergies;
 

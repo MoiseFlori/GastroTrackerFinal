@@ -12,25 +12,10 @@
             height: 100vh;
             margin: 0;
             background-color: #f4f4f4;
-            background-image: url('/images/all-meals1.jpg'); /* Adaugă calea către imaginea de fundal */
+            background-image: url('/images/all-meals1.jpg');
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
-        }
-   .background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .background img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Adăugăm această proprietate pentru a menține proporțiile imaginii */
-            filter: brightness(40%); /* Experimentează cu această valoare pentru a regla luminozitatea */
         }
 
         h1 {
@@ -38,26 +23,32 @@
             color: #fc3ab2;
         }
 
-        table {
+        .table-container {
+            max-height: 300px;
+            overflow-y: auto;
             width: 80%;
             margin-top: 20px;
+            position: relative;
+        }
+
+        table {
             border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.9); /* Opacitate pentru a permite vizibilitatea textului */
+            width: 100%;
         }
 
         th, td {
             padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
-            background-color: rgba(255, 255, 255, 1); /* Opacitate 1 pentru a acoperi complet fundalul */
-
+            background-color: rgba(255, 255, 255, 1);
         }
 
         th {
             background-color: #fc3ab2;
             color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
 
         td a {
@@ -94,11 +85,7 @@
         .add-button:hover {
             background-color: #f598d1;
         }
-        /* Definește stilul pentru clasa "hidden" */
-        .hidden {
-            display: none;
-        }
-          /* Stilizare pentru butonul "Home" */
+
         .home-button {
             text-decoration: none;
             background-color:#fc3ab2;
@@ -115,8 +102,9 @@
         .home-button:hover {
             background-color: #f598d1;
         }
+
         .mb-3 {
-            margin-bottom: 15px; /* spațiu între elemente */
+            margin-bottom: 15px;
         }
 
         .input-group {
@@ -125,16 +113,17 @@
         }
 
         .form-control {
-            width: 300px; /* lățimea rândului de input */
+            width: 300px;
         }
 
         .btn-outline-secondary {
-            background-color: #fc3ab2; /* culoarea butonului */
-            color: white; /* culoarea textului pe buton */
-            border-color: #fc3ab2; /* culoarea chenarului butonului */
-            width: 100px; /* lățimea butonului */
+            background-color: #fc3ab2;
+            color: white;
+            border-color: #fc3ab2;
+            width: 100px;
             transition: background-color 0.3s;
         }
+
         .btn-outline-secondary:hover {
             background-color: #f598d1;
         }
@@ -143,8 +132,7 @@
 </head>
 <body>
 
-
-<!-- Butonul de "Add Symptom" -->
+<!-- Butonul de "Add Meal" -->
 <a class="add-button" th:href="@{/add-meal}">➕ Add Meal</a>
 <a class="home-button" th:href="@{/home1}">🏠 Home</a>
 
@@ -154,7 +142,6 @@
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search..." aria-label="search-input"
                aria-describedby="basic-addon1" name="keyword">
-        <!-- Adaugă câmpul pentru dată -->
         <label>
             <input type="date" class="form-control" placeholder="Select date" name="selectedDate">
         </label>
@@ -166,44 +153,47 @@
     </div>
 </form>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th class="col-xs-4 hidden">Id</th>
-        <th class="col-xs-4">Time</th>
-        <th>Breakfast</th>
-        <th class="col-xs-4">Time</th>
-        <th>Lunch</th>
-        <th class="col-xs-4">Time</th>
-        <th>Dinner</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="meal : ${meals}">
-        <td>
-            <span th:text="${#temporals.format(meal.localDatePart, 'yyyy-MM-dd')}"></span>
-        </td>
-        <td class="hidden"  th:text="${meal.id}"></td>
-        <td>
-            <span th:text="${#temporals.format(meal.localTimePartForBreakfast, 'HH:mm')}"></span>
-        </td>
-        <td th:text="${meal.breakfast}"></td>
-        <td>
-            <span th:text="${#temporals.format(meal.localTimePartForLunch, 'HH:mm')}"></span>
-        </td>
-        <td th:text="${meal.lunch}"></td>
-        <td>
-            <span th:text="${#temporals.format(meal.localTimePartForDinner, 'HH:mm')}"></span>
-        </td>
-        <td th:text="${meal.dinner}"></td>
-        <td><a th:href="@{'/edit-meal/' + ${meal.id}}">✏️ Edit</a></td>
-        <td><a th:href="@{'/delete-meal/' + ${meal.id}}">🗑️ Delete</a></td>
-    </tr>
-    </tbody>
-</table>
+<!-- Container pentru tabelul scrollabil -->
+<div class="table-container">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th class="col-xs-4 hidden">Id</th>
+            <th class="col-xs-4">Time</th>
+            <th>Breakfast</th>
+            <th class="col-xs-4">Time</th>
+            <th>Lunch</th>
+            <th class="col-xs-4">Time</th>
+            <th>Dinner</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="meal : ${meals}">
+            <td>
+                <span th:text="${#temporals.format(meal.localDatePart, 'yyyy-MM-dd')}"></span>
+            </td>
+            <td class="hidden"  th:text="${meal.id}"></td>
+            <td>
+                <span th:text="${#temporals.format(meal.localTimePartForBreakfast, 'HH:mm')}"></span>
+            </td>
+            <td th:text="${meal.breakfast}"></td>
+            <td>
+                <span th:text="${#temporals.format(meal.localTimePartForLunch, 'HH:mm')}"></span>
+            </td>
+            <td th:text="${meal.lunch}"></td>
+            <td>
+                <span th:text="${#temporals.format(meal.localTimePartForDinner, 'HH:mm')}"></span>
+            </td>
+            <td th:text="${meal.dinner}"></td>
+            <td><a th:href="@{'/edit-meal/' + ${meal.id}}">✏️ Edit</a></td>
+            <td><a th:href="@{'/delete-meal/' + ${meal.id}}">🗑️ Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

@@ -11,7 +11,7 @@
             height: 100vh;
             margin: 0;
             background-color: #ccdadb;
-            background-image: url('/images/symptoms.jpg'); /* Adaugă calea către imaginea de fundal */
+            background-image: url('/images/patients.jpg');
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
@@ -37,26 +37,32 @@
             color: #44a4db;
         }
 
-        table {
+        .table-container {
+            max-height: 300px;
+            overflow-y: auto;
             width: 80%;
             margin-top: 20px;
+            position: relative;
+        }
+
+        table {
             border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.9); /* Opacitate pentru a permite vizibilitatea textului */
+            width: 100%;
         }
 
         th, td {
             padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
-            background-color: rgba(255, 255, 255, 1); /* Opacitate 1 pentru a acoperi complet fundalul */
-
+            background-color: rgba(255, 255, 255, 1);
         }
 
         th {
             background-color: #44a4db;
             color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
 
         td a {
@@ -74,33 +80,33 @@
             color: white;
         }
         .mb-3 {
-            margin-bottom: 15px; /* spațiu între elemente */
+            margin-bottom: 15px;
         }
 
         .input-group {
             display: flex;
-            align-items: center; /* butonul să fie aliniat vertical în centrul containerului */
+            align-items: center;
         }
 
         .form-control {
-            width: 300px; /* lățimea rândului de input */
+            width: 300px;
         }
 
         .btn-outline-secondary {
-            background-color: #44a4db; /* culoarea butonului */
-            color: white; /* culoarea textului pe buton */
-            border-color: #44a4db; /* culoarea chenarului butonului */
-            width: 100px; /* lățimea butonului */
+            background-color: #44a4db;
+            color: white;
+            border-color: #44a4db;
+            width: 100px;
             transition: background-color 0.3s;
         }
          .btn-outline-secondary:hover {
             background-color: #94d3f7;
         }
-        /* Definește stilul pentru clasa "hidden" */
+
         .hidden {
             display: none;
         }
-        /* Stilizare pentru butonul "Home" */
+
         .home-button {
             text-decoration: none;
             background-color: #44a4db;
@@ -137,26 +143,29 @@
         </div>
     </div>
 </form>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Diagnosis</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="patient : ${patients}">
-        <td th:text="${patient.name}"></td>
-        <td th:text="${patient.age}"></td>
-        <td th:text="${patient.diagnosis}"></td>
-        <td class="hidden" th:text="${patient.patientId}"></td>
-        <td><a th:href="@{'/edit-patient/' + ${patient.patientId}}">✏️ Edit</a></td>
-        <td><a th:href="@{'/delete-patient/' + ${doctor.doctorId} + '/' + ${patient.patientId}}">🗑️ Delete</a></td>
-    </tr>
-    </tbody>
-</table>
+<div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Diagnosis</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.name}"></td>
+            <td th:text="${patient.age}"></td>
+            <td th:text="${patient.diagnosis}"></td>
+            <td class="hidden" th:text="${patient.patientId}"></td>
+            <td><a th:href="@{'/edit-patient/' + ${patient.patientId}}">✏️ Edit</a></td>
+            <td><a th:href="@{'/delete-patient/' + ${doctor.doctorId} + '/' + ${patient.patientId}}">🗑️ Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

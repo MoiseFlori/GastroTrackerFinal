@@ -55,8 +55,6 @@ public class SymptomDataLoaderService {
                         symptom.setPatient(patient);
                     }
                     symptomRepository.save(symptom);
-                } else {
-                    System.err.println("Invalid data format in line: " + line);
                 }
             }
             System.out.println("Symptoms loaded from file successfully!");

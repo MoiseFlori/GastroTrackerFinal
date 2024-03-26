@@ -17,7 +17,6 @@
            background-attachment: fixed; /*  linie pentru a fixa imaginea la fundal */
        }
 
-
        .container {
             width: 400px;
             background-color: #fff;
@@ -30,24 +29,23 @@
             height: 600px;
        }
 
-
-      h2 {
+       h2 {
          text-align: center;
          margin-bottom: 20px;
-     }
+       }
 
-      form {
+       form {
          text-align: center;
          margin-top: 20px;
-     }
+       }
 
-      label {
+       label {
          display: block;
          text-align: left;
          margin-bottom: 8px;
-     }
+       }
 
-      textarea, input, select {
+       textarea, input, select {
          width: 100%;
          padding: 10px;
          margin-bottom: 16px;
@@ -55,9 +53,9 @@
          border: 1px solid #ccc;
          border-radius: 4px;
          font-size: 14px;
-     }
+       }
 
-      button {
+       button {
          width: 100%;
          background-color: #6ce0a6; /* ROZ */
          color: white;
@@ -68,13 +66,13 @@
          font-size: 14px;
          position: relative;
          overflow: hidden;
-     }
+       }
 
-      button:hover {
+       button:hover {
          background-color:#03944b; /* Nuanță mai închisă de albastru la hover */
-     }
+       }
 
-      button::before {
+       button::before {
          content: '';
          position: absolute;
          width: 100%;
@@ -83,77 +81,77 @@
          transform: scale(0);
          transform-origin: center;
          animation: ripple 0.6s ease-out;
-     }
+       }
 
-      @keyframes ripple {
-             to {
-                 transform: scale(4);
-                 opacity: 0;
-             }
+       @keyframes ripple {
+         to {
+           transform: scale(4);
+           opacity: 0;
          }
+       }
 
-      @keyframes lightEffect {
-            from {
-                box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); /* Schimbă în verde */
-            }
+       @keyframes lightEffect {
+         from {
+           box-shadow: 0 0 10px rgba(0, 255, 0, 0.3); /* Schimbă în verde */
+         }
+         to {
+           box-shadow: 0 0 30px rgba(0, 255, 0, 0.5); /* Schimbă în verde */
+         }
+       }
 
-            to {
-                box-shadow: 0 0 30px rgba(0, 255, 0, 0.5); /* Schimbă în verde */
-            }
-        }
+       input::-webkit-inner-spin-button,
+       input::-webkit-clear-button {
+         display: block;
+       }
 
-        input::-webkit-inner-spin-button,
-                input::-webkit-clear-button {
-                display: block;
-        }
+       input::-webkit-calendar-picker-indicator {
+         color: #f2bde0;
+         opacity: 20
+       }
 
-        input::-webkit-calendar-picker-indicator {
-                color: #f2bde0;
-                opacity: 20
-        }
+       input::-webkit-calendar-picker-indicator:hover {
+         background: transparent;
+         cursor: pointer;
+       }
 
-        input::-webkit-calendar-picker-indicator:hover {
-                background: transparent;
-                cursor: pointer;
-        }
+       input::-webkit-calendar-picker-indicator:hover::after {
+         filter: invert(78%) sepia(95%) saturate(749%) hue-rotate(319deg) brightness(93%) contrast(88%);
+       }
 
-        input::-webkit-calendar-picker-indicator:hover::after {
-                filter: invert(78%) sepia(95%) saturate(749%) hue-rotate(319deg) brightness(93%) contrast(88%);
-        }
+       input::-webkit-calendar-picker-indicator::after {
+         content: '';
+         display: block;
+         background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-32.png) no-repeat;
+         width: 32px;
+         height: 32px;
+         position: absolute;
+         top: 50%;
+         right: 0;
+         margin-top: -16px;
+       }
 
+       .date {
+         position: relative;
+         width: 154px;
+         overflow: auto;
+         margin: 30px auto;
+         background: #6ce0a6;
+       }
 
-        input::-webkit-calendar-picker-indicator::after {
-                content: '';
-                display: block;
-                background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-32.png) no-repeat;
-                width: 32px;
-                height: 32px;
-                position: absolute;
-                top: 50%;
-                right: 0;
-                margin-top: -16px;
-        }
+       input {
+         width: 140px;
+         padding: 5px;
+         height: 24px;
+         display: block;
+       }
 
-        .date {
-                position: relative;
-                width: 154px;
-                overflow: auto;
-                margin: 30px auto;
-                background: #6ce0a6;
-        }
-        input {
-                width: 140px;
-                padding: 5px;
-                height: 24px;
-                display: block;
-        }
-        input[type="time"]::-webkit-datetime-edit-fields-wrapper {
-                background-color: #6ce0a6;
-        }
+       input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+         background-color: #6ce0a6;
+       }
 
-        input[type="date"] {
-                background-color: #6ce0a6;
-        }
+       input[type="date"] {
+         background-color: #6ce0a6;
+       }
 
     </style>
 </head>
@@ -178,7 +176,7 @@
             <option value="SPRAY">Spray</option>
         </select>
 
-        <label for="name">Dose:</label>
+        <label for="dose">Dose:</label>
         <input type="text" id="dose" th:field="*{dose}" required />
 
         <label for="administration">Administration:</label>
@@ -189,16 +187,14 @@
             <option value="IRRELEVANT">Doesn't matter</option>
         </select>
 
-
         <label for="description">Description:</label>
-        <textarea id="description" th:field="*{description}" rows="4" cols="50"></textarea>
+        <textarea id="description" th:field="*{description}" rows="4" cols="50" placeholder="Enter dosage instructions here..."></textarea>
 
-        <label>
-            <input type="date" th:field="*{localDatePart}" />
-        </label>
-        <label>
-            <input type="time" th:field="*{localTimePart}" />
-        </label>
+        <label for="startTreatment">Start Treatment:</label>
+        <input type="date" id="startTreatment" th:field="*{startTreatment}" required />
+
+        <label for="durationInDays">Duration (in days):</label>
+        <input type="number" id="durationInDays" th:field="*{durationInDays}" required />
 
         <button type="submit">Add Treatment</button>
     </form>

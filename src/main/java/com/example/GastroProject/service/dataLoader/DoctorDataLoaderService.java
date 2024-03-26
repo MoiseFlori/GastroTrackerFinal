@@ -1,7 +1,6 @@
 package com.example.GastroProject.service.dataLoader;
 
 import com.example.GastroProject.entity.Doctor;
-import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.DoctorRepository;
 import com.example.GastroProject.repository.UserRepository;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -30,7 +28,7 @@ public class DoctorDataLoaderService {
         try (BufferedReader doctorReader = new BufferedReader(new FileReader(doctorFilePath))) {
             doctorReader.readLine();
             String line;
-            int index = 0; // Acest index va urmări utilizatorul curent care trebuie asociat cu datele pacientului
+            int index = 0;
 
             while ((line = doctorReader.readLine()) != null && index < usersWithPatientRole.size()) {
                 String[] doctorData = line.split(",");
@@ -43,7 +41,7 @@ public class DoctorDataLoaderService {
 
                     if (doctor == null) {
                         doctor = new Doctor();
-                        doctor.setUser(user); // Asociază utilizatorul cu pacientul
+                        doctor.setUser(user);
                     }
 
                     doctor.setName(user.getName());
@@ -53,7 +51,7 @@ public class DoctorDataLoaderService {
 
 
                     doctorRepository.save(doctor);
-                    index++; // Treci la următorul utilizator cu rol de pacient
+                    index++;
                 }
             }
         } catch (IOException e) {

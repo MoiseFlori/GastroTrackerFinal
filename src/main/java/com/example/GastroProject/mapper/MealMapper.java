@@ -1,9 +1,7 @@
 package com.example.GastroProject.mapper;
 
 import com.example.GastroProject.dto.MealDto;
-import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.entity.Meal;
-import com.example.GastroProject.entity.Symptom;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

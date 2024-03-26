@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Treatment Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            margin: 0;
+            background-image: url('/images/treatment-details.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        .container {
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            text-align: center;
+            position: relative;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            }
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-button {
+            background-color: #f5d67a;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #fabf11;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Treatment Details</h1>
+
+    <div>
+        <p>Name: <span th:text="${treatment.name}"></span></p>
+        <p>Start Date: <span th:text="${#temporals.format(treatment.startTreatment, 'yyyy-MM-dd')}"></span></p>
+        <p>End Date: <span th:text="${#temporals.format(treatment.endTreatment, 'yyyy-MM-dd')}"></span></p>
+        <p>Duration (days): <span th:text="${treatment.durationInDays}"></span></p>
+        <p th:if="${isFinished}">Finish</p>
+        <p th:unless="${isFinished}">
+            Days Remaining: <span th:text="${daysRemaining}"></span>
+        </p>
+
+        <p>Read more about this medication: <a th:href="'https://www.google.com/search?q=' + ${treatment.name}" target="_blank">Google</a></p>
+
+        <a class="back-button" th:href="@{/all-treatments}">Back</a>
+    </div>
+</div>
+
+</body>
+</html>

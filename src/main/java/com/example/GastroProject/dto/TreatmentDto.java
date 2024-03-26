@@ -18,20 +18,16 @@ import java.time.LocalTime;
 public class TreatmentDto {
 
     private Long id;
-
     private String name;
-
     private String dose;
-
     private MedicineType medicineType;
-
     private Administration administration;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate localDatePart;
-
-    private LocalTime localTimePart;
-
+    private LocalDate startTreatment;
+    private LocalDate endTreatment;
     private String description;
+    private Integer durationInDays;
+    private Long patientId;
+
 
 }
+

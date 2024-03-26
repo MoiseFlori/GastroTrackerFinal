@@ -1,10 +1,8 @@
 package com.example.GastroProject.service;
 
 import com.example.GastroProject.dto.AppointmentDto;
-import com.example.GastroProject.entity.Appointment;
 import com.example.GastroProject.entity.Doctor;
 import com.example.GastroProject.entity.Patient;
-import com.example.GastroProject.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;

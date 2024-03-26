@@ -3,10 +3,8 @@ package com.example.GastroProject.service.dataLoader;
 import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.Severity;
 import com.example.GastroProject.entity.Symptom;
-import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.SymptomRepository;
-import com.example.GastroProject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +37,6 @@ public class SymptomDataLoaderService {
 
                 String[] symptomData = line.split(",");
 
-                // Verifică dacă array-ul conține suficiente elemente
                 if (symptomData.length >= 6) {
                     Symptom symptom = new Symptom();
                     symptom.setName(symptomData[0]);

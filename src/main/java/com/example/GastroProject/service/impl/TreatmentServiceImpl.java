@@ -1,22 +1,14 @@
 package com.example.GastroProject.service.impl;
 
-import com.example.GastroProject.dto.MealDto;
-import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
 import com.example.GastroProject.entity.*;
-import com.example.GastroProject.exception.MealNotFoundException;
 import com.example.GastroProject.exception.TreatmentNotFoundException;
-import com.example.GastroProject.mapper.SymptomMapper;
 import com.example.GastroProject.mapper.TreatmentMapper;
 import com.example.GastroProject.repository.PatientRepository;
-import com.example.GastroProject.repository.SymptomRepository;
 import com.example.GastroProject.repository.TreatmentRepository;
-import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.TreatmentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,13 +28,6 @@ public class TreatmentServiceImpl implements TreatmentService {
     private final TreatmentMapper treatmentMapper;
 
 
-//    @Override
-//    public List<TreatmentDto> getAllTreatments() {
-//        List<Treatment> treatments = treatmentRepository.findAll();
-//        return treatments.stream()
-//                .map(treatmentMapper::entityToDTO)
-//                .toList();
-//    }
 
     @Override
     public void addTreatment(TreatmentDto treatmentDto, String email) {
@@ -59,24 +44,27 @@ public class TreatmentServiceImpl implements TreatmentService {
     }
 
     @Override
-    public void updateTreatment(Long id,TreatmentDto updatedTreatment) {
+    public void updateTreatment(Long id, TreatmentDto updatedTreatment) {
         Optional<Treatment> optionalTreatment = treatmentRepository.findById(id);
 
         if (optionalTreatment.isPresent()) {
             Treatment existingTreatment = optionalTreatment.get();
-            existingTreatment.setLocalDatePart(updatedTreatment.getLocalDatePart());
-            existingTreatment.setLocalTimePart(updatedTreatment.getLocalTimePart());
             existingTreatment.setName(updatedTreatment.getName());
             existingTreatment.setDose(updatedTreatment.getDose());
             existingTreatment.setMedicineType(updatedTreatment.getMedicineType());
             existingTreatment.setAdministration(updatedTreatment.getAdministration());
             existingTreatment.setDescription(updatedTreatment.getDescription());
-
+            if (!existingTreatment.getStartTreatment().equals(updatedTreatment.getStartTreatment())) {
+                existingTreatment.setStartTreatment(updatedTreatment.getStartTreatment());
+                existingTreatment.setDurationInDays(updatedTreatment.getDurationInDays());
+                existingTreatment.setEndTreatment(updatedTreatment.getStartTreatment().plusDays(updatedTreatment.getDurationInDays()).minusDays(1));
+            }
             treatmentRepository.save(existingTreatment);
         } else {
             throw new TreatmentNotFoundException("Treatment with ID " + updatedTreatment.getId() + " not found");
         }
     }
+
 
     @Override
     public void deleteTreatment(Long id) {
@@ -87,18 +75,21 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     @Override
     public List<TreatmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate) {
-        List<Treatment> treatments = treatmentRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "localDatePart"));
+        List<Treatment> treatments = treatmentRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "startTreatment"));
         return treatments.stream()
-                .filter(treatment -> (selectedDate == null || treatment.getLocalDatePart().equals(selectedDate)) &&
+                .filter(treatment -> (selectedDate == null || treatment.getStartTreatment().equals(selectedDate) ||
+                        (treatment.getEndTreatment() != null && treatment.getEndTreatment().equals(selectedDate))) &&
                         (keyword == null ||
                                 treatment.getName().toLowerCase().contains(keyword.toLowerCase()) ||
                                 treatment.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
                                 treatment.getAdministration().name().toLowerCase().contains(keyword.toLowerCase()) ||
                                 treatment.getMedicineType().name().toLowerCase().contains(keyword.toLowerCase()) ||
-                                treatment.getDose().toLowerCase().contains(keyword.toLowerCase())))
+                                treatment.getDose().toLowerCase().contains(keyword.toLowerCase()) ||
+                                treatment.getDurationInDays().toString().contains(keyword)))
                 .map(treatmentMapper::entityToDTO)
                 .toList();
     }
+
 
     @Override
     @Transactional

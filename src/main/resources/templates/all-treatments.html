@@ -49,6 +49,7 @@
             position: sticky;
             top: 0;
             z-index: 1;
+            width: 200px;
         }
 
         td a {
@@ -127,7 +128,9 @@
         .btn-outline-secondary:hover {
             background-color: #fc7f03;
         }
-
+         .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -135,7 +138,7 @@
 <a class="add-button" th:href="@{/add-treatment}">➕ Add Treatment</a>
 <a class="home-button" th:href="@{/home2}">🏠 Home</a>
 <form method="post" action="/export-pdf">
-    <button type="submit">Export PDF</button>
+    <button type="submit">Export Treatments</button>
 </form>
 
 <h1>Your Treatments</h1>
@@ -159,11 +162,12 @@
         <thead>
         <tr>
             <th>Date</th>
-            <th class="col-xs-4 hidden">Id</th>
+            <th class="hidden">Id</th>
             <th>Name</th>
             <th>Medicine Type</th>
             <th>Dose</th>
             <th>Administration</th>
+            <th>Duration (days)</th>
             <th>Description</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -172,15 +176,16 @@
         <tbody>
         <tr th:each="treatment : ${treatments}">
             <td>
-                <span th:text="${#temporals.format(treatment.localDatePart, 'yyyy-MM-dd')}"></span>
+                <span th:text="${#temporals.format(treatment.startTreatment, 'yyyy-MM-dd')}"></span>
                 <br>
-                <span th:text="${#temporals.format(treatment.localTimePart, 'HH:mm')}"></span>
+                <span th:text="${#temporals.format(treatment.endTreatment, 'yyyy-MM-dd')}"></span>
             </td>
             <td class="hidden" th:text="${treatment.id}"></td>
-            <td th:text="${treatment.name}"></td>
+            <td><a th:href="@{'/treatment-details/' + ${treatment.id}}" th:text="${treatment.name}">View Details</a></td>
             <td th:text="${treatment.medicineType}"></td>
             <td th:text="${treatment.dose}"></td>
             <td th:text="${treatment.administration}"></td>
+            <td th:text="${treatment.durationInDays}"></td>
             <td th:text="${treatment.description}"></td>
             <td><a th:href="@{'/edit-treatment/' + ${treatment.id}}">✏️ Edit</a></td>
             <td><a th:href="@{'/delete-treatment/' + ${treatment.id}}">🗑️ Delete</a></td>

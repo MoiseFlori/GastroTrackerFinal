@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 
 @Entity
@@ -31,14 +30,30 @@ public class Treatment {
     private Administration administration;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate localDatePart;
+    private LocalDate startTreatment;
 
-    private LocalTime localTimePart;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endTreatment;
+
+
     private String description;
 
+    private Integer durationInDays;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Patient patient;
 
 
+
+    @PrePersist
+    public void calculateEndTreatmentDate() {
+        if (startTreatment != null && durationInDays != null) {
+            endTreatment = startTreatment.plusDays(durationInDays).minusDays(1);
+        }
+    }
+
 }
+
+
+
+

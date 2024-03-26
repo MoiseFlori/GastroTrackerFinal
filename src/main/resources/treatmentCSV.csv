@@ -1,28 +1,28 @@
-DATE,TIME,NAME,MEDICINETYPE,DOSE,ADMINISTRATION,DESCRIPTION,PATIENT
-2024-02-21,12:45,Ibuprofen,Capsule,200mg,AFTER_MEAL,Take with a large glass of water,bobjohnson@example.com
-2024-02-23,09:00,Ranitidine,Capsule,50mg,IRRELEVANT,Take with or without food,michaelbrown@example.com
-2024-02-25,20:30,Metformin,Capsule,10mg,WITH_MEAL,Administer with food,davidwilson@example.com
-2024-02-26,10:45,Vitamin D,Capsule,1000mg,IRRELEVANT,Administer with food,sophiamoore@example.com
-2024-02-27,16:00,Antibiotic,Capsule,500mg,BEFORE_MEAL,Administer at regular intervals,williamtaylor@example.com
-2024-02-28,12:15,Paracetamol,Capsule,250mg,IRRELEVANT,Take as needed,bobjohnson@example.com
-2024-02-29,09:30,Omeprazole,Capsule,20mg,BEFORE_MEAL,Administer at the same time each day,michaelbrown@example.com
-2024-03-01,14:15,Aspirin,Capsule,75mg,IRRELEVANT,Take with a full glass of water,davidwilson@example.com
-2024-03-02,10:45,Iron Supplement,Capsule,50mg,WITH_MEAL,Administer with food,sophiamoore@example.com
-2024-03-03,16:30,Antibiotic,Capsule,250mg,AFTER_MEAL,Administer at regular intervals,williamtaylor@example.com
-2024-03-04,11:45,Vitamin C,Capsule,500mg,IRRELEVANT,Administer with or without food,bobjohnson@example.com
-2024-03-05,17:30,Laxative,Capsule,10mg,BEFORE_MEAL,Take at bedtime,michaelbrown@example.com
-2024-03-06,12:15,Antihistamine,Capsule,25mg,IRRELEVANT,Take with or without food,davidwilson@example.com
-2024-03-07,09:45,Calcium Supplement,Capsule,1000mg,WITH_MEAL,Administer with food,sophiamoore@example.com
-2024-03-08,14:30,Antibiotic,Capsule,500mg,AFTER_MEAL,Administer at regular intervals,williamtaylor@example.com
-2024-03-09,10:00,Painkiller,Capsule,150mg,IRRELEVANT,Take with a meal,bobjohnson@example.com
-2024-03-10,15:45,Probiotic,Capsule,20mg,BEFORE_MEAL,Administer at the same time each day,michaelbrown@example.com
-2024-03-11,11:30,Ibuprofen,Capsule,200mg,AFTER_MEAL,Take with a large glass of water,emilyjohnson@example.com
-2024-03-12,16:15,Ranitidine,Capsule,50mg,IRRELEVANT,Take with or without food,danielharris@example.com
-2024-03-13,13:00,Metformin,Capsule,10mg,WITH_MEAL,Administer with food,sarahmiller@example.com
-2024-03-14,17:45,Vitamin D,Capsule,1000mg,IRRELEVANT,Administer with food,ryanturner@example.com
-2024-03-15,12:30,Antibiotic,Capsule,500mg,BEFORE_MEAL,Administer at regular intervals,chloedavis@example.com
-2024-03-16,09:45,Paracetamol,Capsule,250mg,IRRELEVANT,Take as needed,matthewwilson@example.com
-2024-03-17,14:30,Omeprazole,Capsule,20mg,BEFORE_MEAL,Administer at the same time each day,avabrown@example.com
-2024-03-18,10:45,Aspirin,Capsule,75mg,IRRELEVANT,Take with a full glass of water,jamesclark@example.com
-2024-03-19,16:00,Iron Supplement,Capsule,50mg,WITH_MEAL,Administer with food,lilysmith@example.com
-2024-03-20,10:30,Antibiotic,Capsule,250mg,AFTER_MEAL,Administer at regular intervals,benjamintaylor@example.com
+START_TREATMENT,NAME,MEDICINETYPE,DOSE,ADMINISTRATION,DESCRIPTION,PATIENT,DURATION_IN_DAYS
+2024-02-21,Ibuprofen,Capsule,200mg,AFTER_MEAL,1cp/12h,bobjohnson@example.com,10
+2024-02-23,Ranitidine,Capsule,50mg,IRRELEVANT,1cp/8h,michaelbrown@example.com,5
+2024-02-25,Metformin,Capsule,10mg,WITH_MEAL,1cp/24h,davidwilson@example.com,10
+2024-02-26,Vitamin D,Capsule,1000mg,IRRELEVANT,1cp/12h,sophiamoore@example.com,30
+2024-02-27,Antibiotic,Capsule,500mg,BEFORE_MEAL,Administer at regular intervals,williamtaylor@example.com,30
+2024-02-28,Paracetamol,Capsule,250mg,IRRELEVANT,Take as needed,bobjohnson@example.com,5
+2024-02-29,Omeprazole,Capsule,20mg,BEFORE_MEAL,Administer at the same time each day-1cp/12h,michaelbrown@example.com,10
+2024-03-01,Aspirin,Capsule,75mg,IRRELEVANT,Take with a full glass of water-1cp/24h,davidwilson@example.com,7
+2024-03-02,Iron Supplement,Capsule,50mg,WITH_MEAL,Administer with food-1cp/24h,sophiamoore@example.com,20
+2024-03-03,Antibiotic,Capsule,250mg,AFTER_MEAL,Administer at regular intervals-1cp/12h,williamtaylor@example.com,8
+2024-03-04,Vitamin C,Capsule,500mg,IRRELEVANT,Administer with or without food-2cp/24h,bobjohnson@example.com,30
+2024-03-05,Laxative,Capsule,10mg,BEFORE_MEAL,Take at bedtime,michaelbrown@example.com,15
+2024-03-06,Antihistamine,Capsule,25mg,IRRELEVANT,Take with or without food,davidwilson@example.com,7
+2024-03-07,Calcium Supplement,Capsule,1000mg,WITH_MEAL,Administer with food,sophiamoore@example.com,5
+2024-03-08,Antibiotic,Capsule,500mg,AFTER_MEAL,Administer at regular intervals,williamtaylor@example.com,20
+2024-03-09,Painkiller,Capsule,150mg,IRRELEVANT,Take with a meal,bobjohnson@example.com,7
+2024-03-10,Probiotic,Capsule,20mg,BEFORE_MEAL,Administer at the same time each day,michaelbrown@example.com,6
+2024-03-11,Ibuprofen,Capsule,200mg,AFTER_MEAL,Take with a large glass of water,emilyjohnson@example.com,8
+2024-03-12,Ranitidine,Capsule,50mg,IRRELEVANT,Take with or without food,danielharris@example.com,20
+2024-03-13,Metformin,Capsule,10mg,WITH_MEAL,Administer with food,sarahmiller@example.com,10
+2024-03-14,Vitamin D,Capsule,1000mg,IRRELEVANT,Administer with food,ryanturner@example.com,10
+2024-03-15,Antibiotic,Capsule,500mg,BEFORE_MEAL,Administer at regular intervals,chloedavis@example.com,30
+2024-03-16,Paracetamol,Capsule,250mg,IRRELEVANT,Take as needed,matthewwilson@example.com,20
+2024-03-17,Omeprazole,Capsule,20mg,BEFORE_MEAL,Administer at the same time each day,avabrown@example.com,60
+2024-03-18,Aspirin,Capsule,75mg,IRRELEVANT,Take with a full glass of water,jamesclark@example.com,60
+2024-03-19,Iron Supplement,Capsule,50mg,WITH_MEAL,Administer with food,lilysmith@example.com,30
+2024-03-20,Antibiotic,Capsule,250mg,AFTER_MEAL,Administer at regular intervals,benjamintaylor@example.com,10

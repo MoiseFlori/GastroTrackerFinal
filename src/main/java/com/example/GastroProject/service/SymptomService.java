@@ -2,8 +2,6 @@ package com.example.GastroProject.service;
 
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.entity.Patient;
-import com.example.GastroProject.entity.Symptom;
-import com.example.GastroProject.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

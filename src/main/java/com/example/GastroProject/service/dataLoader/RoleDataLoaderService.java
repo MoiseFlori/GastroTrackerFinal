@@ -1,10 +1,7 @@
 package com.example.GastroProject.service.dataLoader;
 
 import com.example.GastroProject.entity.Role;
-import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.RoleRepository;
-import com.example.GastroProject.repository.UserRepository;
-import com.example.GastroProject.util.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

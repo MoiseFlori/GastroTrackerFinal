@@ -1,9 +1,7 @@
 package com.example.GastroProject.repository;
 
 import com.example.GastroProject.entity.Patient;
-import com.example.GastroProject.entity.Symptom;
 import com.example.GastroProject.entity.Treatment;
-import com.example.GastroProject.entity.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

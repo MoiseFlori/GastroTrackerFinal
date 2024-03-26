@@ -4,6 +4,7 @@ import com.example.GastroProject.dto.MealDto;
 import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
 import com.example.GastroProject.entity.Patient;
+import com.example.GastroProject.entity.Treatment;
 import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.UserRepository;
@@ -25,10 +26,8 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Controller
 @RequestMapping
@@ -54,9 +53,36 @@ public class TreatmentController {
         model.addAttribute("treatments", Objects.requireNonNullElseGet(treatments, ArrayList::new));
         return "all-treatments";
     }
+    @GetMapping("/treatment-details/{id}")
+    public String showTreatmentDetails(@PathVariable Long id, Model model) {
+        Optional<TreatmentDto> optionalTreatment = treatmentService.findById(id);
+
+        if (optionalTreatment.isPresent()) {
+            TreatmentDto treatment = optionalTreatment.get();
+
+            LocalDate currentDate = LocalDate.now();
+            long daysRemaining = ChronoUnit.DAYS.between(currentDate, treatment.getEndTreatment());
+
+            model.addAttribute("treatment", treatment);
+            model.addAttribute("daysRemaining", daysRemaining);
+
+            if (daysRemaining <= 0) {
+                model.addAttribute("isFinished", true);
+            } else {
+                model.addAttribute("isFinished", false);
+            }
+
+            return "treatmentDetails";
+        } else {
+            return "errorPage";
+        }
+    }
+
+
+
 
     @GetMapping("/add-treatment")
-    public String showTreatmentForm(Model model) {
+    public String showAddTreatmentForm(Model model) {
         TreatmentDto treatmentDto = new TreatmentDto();
         model.addAttribute("treatment", treatmentDto);
         return "add-treatment";
@@ -97,7 +123,7 @@ public class TreatmentController {
             List<TreatmentDto> patientTreatments = treatmentService.getPatientTreatments(patientName);
 
             if (!patientTreatments.isEmpty()) {
-                byte[] pdfBytes = PdfExporter.exportTreatmentListToPdfWithBackground(patientName, patientTreatments);
+                byte[] pdfBytes = PdfExporter.exportTreatmentListToPdf(patientName, patientTreatments);
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_PDF);
@@ -112,6 +138,8 @@ public class TreatmentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(("An error occurred while exporting to PDF: " + e.getMessage()).getBytes());
         }
     }
+
+
 
 
 }

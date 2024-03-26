@@ -4,7 +4,6 @@ import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.PatientProfile;
 import com.example.GastroProject.repository.PatientProfileRepository;
 import com.example.GastroProject.repository.PatientRepository;
-import com.example.GastroProject.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

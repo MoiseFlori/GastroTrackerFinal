@@ -1,18 +1,13 @@
 package com.example.GastroProject.configurations;
 import com.example.GastroProject.service.dataLoader.DataLoaderService;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.example.GastroProject.entity.Doctor;
 import com.example.GastroProject.entity.DoctorSchedule;
 import com.example.GastroProject.repository.DoctorRepository;
 import com.example.GastroProject.repository.DoctorScheduleRepository;
-import com.example.GastroProject.service.dataLoader.DataLoaderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

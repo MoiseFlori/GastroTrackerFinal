@@ -1,17 +1,11 @@
 package com.example.GastroProject.service.impl;
 
 import com.example.GastroProject.dto.MealDto;
-import com.example.GastroProject.dto.SymptomDto;
-import com.example.GastroProject.dto.TreatmentDto;
 import com.example.GastroProject.entity.*;
 import com.example.GastroProject.exception.MealNotFoundException;
-import com.example.GastroProject.exception.SymptomNotFoundException;
 import com.example.GastroProject.mapper.MealMapper;
-import com.example.GastroProject.mapper.SymptomMapper;
 import com.example.GastroProject.repository.MealRepository;
 import com.example.GastroProject.repository.PatientRepository;
-import com.example.GastroProject.repository.SymptomRepository;
-import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.MealService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -31,14 +25,6 @@ public class MealServiceImpl implements MealService {
 
     private final MealMapper mealMapper;
 
-
-//    @Override
-//    public List<MealDto> getAllMeals() {
-//        List<Meal> meals = mealRepository.findAll();
-//        return meals.stream()
-//                .map(mealMapper::entityToDTO)
-//                .toList();
-//    }
 
     @Override
     public void addMeal(MealDto mealDto, String email) {

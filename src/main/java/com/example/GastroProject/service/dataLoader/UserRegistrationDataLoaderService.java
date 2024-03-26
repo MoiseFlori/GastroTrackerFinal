@@ -1,11 +1,6 @@
 package com.example.GastroProject.service.dataLoader;
-
-import com.example.GastroProject.entity.Doctor;
-import com.example.GastroProject.entity.Patient;
 import com.example.GastroProject.entity.Role;
 import com.example.GastroProject.entity.User;
-import com.example.GastroProject.repository.DoctorRepository;
-import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.RoleRepository;
 import com.example.GastroProject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 

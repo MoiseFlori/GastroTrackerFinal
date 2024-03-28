@@ -25,33 +25,33 @@
         .container {
             display: flex;
             justify-content: space-between;
-            max-width: 800px; /* Ajustează această valoare conform necesităților */
+            max-width: 800px;
         }
 
         #calendar {
-            max-width: 400px; /* Lățimea calendarului */
-            margin-right: 20px; /* Distanțare între calendar și formular */
+            max-width: 400px;
+            margin-right: 20px;
              color: #8e24aa;
         }
       .fc-day-today {
-            background-color: #8e24aa; /* Mov pentru ziua curentă */
-            color: white; /* Text alb pentru ziua curentă */
+            background-color: #8e24aa;
+            color: white;
         }
 
-        /* Butonul "Today" */
+
         .fc-today-button, .fc-today-button:hover {
-            background-color: #8e24aa; /* Mov pentru butonul "Today" */
-            color: white; /* Text alb pentru butonul "Today" */
+            background-color: #8e24aa;
+            color: white;
         }
 
-        /* Sageti navigare */
+
         .fc-button {
-            color: #8e24aa; /* Text mov pentru sageti */
+            color: #8e24aa;
         }
 
         .fc-button:hover {
-            background-color: #8e24aa; /* Fond mov la hover pentru sageti */
-            color: white; /* Text alb la hover pentru sageti */
+            background-color: #8e24aa;
+            color: white;
         }
 
 
@@ -59,7 +59,7 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            width: 300px; /* Lățimea formularului */
+            width: 300px;
         }
 
         #selectedDateDisplay {
@@ -165,6 +165,7 @@
 
             <label for="patientId">Select Patient:</label>
             <select id="patientId" name="patientId" th:field="*{patientId}">
+                <option value="" selected>Select a patient</option>
                 <option th:each="patient : ${patients}" th:value="${patient.patientId}" th:text="${patient.name}"></option>
             </select>
 

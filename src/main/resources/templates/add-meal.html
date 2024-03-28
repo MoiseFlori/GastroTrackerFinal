@@ -14,7 +14,7 @@
                 background-size: cover;
                 background-position: center;
                 background-repeat: repeat;
-                background-attachment: fixed; /*  linie pentru a fixa imaginea la fundal */
+                background-attachment: fixed;
             }
 
 
@@ -26,7 +26,7 @@
                  box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
                  animation: lightEffect 1.5s infinite alternate;
                  text-align: center;
-                 overflow: auto; /* permite derularea */
+                 overflow: auto;
                  height: 600px;
             }
 
@@ -59,7 +59,7 @@
 
            button {
               width: 100%;
-              background-color: #f7dfef; /* ROZ */
+              background-color: #f7dfef;
               color: white;
               padding: 10px 15px;
               border: none;
@@ -71,7 +71,7 @@
           }
 
            button:hover {
-              background-color: #eb91cd; /* Nuanță mai închisă de albastru la hover */
+              background-color: #eb91cd;
           }
 
            button::before {
@@ -94,65 +94,65 @@
 
        @keyframes lightEffect {
     from {
-        box-shadow: 0 0 10px rgba(255, 192, 203, 0.3); /* Roz deschis pentru umbra */
+        box-shadow: 0 0 10px rgba(255, 192, 203, 0.3);
     }
     to {
-        box-shadow: 0 0 30px rgba(255, 192, 203, 0.5); /* Roz deschis pentru umbra mai intensă */
+        box-shadow: 0 0 30px rgba(255, 192, 203, 0.5);
     }
 }
 
-input::-webkit-inner-spin-button,
-input::-webkit-clear-button {
-  display: block;
-}
+        input::-webkit-inner-spin-button,
+        input::-webkit-clear-button {
+          display: block;
+        }
 
-input::-webkit-calendar-picker-indicator {
-  color: #f2bde0;
-  opacity: 20
-}
+        input::-webkit-calendar-picker-indicator {
+          color: #f2bde0;
+          opacity: 20
+        }
 
-input::-webkit-calendar-picker-indicator:hover {
-  background: transparent;
-  cursor: pointer;
-}
+        input::-webkit-calendar-picker-indicator:hover {
+          background: transparent;
+          cursor: pointer;
+        }
 
-input::-webkit-calendar-picker-indicator:hover::after {
-  filter: invert(78%) sepia(95%) saturate(749%) hue-rotate(319deg) brightness(93%) contrast(88%);
-}
+        input::-webkit-calendar-picker-indicator:hover::after {
+          filter: invert(78%) sepia(95%) saturate(749%) hue-rotate(319deg) brightness(93%) contrast(88%);
+        }
 
 
-input::-webkit-calendar-picker-indicator::after {
-  content: '';
-  display: block;
-  background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-32.png) no-repeat;
-  width: 32px;
-  height: 32px;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  margin-top: -16px;
-}
+        input::-webkit-calendar-picker-indicator::after {
+          content: '';
+          display: block;
+          background: url(https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_keyboard_arrow_down_48px-32.png) no-repeat;
+          width: 32px;
+          height: 32px;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          margin-top: -16px;
+        }
 
-.date {
-  position: relative;
-  width: 154px;
-  overflow: auto;
-  margin: 30px auto;
-  background: #000;
-}
-input {
-  width: 140px;
-  padding: 5px;
-  height: 24px;
-  display: block;
-}
-input[type="time"]::-webkit-datetime-edit-fields-wrapper {
-    background-color: #f2bde0; /* Roz deschis pentru zona de selectare a orei */
-}
+        .date {
+          position: relative;
+          width: 154px;
+          overflow: auto;
+          margin: 30px auto;
+          background: #000;
+        }
+        input {
+          width: 140px;
+          padding: 5px;
+          height: 24px;
+          display: block;
+        }
+        input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+            background-color: #f2bde0;
+        }
 
-input[type="date"] {
-    background-color: #f2bde0; /* Roz deschis */
-}
+        input[type="date"] {
+            background-color: #f2bde0;
+        }
 
 
     </style>

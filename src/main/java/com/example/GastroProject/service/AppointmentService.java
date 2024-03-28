@@ -15,7 +15,6 @@ import java.util.Optional;
 public interface AppointmentService {
 
 
-
     void saveAppointmentForPatient(AppointmentDto appointmentDto, String email, Long doctorId);
 
     void saveAppointmentForDoctor(AppointmentDto appointmentDto, String name, Long patientId);
@@ -24,9 +23,7 @@ public interface AppointmentService {
 
     void updateAppointmentForPatient(AppointmentDto updatedAppointment);
 
-
     List<AppointmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
-
 
     List<AppointmentDto> findByDoctorAndKeywordAndDate(Doctor doctor, String keyword, LocalDate selectedDate);
 

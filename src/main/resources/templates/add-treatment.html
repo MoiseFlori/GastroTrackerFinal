@@ -167,6 +167,7 @@
 
         <label for="medicineType">Medicine Type:</label>
         <select id="medicineType" th:field="*{medicineType}" required>
+            <option value="" selected>Select a medicine type</option>
             <option value="CAPSULE">Capsule</option>
             <option value="INJECTION">Injection</option>
             <option value="PROCEDURES">Procedures</option>
@@ -181,6 +182,7 @@
 
         <label for="administration">Administration:</label>
         <select id="administration" th:field="*{administration}" required>
+            <option value="" selected>Select administration</option>
             <option value="BEFORE_MEAL">Before meal</option>
             <option value="AFTER_MEAL">After meal</option>
             <option value="WITH_MEAL">With meal</option>

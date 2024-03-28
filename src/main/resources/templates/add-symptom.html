@@ -14,7 +14,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: repeat;
-            background-attachment: fixed; /*  linie pentru a fixa imaginea la fundal */
+            background-attachment: fixed;
         }
 
         .container {
@@ -55,7 +55,7 @@
 
         button {
             width: 100%;
-            background-color: #2196F3; /* Albastru */
+            background-color: #2196F3;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -113,6 +113,7 @@
 
         <label for="severity">Severity:</label>
         <select id="severity" th:field="*{severity}" required>
+            <option value="" selected>Select severity</option>
             <option value="MILD">Mild</option>
             <option value="MODERATE">Moderate</option>
             <option value="SEVERE">Severe</option>

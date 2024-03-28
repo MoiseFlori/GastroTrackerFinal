@@ -48,7 +48,7 @@ public class SecurityConfig {
 						.requestMatchers("/doctor-page").hasAnyAuthority("ROLE_DOCTOR","ROLE_ADMIN")
 						.requestMatchers("/user-page").hasAnyAuthority("ROLE_PATIENT","ROLE_ADMIN")
 						.requestMatchers("/registration", "/css/**","/registration-doctor","/welcome","/redirect","/v3/api-docs/**",
-								"/swagger-ui/**")
+								"/swagger-ui/**","/")
 
 						.permitAll()
 						.anyRequest().authenticated())

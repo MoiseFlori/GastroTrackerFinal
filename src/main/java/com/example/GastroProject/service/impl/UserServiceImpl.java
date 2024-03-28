@@ -5,6 +5,7 @@ import com.example.GastroProject.entity.*;
 import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,4 +39,17 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public String determineRedirectURL(Authentication authentication) {
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        boolean isPatient = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_PATIENT"));
+        boolean isDoctor = authorities.stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_DOCTOR"));
+
+        if (isPatient) {
+            return "redirect:/user-page";
+        } else if (isDoctor) {
+            return "redirect:/doctor-page";
+        } else {
+            return "redirect:/welcome";
+        }
+    }
 }

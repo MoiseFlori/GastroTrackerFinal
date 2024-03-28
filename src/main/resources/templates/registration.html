@@ -97,11 +97,12 @@
         <div class="form-group">
             <label for="doctorId">Choose Doctor:</label>
             <label>
-                <select th:field="*{doctorId}" class="form-control">
-                    <option value="" disabled selected>Select a doctor</option>
+                <select th:field="*{doctorId}" class="form-control" id="doctorId">
+                    <option value="" selected>Select a doctor</option>
                     <option th:each="doctor : ${doctors}" th:value="${doctor.doctorId}" th:text="${doctor.name}"></option>
                 </select>
             </label>
+
         </div>
 
 
@@ -111,7 +112,7 @@
         <input type="submit" value="Register">
 
         <div class="form-group">
-            <span>Already registered? <a href="/login" th:href="@{/login}">Login here</a></span>
+            <span>Already registered? <a th:href="@{/login}">Login here</a></span>
         </div>
     </form>
 </div>

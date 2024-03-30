@@ -40,8 +40,13 @@ public class Treatment {
 
     private Integer durationInDays;
 
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Patient patient;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Doctor doctor;
+
 
 
 

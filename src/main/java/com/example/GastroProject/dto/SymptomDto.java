@@ -28,4 +28,6 @@ public class SymptomDto {
     private Severity severity;
 
     private String description;
+
+    private Long patientId;
 }

@@ -35,7 +35,7 @@ public class PatientProfile {
     private String allergies;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
 

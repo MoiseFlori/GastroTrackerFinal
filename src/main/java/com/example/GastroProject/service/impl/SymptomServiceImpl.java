@@ -66,6 +66,10 @@ public class SymptomServiceImpl implements SymptomService {
                 .toList();
     }
 
+    @Override
+    public List<Symptom> getSymptomsByPatientId(Long patientId) {
+        return symptomRepository.findByPatientId(patientId);
+    }
 
 
     public void deleteSymptom(Long id) {

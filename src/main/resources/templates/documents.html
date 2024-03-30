@@ -93,18 +93,17 @@
 <body>
 <a class="home-button" th:href="@{/home6}">🏠 Home</a>
 <h2>Documents</h2>
-<!-- Formular pentru încărcarea fișierului -->
 <form action="/upload" method="post" enctype="multipart/form-data">
     <input type="file" name="file" accept="image/*,.doc,.docx,application/pdf" id="fileInput">
     <label for="fileInput">Choose File</label>
-    <input type="text" name="patientFileName" placeholder="File name">
+    <label>
+        <input type="text" name="patientFileName" placeholder="File name">
+    </label>
     <button type="submit">Upload</button>
 </form>
 
-<!-- Lista documentelor existente -->
 <ul>
     <li th:each="document : ${documents}">
-        <!-- Link către imagine care deschide fereastra într-un tab nou -->
         <a th:href="@{'/loadDocument/' + ${document.id}}" th:text="${document.fileName}" target="_blank">Link</a>
     </li>
 </ul>

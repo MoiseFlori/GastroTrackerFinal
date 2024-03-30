@@ -25,7 +25,6 @@ public class Document {
     private Patient patient;
 
     public boolean isImage() {
-        // Verifică extensia fișierului
         String extension = this.fileName.substring(this.fileName.lastIndexOf(".") + 1);
         return extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") || extension.equalsIgnoreCase("png");
     }

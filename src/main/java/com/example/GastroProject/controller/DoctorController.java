@@ -4,6 +4,7 @@ import com.example.GastroProject.dto.DoctorDto;
 import com.example.GastroProject.dto.PatientDto;
 import com.example.GastroProject.entity.Doctor;
 import com.example.GastroProject.entity.Patient;
+import com.example.GastroProject.entity.PatientProfile;
 import com.example.GastroProject.entity.Role;
 import com.example.GastroProject.service.DoctorService;
 import com.example.GastroProject.service.PatientService;
@@ -62,7 +63,7 @@ public class DoctorController {
         }
         model.addAttribute("doctor", doctor);
         model.addAttribute("patients", patients);
-        return "patients";
+        return "dr-patients";
     }
 
 
@@ -75,15 +76,23 @@ public class DoctorController {
 
     @PostMapping("/edit-patient/{id}")
     public String editPatient(@PathVariable Long id, @ModelAttribute("patient") PatientDto editedPatientDto) {
-        doctorService.editPatient(id, editedPatientDto);
-        return "redirect:/patients";
+        doctorService.editPatientDiagnosis(id, editedPatientDto);
+        return "redirect:/dr-patients";
     }
 
 
     @GetMapping("/delete-patient/{doctorId}/{patientId}")
     public String deletePatient(@PathVariable Long doctorId, @PathVariable Long patientId) {
         doctorService.dischargePatient(doctorId, patientId);
-        return "redirect:/patients";
+        return "redirect:/dr-patients";
     }
+
+    @GetMapping("/patient-profile/{patientId}")
+    public String viewPatientProfile(@PathVariable Long patientId, Model model) {
+        PatientProfile patientProfile = patientService.getPatientProfileById(patientId);
+        model.addAttribute("patient", patientProfile);
+        return "view-patientProfile";
+    }
+
 
 }

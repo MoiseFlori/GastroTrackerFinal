@@ -45,6 +45,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, ex.getMessage(),
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+    @ExceptionHandler(value = {DocumentNotFoundException.class})
+    protected ResponseEntity<Object> handleConflict(
+            DocumentNotFoundException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(),
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 
 
 }

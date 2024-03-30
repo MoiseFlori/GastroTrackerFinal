@@ -75,7 +75,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 
     @Override
-    public void editPatient(Long patientId, PatientDto editedPatientDto) {
+    public void editPatientDiagnosis(Long patientId, PatientDto editedPatientDto) {
         Patient existingPatient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
 

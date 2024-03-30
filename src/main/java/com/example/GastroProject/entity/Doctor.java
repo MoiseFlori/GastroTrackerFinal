@@ -37,6 +37,10 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    private List<Treatment> treatments = new ArrayList<>();
+
+
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DoctorSchedule> schedules = new ArrayList<>();
 

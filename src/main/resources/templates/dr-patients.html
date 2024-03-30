@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>Doctor Patients</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #ccdadb;
+            background-image: url('/images/patients.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(40%);
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #44a4db;
+        }
+
+        .table-container {
+            max-height: 300px;
+            overflow-y: auto;
+            width: 80%;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        th {
+            background-color: #44a4db;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        td a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        td a:hover {
+            background-color: #44a4db;
+            color: white;
+        }
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-control {
+            width: 300px;
+        }
+
+        .btn-outline-secondary {
+            background-color: #44a4db;
+            color: white;
+            border-color: #44a4db;
+            width: 100px;
+            transition: background-color 0.3s;
+        }
+         .btn-outline-secondary:hover {
+            background-color: #94d3f7;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .home-button {
+            text-decoration: none;
+            background-color: #44a4db;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+
+        .home-button:hover {
+            background-color: #94d3f7;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<a class="home-button" th:href="@{/home4}">🏠 Home</a>
+
+<h1>Patients</h1>
+<form th:action="@{/patients}" method="get" class="mb-3">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search..." aria-label="search-input"
+               aria-describedby="basic-addon1" name="keyword">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="submit">
+                Search
+            </button>
+        </div>
+    </div>
+</form>
+<div class="table-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Diagnosis</th>
+            <th>Symptoms</th>
+            <th>Treatments</th>
+            <th>Documents</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td><a th:href="@{/patient-profile/{patientId}(patientId=${patient.patientId})}" th:text="${patient.name}"></a></td>
+            <td th:text="${patient.age}"></td>
+            <td th:text="${patient.diagnosis}"></td>
+            <td><a th:href="@{/dr-symptoms/{patientId}(patientId=${patient.patientId})}">Symptoms</a></td>
+            <td class="hidden" th:text="${patient.patientId}"></td>
+            <td><a th:href="@{/view-treatment/{patientId}(patientId=${patient.patientId})}">Treatments</a></td>
+            <td><a th:href="@{/dr-documents/{patientId}(patientId=${patient.patientId})}">Documents</a></td>
+            <td><a th:href="@{'/edit-patient/' + ${patient.patientId}}">✏️ Edit</a></td>
+            <td><a th:href="@{'/delete-patient/' + ${doctor.doctorId} + '/' + ${patient.patientId}}">🗑️ Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

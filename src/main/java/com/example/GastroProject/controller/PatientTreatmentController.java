@@ -1,13 +1,8 @@
 package com.example.GastroProject.controller;
 
-import com.example.GastroProject.dto.MealDto;
-import com.example.GastroProject.dto.SymptomDto;
 import com.example.GastroProject.dto.TreatmentDto;
 import com.example.GastroProject.entity.Patient;
-import com.example.GastroProject.entity.Treatment;
-import com.example.GastroProject.entity.User;
 import com.example.GastroProject.repository.PatientRepository;
-import com.example.GastroProject.repository.UserRepository;
 import com.example.GastroProject.service.TreatmentService;
 import com.example.GastroProject.util.PdfExporter;
 import lombok.RequiredArgsConstructor;
@@ -22,18 +17,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
-public class TreatmentController {
-
+public class PatientTreatmentController {
     private final TreatmentService treatmentService;
     private final PatientRepository patientRepository;
 
@@ -44,17 +38,25 @@ public class TreatmentController {
 
     @GetMapping("/all-treatments")
     public String showAllTreatments(Model model,
-                                    @RequestParam(required = false) String keyword,
-                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedDate) {
+                                              @RequestParam(required = false) String keyword,
+                                              @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedDate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
         Patient patient = patientRepository.findByEmail(userEmail);
         List<TreatmentDto> treatments = treatmentService.findByPatientAndKeywordAndDate(patient, keyword, selectedDate);
+        for (TreatmentDto treatment : treatments) {
+            LocalDate currentDate = LocalDate.now();
+            boolean isFinished = currentDate.isAfter(treatment.getEndTreatment());
+            treatment.setFinished(isFinished);
+        }
         model.addAttribute("treatments", Objects.requireNonNullElseGet(treatments, ArrayList::new));
         return "all-treatments";
     }
+
+
+
     @GetMapping("/treatment-details/{id}")
-    public String showTreatmentDetails(@PathVariable Long id, Model model) {
+    public String showTreatmentDetailsForPatient(@PathVariable Long id, Model model) {
         Optional<TreatmentDto> optionalTreatment = treatmentService.findById(id);
 
         if (optionalTreatment.isPresent()) {
@@ -76,42 +78,6 @@ public class TreatmentController {
         } else {
             return "errorPage";
         }
-    }
-
-
-
-
-    @GetMapping("/add-treatment")
-    public String showAddTreatmentForm(Model model) {
-        TreatmentDto treatmentDto = new TreatmentDto();
-        model.addAttribute("treatment", treatmentDto);
-        return "add-treatment";
-    }
-
-    @PostMapping("/add-treatment")
-    public String addTreatment(@ModelAttribute("treatment") TreatmentDto treatmentDto, Principal principal) {
-        treatmentService.addTreatment(treatmentDto, principal.getName());
-        return "redirect:/all-treatments";
-    }
-
-    @GetMapping("/edit-treatment/{id}")
-    public String showEditTreatmentForm(@PathVariable Long id, Model model) {
-        model.addAttribute("treatment", treatmentService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid treatment Id:" + id)));
-        return "edit-treatment";
-    }
-
-
-    @PostMapping("/edit-treatment/{id}")
-    public String updateTreatment(@PathVariable Long id, @ModelAttribute("treatment") TreatmentDto updatedTreatment) {
-        treatmentService.updateTreatment(id,updatedTreatment);
-        return "redirect:/all-treatments";
-    }
-
-    @GetMapping("/delete-treatment/{id}")
-    public String deleteTreatment(@PathVariable Long id) {
-        treatmentService.deleteTreatment(id);
-        return "redirect:/all-treatments";
     }
 
 
@@ -140,9 +106,4 @@ public class TreatmentController {
     }
 
 
-
-
 }
-
-
-

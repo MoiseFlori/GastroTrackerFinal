@@ -12,15 +12,18 @@ import java.util.Optional;
 public interface TreatmentService {
 
 
-    void addTreatment(TreatmentDto treatmentDto, String email);
+    void addTreatment(TreatmentDto treatmentDto, Long patientId, String doctorEmail) ;
 
     Optional<TreatmentDto> findById(Long id);
 
-    void updateTreatment(Long id,TreatmentDto updatedTreatment);
+    void updateTreatment(Long id, TreatmentDto updatedTreatment);
 
     void deleteTreatment(Long id);
 
     List<TreatmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate);
 
     List<TreatmentDto> getPatientTreatments(String email);
+
+
+
 }

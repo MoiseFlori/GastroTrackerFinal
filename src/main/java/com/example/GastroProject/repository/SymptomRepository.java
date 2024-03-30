@@ -23,4 +23,7 @@ public interface SymptomRepository extends JpaRepository<Symptom,Long> {
     List<Symptom> findByKeyword(@Param("keyword") String keyword, Sort sort);
 
     List<Symptom> findByPatient(Patient patient, Sort localDatePart);
+
+    @Query("SELECT s FROM Symptom s WHERE s.patient.id = :patientId")
+    List<Symptom> findByPatientId(Long patientId);
 }

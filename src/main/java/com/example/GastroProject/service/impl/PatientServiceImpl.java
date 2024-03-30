@@ -1,14 +1,8 @@
 package com.example.GastroProject.service.impl;
 
 import com.example.GastroProject.dto.PatientDto;
-import com.example.GastroProject.entity.Doctor;
-import com.example.GastroProject.entity.Patient;
-import com.example.GastroProject.entity.Role;
-import com.example.GastroProject.entity.User;
-import com.example.GastroProject.repository.DoctorRepository;
-import com.example.GastroProject.repository.PatientRepository;
-import com.example.GastroProject.repository.RoleRepository;
-import com.example.GastroProject.repository.UserRepository;
+import com.example.GastroProject.entity.*;
+import com.example.GastroProject.repository.*;
 import com.example.GastroProject.service.PatientService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +25,9 @@ public class PatientServiceImpl implements PatientService {
     private final UserRepository userRepository;
 
     private final RoleRepository roleRepository;
+
+    private final PatientProfileRepository patientProfileRepository;
+
 
     @Override
     @Transactional
@@ -69,6 +67,18 @@ public class PatientServiceImpl implements PatientService {
     public Patient getPatientById(Long patientId) {
         return patientRepository.findById(patientId).orElseThrow(() -> new EntityNotFoundException("Patient not found with id: " + patientId));
     }
+
+    @Override
+    public PatientProfile getPatientProfileById(Long patientId) {
+        Optional<PatientProfile> patientProfileOptional = patientProfileRepository.findById(patientId);
+
+        if (patientProfileOptional.isPresent()) {
+            return patientProfileOptional.get();
+        } else {
+            throw new RuntimeException("Patient Profile not found for id: " + patientId);
+        }
+    }
+
 
 }
 

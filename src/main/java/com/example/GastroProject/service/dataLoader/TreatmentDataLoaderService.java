@@ -1,6 +1,7 @@
 package com.example.GastroProject.service.dataLoader;
 
 import com.example.GastroProject.entity.*;
+import com.example.GastroProject.repository.DoctorRepository;
 import com.example.GastroProject.repository.PatientRepository;
 import com.example.GastroProject.repository.TreatmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class TreatmentDataLoaderService {
 
     private final TreatmentRepository treatmentRepository;
 
-
     private final PatientRepository patientRepository;
+
     @Transactional
     public void loadTreatmentsFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -42,16 +43,21 @@ public class TreatmentDataLoaderService {
                 int duration = Integer.parseInt(treatmentData[7]);
                 treatment.setDurationInDays(duration);
 
-
-                LocalDate endDate = treatment.getStartTreatment().plusDays(duration).minusDays(1);
-                treatment.setEndTreatment(endDate);
-
                 Patient patient = patientRepository.findByEmail(treatmentData[6]);
                 if (patient != null) {
                     treatment.setPatient(patient);
+                    Doctor doctor = patient.getDoctor();
+                    if (doctor != null) {
+                        treatment.setDoctor(doctor);
+                        LocalDate endDate = treatment.getStartTreatment().plusDays(duration).minusDays(1);
+                        treatment.setEndTreatment(endDate);
+                        treatmentRepository.save(treatment);
+                    } else {
+                        System.err.println("Patient does not have a doctor associated: " + patient.getEmail());
+                    }
+                } else {
+                    System.err.println("Patient not found with email: " + treatmentData[6]);
                 }
-
-                treatmentRepository.save(treatment);
             }
             System.out.println("Treatments loaded from file successfully!");
         } catch (IOException e) {

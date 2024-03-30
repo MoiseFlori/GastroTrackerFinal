@@ -162,8 +162,8 @@
 <div class="container">
 
     <h2>Edit Treatment</h2>
+    <form th:action="@{/edit-treatment/{patientId}/{id}(patientId=${patientId}, id=${treatment.id})}" method="post" th:object="${treatment}">
 
-    <form th:action="@{/edit-treatment/{id}(id=${treatment.id})}" method="post" th:object="${treatment}">
 
         <label for="name">Name:</label>
         <input type="text" id="name" th:field="*{name}" required />
@@ -193,12 +193,13 @@
         <label for="description">Description:</label>
         <textarea id="description" th:field="*{description}" rows="4" cols="50"></textarea>
 
-        <label>
-            <input type="date" th:field="*{localDatePart}" />
-        </label>
-        <label>
-            <input type="time" th:field="*{localTimePart}" />
-        </label>
+        <label for="startTreatment">Start Treatment:</label>
+        <input type="date" id="startTreatment" th:field="*{startTreatment}" th:value="${treatment.startTreatment}" required />
+
+        <label for="durationInDays">Duration (in days):</label>
+        <input type="number" id="durationInDays" th:field="*{durationInDays}" required />
+
+        <input type="hidden" name="patientId" th:value="${patientId}" />
 
         <button type="submit">Edit Treatment</button>
     </form>

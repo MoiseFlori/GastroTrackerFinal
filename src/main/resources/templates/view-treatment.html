@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Your Treatments</title>
+    <title>View Treatments</title>
     <style>
         body {
             display: flex;
@@ -87,7 +87,7 @@
             background-color: #fc7f03;
         }
 
-        .home-button {
+        .back-button {
             text-decoration: none;
             background-color: #fab061;
             color: white;
@@ -100,7 +100,7 @@
             transition: background-color 0.3s;
         }
 
-        .home-button:hover {
+        .back-button:hover {
             background-color: #fc7f03;
         }
 
@@ -131,20 +131,19 @@
          .hidden {
             display: none;
         }
-        .red-text {
-        color: red;
-    }
+           .patient-name {
+                color: #fab061;
+                font-weight: bold
+            }
     </style>
 </head>
 <body>
+<a class="add-button" th:href="@{/add-treatment/{patientId}(patientId=${patient.patientId})}">➕ Add Treatment</a>
+<h2 class="patient-name" th:text="${patient.name}"></h2>
+<a class="back-button" th:href="@{/patients}"> ⬅ Back</a>
 
-<a class="home-button" th:href="@{/home2}">🏠 Home</a>
-<form method="post" action="/export-pdf">
-    <button type="submit">Export Treatments</button>
-</form>
-
-<h1>Your Treatments</h1>
-<form th:action="@{/all-treatments}" method="get" class="mb-3">
+<h1>Treatments</h1>
+<form th:action="@{'/view-treatment/' + ${patientId}}" method="get" class="mb-3">
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Search..." aria-label="search-input"
                aria-describedby="basic-addon1" name="keyword">
@@ -159,43 +158,37 @@
     </div>
 </form>
 
+
 <div class="table-container">
     <table border="1">
         <thead>
         <tr>
             <th>Date</th>
-            <th class="hidden">Id</th>
             <th>Name</th>
             <th>Medicine Type</th>
             <th>Dose</th>
             <th>Administration</th>
             <th>Duration (days)</th>
             <th>Description</th>
-
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="treatment : ${treatments}">
+        <tr th:each="treatment : ${patientTreatments}">
             <td>
                 <span th:text="${#temporals.format(treatment.startTreatment, 'yyyy-MM-dd')}"></span>
                 <br>
                 <span th:text="${#temporals.format(treatment.endTreatment, 'yyyy-MM-dd')}"></span>
             </td>
-            <td class="hidden" th:text="${treatment.id}"></td>
-            <td>
-                <a th:href="@{'/treatment-details/' + ${treatment.id}}"
-                   th:text="${treatment.name}"
-                   th:classappend="${treatment.finished ? 'red-text' : ''}">
-                    View Details
-                </a>
-            </td>
-
-
+            <td th:text="${treatment.name}"></td>
             <td th:text="${treatment.medicineType}"></td>
             <td th:text="${treatment.dose}"></td>
             <td th:text="${treatment.administration}"></td>
             <td th:text="${treatment.durationInDays}"></td>
             <td th:text="${treatment.description}"></td>
+            <td><a th:href="@{'/edit-treatment/' + ${patient.patientId} + '/' + ${treatment.id}}">✏️ Edit</a></td>
+            <td><a th:href="@{'/delete-treatment/' + ${patient.patientId} + '/' + ${treatment.id}}">🗑️ Delete</a></td>
         </tr>
         </tbody>
     </table>

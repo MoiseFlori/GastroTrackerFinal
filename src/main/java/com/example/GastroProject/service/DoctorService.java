@@ -32,4 +32,8 @@ public interface DoctorService {
 
 
     boolean isAvailable(Long doctorId, LocalDate appointmentDate, LocalTime appointmentTime);
+
+    boolean existsByEmail(String email);
+
+    boolean existsById(Long doctorId);
 }

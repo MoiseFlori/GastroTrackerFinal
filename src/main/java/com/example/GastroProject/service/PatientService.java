@@ -13,4 +13,6 @@ public interface PatientService {
     Patient getPatientById(Long patientId);
 
     PatientProfile getPatientProfileById(Long patientId);
+
+    boolean existsByEmail(String email);
 }

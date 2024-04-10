@@ -89,11 +89,10 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     }
 
-
     @Override
     public List<TreatmentDto> findByPatientAndKeywordAndDate(Patient patient, String keyword, LocalDate selectedDate) {
         List<Treatment> treatments = treatmentRepository.findByPatient(patient, Sort.by(Sort.Direction.DESC, "startTreatment"));
-        return treatments.stream()
+        List<TreatmentDto> treatmentDtos = treatments.stream()
                 .filter(treatment ->
                         (selectedDate == null || treatment.getStartTreatment().equals(selectedDate) ||
                                 (treatment.getEndTreatment() != null && treatment.getEndTreatment().equals(selectedDate))) &&
@@ -106,6 +105,14 @@ public class TreatmentServiceImpl implements TreatmentService {
                                         treatment.getDurationInDays().toString().contains(keyword)))
                 .map(treatmentMapper::entityToDTO)
                 .toList();
+
+        for (TreatmentDto treatmentDto : treatmentDtos) {
+            LocalDate currentDate = LocalDate.now();
+            boolean isFinished = treatmentDto.getEndTreatment() != null && currentDate.isAfter(treatmentDto.getEndTreatment());
+            treatmentDto.setFinished(isFinished);
+        }
+
+        return treatmentDtos;
     }
 
     @Override

@@ -92,7 +92,7 @@ public class DocumentsController {
         if (optionalDocument.isPresent()) {
             Document document = optionalDocument.get();
 
-            // Seteaza tipul de conținut al raspunsului HTTP corespunzator
+            // seteaza tipul de conținut al raspunsului HTTP corespunzator
             String contentType;
             try {
                 contentType = Files.probeContentType(Paths.get(document.getFilePath()));
@@ -103,7 +103,7 @@ public class DocumentsController {
             }
             response.setContentType(contentType);
 
-            // Încarca continutul fisierului si il  transmite direct ca raspuns HTTP
+            // incarca continutul fisierului si il  transmite direct ca raspuns HTTP
             try (InputStream inputStream = new FileInputStream(new File(document.getFilePath()))) {
                 IOUtils.copy(inputStream, response.getOutputStream());
                 response.flushBuffer();

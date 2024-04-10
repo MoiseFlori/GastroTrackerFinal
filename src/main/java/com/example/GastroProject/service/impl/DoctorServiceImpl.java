@@ -111,6 +111,17 @@ public class DoctorServiceImpl implements DoctorService {
         return false;
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return doctorRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existsById(Long doctorId) {
+        return doctorRepository.existsById(doctorId);
+    }
+
+
 }
 
 

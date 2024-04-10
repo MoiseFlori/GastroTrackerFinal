@@ -165,20 +165,20 @@
              });
      }
 
-     // Eveniment pentru schimbarea datei
+
      appointmentDateInput.addEventListener('change', function() {
-         var selectedDate = this.value; // Folosește valoarea actuală a input-ului de tip date
+         var selectedDate = this.value;
          var doctorId = doctorIdInput.value;
          getAvailableSlots(selectedDate, doctorId);
      });
 
      doctorIdInput.addEventListener('change', function() {
-         var selectedDate = appointmentDateInput.value; // Asigură-te că folosești valoarea corectă a datei
+         var selectedDate = appointmentDateInput.value;
          var doctorId = this.value;
          getAvailableSlots(selectedDate, doctorId);
      });
 
-     // Trigger manual la încărcarea paginii pentru a încărca sloturile disponibile
+
      var initialDate = appointmentDateInput.value;
      var doctorId = doctorIdInput.value;
      if(initialDate && doctorId) {

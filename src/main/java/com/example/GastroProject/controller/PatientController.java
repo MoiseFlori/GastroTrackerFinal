@@ -37,6 +37,14 @@ public class PatientController {
 
     @PostMapping("/registration")
     public String savePatient(@ModelAttribute("patient") @Valid PatientDto patientDto, BindingResult bindingResult, Model model) {
+        if (patientService.existsByEmail(patientDto.getEmail())) {
+            bindingResult.rejectValue("email", "error.patient", "Email is already registered.");
+        }
+
+        if (patientDto.getDoctorId() == null || !doctorService.existsById(patientDto.getDoctorId())) {
+            bindingResult.rejectValue("doctorId", "error.patient", "Please select a doctor.");
+        }
+
         if (bindingResult.hasErrors()) {
             List<Doctor> doctors = doctorService.getAllDoctors();
             model.addAttribute("doctors", doctors);
@@ -44,19 +52,9 @@ public class PatientController {
         }
 
         Doctor selectedDoctor = doctorService.getDoctorById(patientDto.getDoctorId());
-        if (selectedDoctor == null) {
-            String errorMessage = "Invalid doctor ID. Please select a valid doctor.";
-            model.addAttribute("errorMessage", errorMessage);
-            List<Doctor> doctors = doctorService.getAllDoctors();
-            model.addAttribute("doctors", doctors);
-            return "registration";
-        }
-
         patientDto.setRoles(Collections.singleton(new Role(Constants.ROLE_PATIENT)));
         patientDto.setDoctor(selectedDoctor);
         patientService.savePatient(patientDto);
-
-        model.addAttribute("message", "Registered Successfully!");
         return "redirect:/login";
     }
 

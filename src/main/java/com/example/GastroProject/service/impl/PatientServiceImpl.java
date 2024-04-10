@@ -79,6 +79,11 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    @Override
+    public boolean existsByEmail(String email) {
+        return patientRepository.existsByEmail(email);
+    }
+
 
 }
 

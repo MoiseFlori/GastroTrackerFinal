@@ -20,4 +20,5 @@ public interface DoctorRepository extends JpaRepository<Doctor,Long> {
     List<Patient> searchDoctorPatientsByKeyword(@Param("doctorId") Long doctorId, @Param("keyword") String keyword);
 
 
+    boolean existsByEmail(String email);
 }

@@ -65,12 +65,6 @@
 
     <h2>Registration Form</h2>
 
-    <div th:if="${message}">
-        <div class="alert alert-success" th:text="${message}"></div>
-    </div>
-    <div th:if="${errorMessage}">
-        <div class="alert alert-danger" th:text="${errorMessage}"></div>
-    </div>
 
     <form th:action="@{/registration}" method="post" role="form" th:object="${patient}">
         <div class="form-group">
@@ -82,6 +76,11 @@
             <label for="email">Email:</label>
             <input th:field="*{email}" type="email" id="email" name="email" placeholder="Enter your email" required>
         </div>
+
+        <div class="form-group" th:if="${#fields.hasErrors('email')}">
+            <p class="error" th:each="error : ${#fields.errors('email')}" th:text="${error}"> Email is already registered.</p>
+        </div>
+
         <div class="form-group">
             <label for="password">Password:</label>
             <input th:field="*{password}" type="password" id="password" name="password" placeholder="Enter your password" required>
@@ -102,8 +101,14 @@
                     <option th:each="doctor : ${doctors}" th:value="${doctor.doctorId}" th:text="${doctor.name}"></option>
                 </select>
             </label>
-
         </div>
+        <div class="form-group" th:if="${#fields.hasErrors('doctorId')}">
+            <p class="error" th:each="error : ${#fields.errors('doctorId')}" th:text="${error}">Please select a doctor.</p>
+        </div>
+
+
+
+
 
 
 

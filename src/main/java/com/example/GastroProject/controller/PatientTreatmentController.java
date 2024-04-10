@@ -44,11 +44,6 @@ public class PatientTreatmentController {
         String userEmail = authentication.getName();
         Patient patient = patientRepository.findByEmail(userEmail);
         List<TreatmentDto> treatments = treatmentService.findByPatientAndKeywordAndDate(patient, keyword, selectedDate);
-        for (TreatmentDto treatment : treatments) {
-            LocalDate currentDate = LocalDate.now();
-            boolean isFinished = currentDate.isAfter(treatment.getEndTreatment());
-            treatment.setFinished(isFinished);
-        }
         model.addAttribute("treatments", Objects.requireNonNullElseGet(treatments, ArrayList::new));
         return "all-treatments";
     }
@@ -74,10 +69,8 @@ public class PatientTreatmentController {
                 model.addAttribute("isFinished", false);
             }
 
-            return "treatmentDetails";
-        } else {
-            return "errorPage";
         }
+        return "treatmentDetails";
     }
 
 

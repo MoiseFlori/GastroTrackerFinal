@@ -1,5 +1,6 @@
 package com.example.GastroProject.configurations;
 import com.example.GastroProject.service.dataLoader.DataLoaderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,19 +15,13 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class AppStartupRunner implements CommandLineRunner {
 
     private final DataLoaderService dataLoaderService;
     private final DoctorRepository doctorRepository;
     private final DoctorScheduleRepository doctorScheduleRepository;
 
-    @Autowired
-    public AppStartupRunner(DataLoaderService dataLoaderService, DoctorRepository doctorRepository,
-                            DoctorScheduleRepository doctorScheduleRepository) {
-        this.dataLoaderService = dataLoaderService;
-        this.doctorRepository = doctorRepository;
-        this.doctorScheduleRepository = doctorScheduleRepository;
-    }
 
     @Override
     public void run(String... args) throws Exception {

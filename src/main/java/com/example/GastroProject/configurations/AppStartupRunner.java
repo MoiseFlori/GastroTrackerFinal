@@ -1,4 +1,5 @@
 package com.example.GastroProject.configurations;
+//import com.example.GastroProject.service.dataLoader.DataLoaderService;
 import com.example.GastroProject.service.dataLoader.DataLoaderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;

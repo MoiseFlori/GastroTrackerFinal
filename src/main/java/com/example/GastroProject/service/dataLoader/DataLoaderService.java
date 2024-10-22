@@ -13,7 +13,7 @@ public class DataLoaderService {
     private final PatientProfileDataLoaderService patientProfileDataLoaderService;
     private final UserRegistrationDataLoaderService userRegistrationDataLoaderService;
     private final RoleDataLoaderService roleDataLoaderService;
-    private final AppointmentDataLoaderService appointmentDataLoaderService;
+
     private final PatientDataLoaderService patientDataLoaderService;
     private final DoctorDataLoaderService doctorDataLoaderService;
 
@@ -27,7 +27,7 @@ public class DataLoaderService {
         mealDataLoaderService.loadMealsFromFile("src/main/resources/mealCSV.csv");
         treatmentDataLoaderService.loadTreatmentsFromFile("src/main/resources/treatmentCSV.csv");
         patientProfileDataLoaderService.loadUserProfilesFromFile("src/main/resources/patientProfileCSV.csv");
-        //appointmentDataLoaderService.loadAppointmentsFromFile("src/main/resources/appointmentCSV.csv");
+
 
     }
 }

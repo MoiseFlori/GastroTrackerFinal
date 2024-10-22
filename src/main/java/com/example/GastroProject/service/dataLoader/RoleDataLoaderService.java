@@ -9,14 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RoleDataLoaderService {
 
     private final RoleRepository roleRepository;
-
-
 
     @Transactional
     public void loadRolesFromFile(String filePath) {
@@ -30,15 +29,20 @@ public class RoleDataLoaderService {
                 }
 
                 String roleName = line.trim();
-                Role role = new Role();
-                role.setName(roleName);
 
-                roleRepository.save(role);
+                // Verifică dacă rolul există deja
+                Optional<Role> existingRole = roleRepository.findByName(roleName);
+                if (existingRole.isEmpty()) {
+                    Role role = new Role();
+                    role.setName(roleName);
+                    roleRepository.save(role);
+                } else {
+                    System.out.println("Role " + roleName + " already exists, skipping...");
+                }
             }
             System.out.println("Roles loaded from file successfully!");
         } catch (IOException e) {
             System.err.println("Error reading data from file: " + e.getMessage());
         }
     }
-
 }
